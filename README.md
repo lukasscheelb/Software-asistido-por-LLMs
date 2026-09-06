@@ -17,19 +17,6 @@ El trabajo consiste en transformar una descripción inicial de necesidades en un
 - Mantener trazabilidad entre fuentes, decisiones, requisitos, pruebas y backlog.
 - Aplicar técnicas de prompting para apoyar y verificar el proceso de análisis.
 
-## Contenido del repositorio
-
-El repositorio puede incluir:
-
-- Documentación del proyecto y de la entrega.
-- Prompts utilizados durante el análisis.
-- Evidencia de las técnicas de prompting aplicadas.
-- Modelos y diagramas.
-- Requisitos y decisiones de análisis.
-- Casos y criterios de prueba.
-- Backlog del producto.
-- Informe y presentación de la entrega.
-
 ## Técnicas de prompting utilizadas
 
 Durante el trabajo se utilizaron distintas técnicas de prompting para apoyar tareas específicas del análisis:
