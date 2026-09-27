@@ -101,3 +101,18 @@
 - Se incorporó a la baseline la política operativa vigente de F4.
 - La baseline F4 + F1 queda cerrada como entrada oficial para el rol **Analyst** de BMAD.
 - Próximo paso confirmado: construir el **Project Brief**.
+
+## 11. Preparación del repositorio para BMAD
+- Se subieron al repositorio de GitHub los archivos:
+  - `MIRA_E2_Baseline_F4_F1.md`.
+  - `MIRA_Entrega2_bitacora_decisiones.md`.
+- Estos documentos quedan disponibles como insumos iniciales para la carga en BMAD.
+- Próxima acción operativa: un integrante del equipo realizará la carga/configuración en BMAD e iniciará el rol **Analyst** para generar el **Project Brief**.
+- Regla: conservar en el repositorio la salida original generada por BMAD y cualquier corrección humana posterior como evidencia separada.
+
+## 12. Confirmación del primer workflow BMAD
+- Se revisó el material de clases de BMAD.
+- En BMAD, `bmad-product-brief` pertenece a la fase de **Análisis** y produce `brief.md` (y eventualmente `addendum.md`).
+- Aunque la fase de análisis puede ser opcional en proyectos pequeños, para esta Entrega 2 **sí se utilizará**, porque el enunciado exige explícitamente que el rol Analyst produzca un **Project Brief** construido desde la Entrega 1.
+- Decisión: el primer workflow BMAD del proyecto será **`bmad-product-brief`**.
+- Después de revisar y aceptar el `brief.md`, el siguiente workflow será **`bmad-prd`**.
