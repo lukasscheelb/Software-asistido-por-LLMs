@@ -116,3 +116,17 @@
 - Aunque la fase de análisis puede ser opcional en proyectos pequeños, para esta Entrega 2 **sí se utilizará**, porque el enunciado exige explícitamente que el rol Analyst produzca un **Project Brief** construido desde la Entrega 1.
 - Decisión: el primer workflow BMAD del proyecto será **`bmad-product-brief`**.
 - Después de revisar y aceptar el `brief.md`, el siguiente workflow será **`bmad-prd`**.
+
+## 13. Validación del Product Brief V2 y ajustes para PRD
+
+- Se revisó el Product Brief V2 generado por BMAD.
+- Se valida como base suficiente para avanzar al PRD.
+- Se mantiene el alcance F4 + F1.
+- Se confirma que F4 consume puntaje y señales simuladas; no calcula scoring.
+- Se confirma que no existe rechazo automático.
+- Se confirma T=90 y mínimos 70/100 como parámetros del incremento, configurables y no definitivos del producto completo.
+- Se decide que ESCALADO significa revisión prioritaria con marca para supervisor, sin cierre automático.
+- Se decide que la primera implementación usará datos ficticios controlados para demo y pruebas.
+- Se decide que el PRD deberá fijar casos de prueba controlados antes de implementar.
+- Representante del cliente E2: Sebastián Rodríguez.
+- Estado: brief validado con observaciones para PRD.
