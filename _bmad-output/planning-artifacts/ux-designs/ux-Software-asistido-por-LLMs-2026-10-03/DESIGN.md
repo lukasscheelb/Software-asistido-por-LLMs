@@ -122,7 +122,7 @@ Controles y paneles usan radios de 4 a 8 px. Badges de estado pueden usar `{roun
 - **Status badge:** combina etiqueta y color para `REVISIÓN`, `ESCALADO`, `APROBADO AUTOMÁTICAMENTE` y `ERROR / DERIVACIÓN`.
 - **Evidence panel:** `{components.evidence-panel}`; muestra archivo ficticio, vista o miniatura y Ubicación del hallazgo antes de Puntaje.
 - **F4 explanation:** bloque plano con Salida, razón, regla, parámetros y Señales; Puntaje usa tipografía de cuerpo, no de título.
-- **Decision panel:** `{components.decision-panel}`; agrupa acción, Categoría de motivo, comentario condicional y confirmación.
+- **Decision panel:** `{components.decision-panel}`; agrupa acción, selector de Categoría de motivo compatible, comentario condicional y confirmación.
 - **Correction dialog:** compara valor original y corregido en columnas alineadas; motivo y procedencia permanecen visibles.
 - **Deadline marker:** texto de fecha, tipo de plazo y estado temporal. No depende de reloj o icono aislado.
 

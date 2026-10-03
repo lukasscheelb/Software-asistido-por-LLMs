@@ -55,6 +55,6 @@ Tracer path: un Caso controlado con Puntaje `60` produce REVISIÓN en F4, aparec
 - Decision: la primera épica es la base compartida porque no existe código del incremento (2026-10-03).
 - Decision: UX y arquitectura pendientes se resuelven como trabajo HITL antes de las historias que dependen de ellas (2026-10-03).
 - Decision: en este incremento académico, entrega integrada significa incorporada a la versión candidata del repositorio y ejecutable desde un clon limpio; el despliegue productivo está fuera de alcance (2026-10-03).
-- Decision: la arquitectura fast path fue aceptada en 1.1; los `[ASSUMPTION]` y Deferred de UX requieren aceptación antes de cerrar 1.2 (2026-10-03).
+- Decision: la arquitectura fast path fue aceptada en 1.1 y el contrato UX funcional en 1.2; identidad visual y modo oscuro permanecen como decisiones no bloqueantes (2026-10-03).
 - High-risk check: Sebastián valida el recorrido integrado y la matriz de trazabilidad antes de aceptar la iniciativa.
-- Open question: OQ-1 a OQ-5 del PRD se asignan a las entradas 1.1 y 1.2.
+- Decision: OQ-1 a OQ-5 del PRD fueron resueltas por las entradas 1.1 y 1.2; identidad visual y modo oscuro no bloquean la implementación funcional (2026-10-03).

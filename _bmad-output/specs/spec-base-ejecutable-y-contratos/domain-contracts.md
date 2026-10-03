@@ -10,14 +10,33 @@ Este archivo fija el significado observable de los contratos y las decisiones t�
 | Evaluación | Vincula una Versión del caso, una Versión de política, entradas simuladas, parámetros efectivos, Salida F4 y explicación. |
 | Salida F4 | Uno de `ERROR / DERIVACIÓN`, `ESCALADO`, `APROBADO AUTOMÁTICAMENTE` o `REVISIÓN`. |
 | Evidencia | PDF o imagen ficticia con una Ubicación del hallazgo comprensible. |
+| Categoría de motivo | Código estable compatible con una acción humana, etiqueta visible en español y regla de comentario. |
 | Intervención humana | Decisión humana o Corrección registrada sobre una Versión del caso, con autor y fecha controlada. |
 | Corrección | Conserva valor original, valor corregido, motivo, autor, fecha y Versión del caso. |
+
+## Catálogo inicial de Categorías de motivo
+
+| Acción | Código | Etiqueta |
+|---|---|---|
+| Aprobar | `requirements_met` | Requisitos cumplidos |
+| Aprobar | `evidence_consistent` | Evidencia consistente |
+| Rechazar | `requirements_not_met` | Requisitos no cumplidos |
+| Rechazar | `evidence_inconsistent` | Evidencia inconsistente |
+| Solicitar antecedentes | `information_incomplete` | Antecedentes incompletos |
+| Solicitar antecedentes | `evidence_unreadable` | Evidencia ilegible |
+| Solicitar antecedentes | `clarification_required` | Aclaración requerida |
+| Corregir | `extraction_error` | Error de extracción |
+| Corregir | `evidence_value_mismatch` | Dato no coincide con la Evidencia |
+| Todas | `other` | Otro |
+
+Las categorías predefinidas admiten comentario opcional. `other` exige comentario no vacío después de eliminar espacios. Una categoría incompatible con la acción se rechaza como `invalid_input`.
 
 ## Invariantes
 
 - Cambiar una Política no reescribe Evaluaciones previas.
 - Una Intervención humana no borra entradas, Evidencia ni resultados anteriores.
 - F1 consume la Salida F4 y su explicación sin recalcular la Política.
+- `ERROR / DERIVACIÓN` se presenta inline en Resultado F4, conserva entradas y no crea una fila F1.
 - Fixtures y tiempos de prueba son deterministas.
 - Django persiste mediante repositorios sobre SQLite local; el dominio no depende del ORM.
 - Toda Decisión o Corrección compara `expected_case_version` con la Versión vigente dentro de una transacción y responde `stale_version` sin escribir cuando difieren.

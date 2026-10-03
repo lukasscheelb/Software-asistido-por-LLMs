@@ -89,6 +89,7 @@ El sistema debe validar el Puntaje y las Señales requeridas antes de aplicar la
 - Un Puntaje no numérico o fuera de `[0,100]` produce `ERROR / DERIVACIÓN`.
 - Una Señal numérica presente fuera de `[0,100]` impide la aprobación automática y produce un error identificable.
 - Una Señal requerida ausente nunca se interpreta como favorable.
+- `ERROR / DERIVACIÓN` aparece inline en Resultado F4, conserva entradas, identifica campo y causa, ofrece `Corregir entradas` y no crea una fila F1. La acción vuelve a Ejecutar F4 con el mismo Caso y borrador transitorio, enfoca el primer campo inválido y permite reejecutar sin modificar el fixture versionado.
 
 #### FR-2. Aplicar precedencia de fraude y Puntaje bajo (origen: RQF-004, DEC-01)
 
@@ -182,6 +183,13 @@ Toda Decisión humana y Corrección debe incluir una Categoría de motivo.
 - La confirmación se bloquea si falta la Categoría de motivo.
 - El comentario es opcional para categorías predefinidas.
 - Si la categoría es `Otro`, el comentario es obligatorio.
+
+**Catálogo inicial por acción:**
+- Aprobar: `requirements_met` — Requisitos cumplidos; `evidence_consistent` — Evidencia consistente.
+- Rechazar: `requirements_not_met` — Requisitos no cumplidos; `evidence_inconsistent` — Evidencia inconsistente.
+- Solicitar antecedentes: `information_incomplete` — Antecedentes incompletos; `evidence_unreadable` — Evidencia ilegible; `clarification_required` — Aclaración requerida.
+- Corregir: `extraction_error` — Error de extracción; `evidence_value_mismatch` — Dato no coincide con la Evidencia.
+- Todas: `other` — Otro; exige comentario no vacío y las combinaciones incompatibles se rechazan.
 
 #### FR-12. Corregir sin borrar el original (origen: RQF-005, DEC-11)
 
@@ -405,17 +413,17 @@ Los datos de demostración deben ser ficticios. Credenciales o secretos no deben
 
 ## 13. Preguntas abiertas
 
-1. **OQ-1 - Categorías de motivo:** ¿cuál es el catálogo inicial para aprobar, rechazar, solicitar antecedentes y corregir? Responsable: PM + Sebastián; resolver antes de cerrar UX.
+1. **OQ-1 - Categorías de motivo — RESUELTA 2026-10-03:** catálogo específico por acción definido en FR-11 y `domain-contracts.md`; `other` exige comentario. Responsables: PM + Sebastián.
 2. **OQ-2 - Rendimiento — RESUELTA 2026-10-03:** apertura Bandeja → detalle; 100 Casos y 3 Evidencias por Caso; Django + SQLite local en 2 vCPU/4 GiB; 5 calentamientos y 30 muestras; `p95 ≤ 2 s`. Responsables: Arquitectura + Sebastián.
 3. **OQ-3 - Recursos — RESUELTA 2026-10-03:** 30 revisiones Playwright, medición de los árboles de procesos de Django y Chromium con `psutil`, RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`. Responsables: QA + Arquitectura.
 4. **OQ-4 - Tecnología — RESUELTA 2026-10-03:** Python 3.13.16, Django 5.2.18 LTS, SQLite local, Playwright Python 1.63.0 y concurrencia optimista por `expected_case_version`. Responsable: Arquitectura.
-5. **OQ-5 - Error / Derivación:** ¿el Caso inválido debe mostrarse en una vista de excepción o solo como resultado de F4 en la demo? Responsable: UX + PM; resolver antes de cerrar el flujo de pantallas.
+5. **OQ-5 - Error / Derivación — RESUELTA 2026-10-03:** resultado inline en Resultado F4, con entradas conservadas, campo y causa, acción `Corregir entradas` hacia el mismo borrador transitorio y sin fila F1 ni mutación del fixture. Responsables: UX + PM.
 
 ## 14. Índice de supuestos y notas
 
 - No se introducen supuestos funcionales no confirmados: las decisiones de política, plazos, conexión F4 → F1 y alcance provienen del brief, baseline y validación posterior.
 - OQ-2 a OQ-4 quedaron resueltas el 2026-10-03 en la story 1.1 y sus criterios ejecutables viven en NFR-3, NFR-4 y la Architecture Spine.
-- OQ-1 y OQ-5 permanecen abiertas para la story UX 1.2.
+- OQ-1 a OQ-5 quedaron resueltas; identidad de marca, tipografía y modo oscuro permanecen como decisiones visuales no bloqueantes fuera de estos requisitos funcionales.
 
 ## 15. Fuentes
 

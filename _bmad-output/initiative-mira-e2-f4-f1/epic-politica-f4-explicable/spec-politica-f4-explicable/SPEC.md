@@ -56,6 +56,6 @@ El piloto necesita demostrar decisiones automáticas acotadas, reproducibles y a
 
 La matriz completa PF-04 pasa con resultados deterministas, ninguna ruta rechaza automáticamente y cada resultado puede reconstruirse desde su Caso y Versión de política.
 
-## Open Questions
+## Resolved Input
 
-- ¿`ERROR / DERIVACIÓN` tendrá una vista de excepción o se mostrará solo como resultado F4 en la demo? Responsable: UX y PM; no cambia la semántica de CAP-1.
+- **Story 1.2:** `ERROR / DERIVACIÓN` se muestra inline en Resultado F4, conserva las entradas, identifica campo y causa y no crea una fila F1. `Corregir entradas` vuelve al mismo borrador transitorio, enfoca el primer campo inválido y permite reejecutar sin modificar el fixture versionado.

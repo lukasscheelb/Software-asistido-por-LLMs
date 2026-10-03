@@ -92,7 +92,7 @@ flowchart LR
 
 - **Binds:** base/CAP-2..CAP-3, f4/CAP-7, f1/CAP-2..CAP-4
 - **Prevents:** lógica de decisión duplicada en JavaScript y un orden visual distinto al orden accesible.
-- **Rule:** Django renderiza estado y validaciones; JavaScript solo mejora interacción. DOM, templates y respuestas presentan Evidencia, razón y ubicación antes de Puntaje y Señales.
+- **Rule:** Django renderiza estado y validaciones; JavaScript solo mejora interacción. DOM, templates y respuestas presentan Evidencia, razón y ubicación antes de Puntaje y Señales. `ERROR / DERIVACIÓN` permanece inline en Resultado F4 y no crea proyección de Bandeja.
 
 ### AD-10 — Errores y observabilidad seguros
 
@@ -116,7 +116,7 @@ flowchart LR
 
 - **Binds:** base/CAP-4, f4/CAP-1..CAP-7, f1/CAP-1..CAP-8
 - **Prevents:** enums, estados, prioridades, razones o formatos de explicación incompatibles entre F4, F1 y UI.
-- **Rule:** `domain` es el único dueño de `F4Outcome`, `CaseStatus`, `Priority`, contratos de explicación y esquema de `ReasonCategory`; web e infrastructure importan esos tipos y no declaran equivalentes locales.
+- **Rule:** `domain` es el único dueño de `F4Outcome`, `CaseStatus`, `Priority`, contratos de explicación y esquema de `ReasonCategory`; este último valida código, acción compatible y comentario obligatorio para `other`. Web e infrastructure importan esos tipos y no declaran equivalentes locales.
 
 ### AD-14 — Bandeja como proyección, no fuente de verdad
 
@@ -203,7 +203,7 @@ erDiagram
 | Capability / Area | Lives in | Governed by |
 |---|---|---|
 | base/CAP-1 | `composition.py`, settings, test configuration | AD-1, AD-2, AD-12, AD-15, AD-16 |
-| base/CAP-2 | `web` and configured reason catalog | AD-9, Deferred UX decisions |
+| base/CAP-2 | `web` and domain-owned `ReasonCategory` catalog | AD-9, AD-13 |
 | base/CAP-3 | composition, `web`, test harness | AD-1, AD-2, AD-12 |
 | base/CAP-4 | `domain`, application ports, repositories | AD-2, AD-4, AD-5, AD-11 |
 | base/CAP-5 | `fixtures`, loader, test factories | AD-8 |
@@ -217,6 +217,4 @@ erDiagram
 
 ## Deferred
 
-- **Catálogo de motivos:** UX/PM/Sebastián definen valores; arquitectura fija que sea configuración validada, no `if` dispersos.
-- **ERROR / DERIVACIÓN:** UX/PM eligen estado inline o vista dedicada; ambos consumen el mismo código de dominio.
 - **Producción:** hosting, PostgreSQL, autenticación, secretos, observabilidad externa, backups y migración operacional quedan fuera hasta que el alcance incluya despliegue productivo.

@@ -13,7 +13,7 @@
 - Aprobar cambia el estado a `APROBADO`.
 - Rechazar cambia el estado a `RECHAZADO` y solo puede ser una Decisión humana.
 - Solicitar antecedentes cambia el estado a `ESPERANDO ANTECEDENTES`.
-- Toda Decisión y Corrección exige Categoría de motivo; `Otro` exige comentario.
+- Toda Decisión y Corrección exige una Categoría de motivo compatible con la acción; `other` exige comentario no vacío después de eliminar espacios.
 - Una Corrección conserva original, corregido, motivo, Operador, fecha controlada y Versión del caso.
 - Una Discrepancia marca la diferencia con la sugerencia sin alterar la Decisión humana.
 - Una intervención sobre una versión obsoleta se rechaza sin sobrescribir la vigente.
@@ -31,7 +31,9 @@
 | ID | Escenario | Resultado esperado |
 |---|---|---|
 | CC-F1-01 | Corrección `120000 → 100000` | Conserva ambos valores y el motivo. |
-| CC-F1-02 | Rechazo sin Categoría de motivo | Bloquea la confirmación. |
+| CC-F1-02a | Rechazo sin Categoría de motivo | Responde `reason_required` y bloquea la confirmación. |
+| CC-F1-02b | Rechazo con `requirements_met` | Responde `invalid_input` porque la categoría es incompatible y bloquea la confirmación. |
+| CC-F1-02c | Rechazo con `other` y comentario de solo espacios | Responde `reason_required` y bloquea la confirmación. |
 | CC-F1-03 | Solicitud de antecedentes con motivo | Cambia a `ESPERANDO ANTECEDENTES`. |
 | CC-F1-04 | Decisión sobre Versión obsoleta | Rechaza el intento y conserva la vigente. |
 | CC-F1-05 | Próximo al Plazo interno | Alerta un día hábil antes. |

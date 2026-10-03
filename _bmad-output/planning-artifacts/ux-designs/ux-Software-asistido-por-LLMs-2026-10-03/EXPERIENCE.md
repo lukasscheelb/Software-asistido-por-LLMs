@@ -19,13 +19,13 @@ updated: 2026-10-03
 | Superficie | Acceso | Propósito |
 |---|---|---|
 | Bandeja | Inicio / navegación | Casos `REVISIÓN` y `ESCALADO`, prioridad, estado y plazos. |
-| Ejecutar F4 | Navegación | Seleccionar un Caso controlado y ejecutar la Política versionada. |
-| Resultado F4 | Después de ejecutar | Salida, regla, razones, parámetros y acceso al Caso derivado cuando aplica. |
+| Ejecutar F4 | Navegación / `Corregir entradas` | Seleccionar un Caso controlado, revisar o editar un borrador transitorio de Puntaje y Señales, y ejecutar la Política versionada sin modificar el fixture. |
+| Resultado F4 | Después de ejecutar | Salida, regla, razones, parámetros, acceso al Caso derivado cuando aplica y retorno al borrador cuando la entrada es inválida. |
 | Detalle de Caso | Fila de Bandeja | Evidencia y hallazgos antes de Puntaje; historial y acciones humanas. |
 | Decisión | Panel del detalle | Aprobar, rechazar o solicitar antecedentes con motivo obligatorio. |
 | Corrección | Acción del detalle | Registrar original, corregido, motivo y procedencia. |
 
-La Bandeja es el inicio operativo. Un resultado `REVISIÓN` o `ESCALADO` ofrece “Abrir en Bandeja”; `APROBADO AUTOMÁTICAMENTE` termina en el resultado. [ASSUMPTION] `ERROR / DERIVACIÓN` permanece en Resultado F4 como excepción y no crea una fila en Bandeja.
+La Bandeja es el inicio operativo. Un resultado `REVISIÓN` o `ESCALADO` ofrece “Abrir en Bandeja”; `APROBADO AUTOMÁTICAMENTE` termina en el resultado. `ERROR / DERIVACIÓN` permanece inline en Resultado F4 como excepción y no crea una fila en Bandeja. `Corregir entradas` vuelve a Ejecutar F4 con el mismo Caso y borrador transitorio, conserva los valores y enfoca el primer campo inválido. Los cambios del borrador no modifican el fixture versionado; una nueva ejecución vuelve a validar y reemplaza el resultado inline.
 
 ## Voice and Tone
 
@@ -49,9 +49,26 @@ Microcopy neutral, directa y no persuasiva. La plataforma describe; el Operador 
 | Status badge | Bandeja, resultado y detalle | Siempre combina texto y estado visual; `ESCALADO` se anuncia como revisión prioritaria. |
 | Evidence panel | Detalle | PDF muestra página y campo/región; imagen muestra región y coordenadas cuando existen. Mantiene la ubicación al navegar Evidencia. |
 | F4 explanation | Resultado y detalle | Orden fijo: Salida, razón principal, regla, parámetros efectivos y Señales. No recalcula. |
-| Decision panel | Detalle | Acción segmentada o radio; categoría obligatoria; `Otro` revela comentario; confirmación resume el nuevo estado. |
+| Decision panel | Detalle | Acción segmentada o radio; selector limitado a categorías compatibles; `Otro` revela comentario obligatorio; confirmación resume el nuevo estado. Cambiar de acción limpia una categoría incompatible. |
 | Correction dialog | Detalle | Original es solo lectura. Corregido y categoría son obligatorios. Confirmar no cambia la Decisión humana. |
 | Deadline marker | Bandeja y detalle | Muestra fecha y estado: vigente, vence próximo día hábil o vencido. Vencimiento no cierra el Caso. |
+
+## Reason Category Catalog
+
+| Acción | Código estable | Etiqueta visible |
+|---|---|---|
+| Aprobar | `requirements_met` | Requisitos cumplidos |
+| Aprobar | `evidence_consistent` | Evidencia consistente |
+| Rechazar | `requirements_not_met` | Requisitos no cumplidos |
+| Rechazar | `evidence_inconsistent` | Evidencia inconsistente |
+| Solicitar antecedentes | `information_incomplete` | Antecedentes incompletos |
+| Solicitar antecedentes | `evidence_unreadable` | Evidencia ilegible |
+| Solicitar antecedentes | `clarification_required` | Aclaración requerida |
+| Corregir | `extraction_error` | Error de extracción |
+| Corregir | `evidence_value_mismatch` | Dato no coincide con la Evidencia |
+| Todas | `other` | Otro |
+
+Las categorías predefinidas admiten comentario opcional. `other` exige un comentario no vacío después de eliminar espacios. El backend valida la compatibilidad entre acción y código; la UI no presenta combinaciones inválidas.
 
 ## State Patterns
 
@@ -65,7 +82,7 @@ Microcopy neutral, directa y no persuasiva. La plataforma describe; el Operador 
 | `REVISIÓN` | Resultado / Bandeja | Prioridad normal y razón principal. |
 | `ESCALADO` | Resultado / Bandeja | Prioridad alta, marca para supervisor y texto `Revisión prioritaria`. |
 | `APROBADO AUTOMÁTICAMENTE` | Resultado | Resultado final del piloto; no ofrece Decisión F1. |
-| `ERROR / DERIVACIÓN` | Resultado | Explica entrada inválida sin crear Decisión ni fila F1. |
+| `ERROR / DERIVACIÓN` | Resultado F4 inline | Conserva Caso y borrador transitorio, identifica campo o Señal, muestra causa y formato o rango esperado, y ofrece `Corregir entradas`; no crea Decisión ni fila F1. |
 | Versión obsoleta | Decisión / Corrección | Bloquea confirmación, conserva la Decisión vigente y ofrece `Recargar Caso`. |
 | Guardado fallido | Decisión / Corrección | Mantiene datos introducidos, muestra causa comprensible y permite reintentar. |
 | Vencido | Bandeja / detalle | Sigue abierto, eleva prioridad contractual y conserva marca para supervisor. |
@@ -110,7 +127,7 @@ La demo primaria es laptop/escritorio. Móvil permite consultar y decidir sin p�
 6. Abre el detalle y encuentra Evidencia y ubicación antes del Puntaje.
 7. **Clímax:** registra `Solicitar antecedentes` con Categoría de motivo y ve el estado `ESPERANDO ANTECEDENTES`, con procedencia intacta.
 
-Fallo: una entrada inválida produce `ERROR / DERIVACIÓN`, explica el campo y no crea un Caso F1.
+Fallo: una entrada inválida produce `ERROR / DERIVACIÓN`, explica el campo y no crea un Caso F1. Sebastián selecciona `Corregir entradas`, vuelve al mismo borrador con foco en el primer campo inválido, corrige y reejecuta sin alterar el fixture versionado.
 
 ### UJ-1 — Marco resuelve un caso en revisión con la evidencia a la vista
 
@@ -146,6 +163,4 @@ Fallo: si la recarga no está disponible, los datos introducidos se conservan lo
 
 ## Open Questions
 
-- Definir el catálogo inicial de Categorías de motivo; `Otro` y su comentario obligatorio ya están fijados.
-- Confirmar si `ERROR / DERIVACIÓN` permanece inline en Resultado F4 o usa una vista de excepción dedicada.
 - Confirmar identidad de marca, tipografía o modo oscuro antes de sustituir los supuestos visuales de `DESIGN.md`.

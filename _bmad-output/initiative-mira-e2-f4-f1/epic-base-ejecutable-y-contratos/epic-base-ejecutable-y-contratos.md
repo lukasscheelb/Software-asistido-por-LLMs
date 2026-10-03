@@ -56,7 +56,7 @@ Incluye decisiones compartidas, scaffold, contratos, harness y fixtures mínimos
 - Decision: el tracer usa el Caso CC-F4-02 y termina en solicitud de antecedentes (2026-10-03).
 - Decision: las decisiones compartidas viven en las entradas 1 y 2; las épicas posteriores dependen de ellas (2026-10-03).
 - Unknown: stack, persistencia y mecanismo de concurrencia; entrada 1.
-- Unknown: categorías de motivo y presentación de ERROR / DERIVACIÓN; entrada 2.
+- Decision: entrada 2 fijó catálogo específico por acción y `ERROR / DERIVACIÓN` inline en Resultado F4 (2026-10-03).
 - Decision: el SPEC de la épica es la fuente de CAP-1 a CAP-5 y las historias citan esos IDs estables (2026-10-03).
 - Decision: plan de arranque — 1.1 y 1.2 avanzan en paralelo; luego 1.3, 1.4, 1.5 y 1.6 siguen su cadena de dependencias (2026-10-03).
 - Decision: las épicas F4, F1 y verificación permanecen planificadas fuera de la primera ola hasta cerrar la base compartida (2026-10-03).

@@ -35,8 +35,8 @@ Los veinte FR tienen consecuencias verificables y el catálogo de Casos controla
 
 ### Findings
 
-- **medium** El destino visual de `ERROR / DERIVACIÓN` sigue abierto (§13 OQ-5) — F4 puede verificarse, pero UX no sabe si debe diseñar una vista de excepción. *Fix:* resolver antes de cerrar el flujo de pantallas.
-- **medium** El catálogo de Categorías de motivo no está definido (§13 OQ-1) — la obligatoriedad es verificable, pero no el contenido del selector. *Fix:* PM + representante del cliente deben cerrarlo antes de aprobar UX.
+- **resolved 2026-10-03** `ERROR / DERIVACIÓN` permanece inline en Resultado F4, conserva entradas y no crea fila F1 (§13 OQ-5; story 1.2).
+- **resolved 2026-10-03** El catálogo por acción, sus códigos estables y la regla de `other` están definidos en FR-11 y `domain-contracts.md` (§13 OQ-1; story 1.2).
 
 ## Scope honesty — strong
 

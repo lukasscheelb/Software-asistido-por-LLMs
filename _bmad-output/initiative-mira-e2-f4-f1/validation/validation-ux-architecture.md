@@ -5,7 +5,7 @@ Modo: fast path con supuestos explícitos, revisión determinista y cierre HITL 
 
 ## Resultado
 
-- Estado: arquitectura aceptada; UX conserva decisiones HITL de la story 1.2.
+- Estado: arquitectura y contrato UX funcional aceptados; identidad visual conserva decisiones no bloqueantes.
 - UX: `DESIGN.md` y `EXPERIENCE.md` finalizados como contrato de trabajo.
 - Cobertura UX: UJ-1 a UJ-4 tienen flujo independiente, protagonista, pasos, clímax y fallo.
 - Componentes: 9 nombres alineados entre apariencia y comportamiento.
@@ -24,10 +24,9 @@ Modo: fast path con supuestos explícitos, revisión determinista y cierre HITL 
 - Estados de F4, concurrencia, plazos, carga, vacío y fallo están definidos.
 - WCAG 2.2 AA, teclado completo, foco visible y estados no dependientes solo del color.
 
-Supuestos pendientes de aceptación:
+Supuestos visuales no bloqueantes:
 
 - Lenguaje visual operativo con tipografía del sistema, tema claro y densidad media.
-- `ERROR / DERIVACIÓN` como estado inline en Resultado F4.
 - Identidad de marca y modo oscuro no definidos.
 
 ## Arquitectura
@@ -48,9 +47,10 @@ Decisiones aceptadas en la story 1.1 el 2026-10-03:
 - NFR-3: apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`.
 - PX-08: 30 revisiones Playwright medidas con `psutil` sobre los árboles de procesos de Django y Chromium, RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
 
-Pendiente de la story 1.2:
+Decisiones aceptadas en la story 1.2 el 2026-10-03:
 
-- Definir catálogo inicial de motivos y superficie final de `ERROR / DERIVACIÓN`.
+- Catálogo específico por acción, códigos estables y `other` con comentario obligatorio.
+- `ERROR / DERIVACIÓN` inline en Resultado F4, con entradas conservadas, campo y causa, acción `Corregir entradas` y sin fila F1.
 
 ## Reviewer Gate
 
@@ -62,4 +62,4 @@ No se usaron subagentes porque no estaban disponibles; los tres lentes se ejecut
 
 ## Publicación
 
-Los artefactos iniciales quedaron versionados en `7388525120ef99b50b612ff7c44044028ca2581e`. La story 1.1 registra el cierre de OQ-2, OQ-3 y OQ-4; la story 1.2 conserva las decisiones UX pendientes.
+Los artefactos iniciales quedaron versionados en `7388525120ef99b50b612ff7c44044028ca2581e`. La story 1.1 cerró OQ-2, OQ-3 y OQ-4; la story 1.2 cerró OQ-1 y OQ-5.
