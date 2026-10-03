@@ -1,0 +1,113 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Trazar un Caso F4 hacia una decisión F1"
+description = "Conecta una Salida F4 REVISIÓN con la Bandeja y permite solicitar antecedentes con una Categoría de motivo."
+verify = "CC-F1-03 aparece en la Bandeja, muestra su razón y termina en ESPERANDO ANTECEDENTES desde la interfaz."
+covers = ["CAP-1", "CAP-4", "CAP-8"]
+after = ["1.2", "1.3", "2.6"]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Completar lista con prioridad, estado y plazos"
+description = "Muestra el contexto operativo de cada Caso, diferencia REVISIÓN, ESCALADO y vencimiento, y habilita las mediciones de respuesta y recursos acordadas en 1.1."
+verify = "La lista distingue prioridad normal, prioridad alta, marca para supervisor y Casos vencidos con sus dos plazos, y el escenario acordado expone sus mediciones reproducibles."
+covers = ["CAP-1", "CAP-2"]
+after = [1]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Presentar Evidencia y hallazgos antes del Puntaje"
+description = "Construye el detalle que muestra Evidencia, razón y Ubicación del hallazgo antes de Puntaje y Señales."
+verify = "PDF e imagen ficticios muestran sus ubicaciones comprensibles y el Puntaje aparece después de la Evidencia y razones."
+covers = ["CAP-3"]
+after = [2]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 4
+type = "story"
+title = "Registrar decisiones y validar motivos"
+description = "Implementa aprobar, rechazar y solicitar antecedentes con Categoría de motivo y comentario obligatorio para Otro."
+verify = "Cada acción cambia al estado correcto y CC-F1-02 bloquea un rechazo sin motivo."
+covers = ["CAP-4"]
+after = [3]
+hitl = false
+risk = "high"
+unknown = "El catálogo concreto debe provenir de la decisión HITL 1.2."
+notes = ["High-risk check: Sebastián confirma en revisión una decisión válida y el bloqueo de una acción sin motivo."]
+
+[[entry]]
+id = 5
+type = "story"
+title = "Conservar Correcciones y marcar Discrepancias"
+description = "Registra valor original y corregido, motivo y Discrepancia sin alterar la Decisión humana."
+verify = "CC-F1-01 conserva 120000 y 100000 con motivo, autor y Versión del caso, y marca la Discrepancia cuando corresponde."
+covers = ["CAP-5"]
+after = [4]
+hitl = false
+risk = "high"
+notes = ["High-risk check: la revisión cruzada confirma que la Corrección no altera la Decisión humana y conserva ambos valores."]
+
+[[entry]]
+id = 6
+type = "story"
+title = "Bloquear decisiones sobre versiones obsoletas"
+description = "Aplica el contrato de concurrencia para rechazar una Intervención humana sobre una Versión del caso anterior."
+verify = "CC-F1-04 rechaza el intento, conserva la Decisión vigente e indica recargar el Caso."
+covers = ["CAP-6"]
+after = [5, "1.1"]
+hitl = false
+risk = "high"
+notes = ["High-risk check: una prueba de concurrencia independiente confirma que la Versión vigente no se sobrescribe."]
+
+[[entry]]
+id = 7
+type = "story"
+title = "Calcular Plazo interno y contractual"
+description = "Calcula 3 y 5 días hábiles en America/Santiago mediante el reloj controlado acordado."
+verify = "PF-14 confirma fechas correctas a través de fines de semana y las mismas entradas repiten el mismo resultado."
+covers = ["CAP-7"]
+after = [6]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 8
+type = "story"
+title = "Alertar proximidad y vencimiento"
+description = "Añade alertas un día hábil antes y al vencer, conserva el Caso abierto y eleva prioridad contractual."
+verify = "CC-F1-05 muestra alerta previa y CC-F1-06 sigue abierto, prioritario y marcado para supervisor al vencer."
+covers = ["CAP-1", "CAP-7"]
+after = [7]
+hitl = false
+risk = "medium"
+
+[[entry]]
+id = 9
+type = "story"
+title = "Refactor sweep de F1"
+description = "Limpia duplicación, nombres, accesibilidad básica y deuda registrada en F1 sin cambiar sus flujos observables."
+verify = "PF-05 y PF-14 siguen pasando y no quedan hallazgos diferidos dentro del alcance F1."
+covers = ["CAP-1", "CAP-2", "CAP-3", "CAP-4", "CAP-5", "CAP-6", "CAP-7"]
+after = [1, 2, 3, 4, 5, 6, 7, 8]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 10
+type = "story"
+title = "Cerrar suite E2E de F1"
+description = "Añade recorridos E2E para solicitud de antecedentes, Corrección, conflicto de versión y vencimiento contractual."
+verify = "La suite E2E ejecuta los cuatro recorridos desde la interfaz y comprueba estado, motivo, procedencia y alertas."
+covers = ["CAP-1", "CAP-2", "CAP-3", "CAP-4", "CAP-5", "CAP-6", "CAP-7", "CAP-8"]
+after = [9]
+hitl = false
+risk = "low"

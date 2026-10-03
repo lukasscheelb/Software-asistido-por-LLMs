@@ -1,0 +1,87 @@
+[[entry]]
+id = 1
+type = "story"
+title = "Consolidar catálogo completo y pruebas funcionales"
+description = "Integra CC-F4-01 a CC-F4-09 y CC-F1-01 a CC-F1-06 con Evidencia ficticia estable y resultados esperados."
+verify = "El catálogo completo pasa en una ejecución limpia y cubre fronteras, errores, decisiones, concurrencia y plazos."
+covers = ["CAP-1"]
+after = ["2.9", "3.10"]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 2
+type = "story"
+title = "Generar evidencia de trazabilidad Must"
+description = "Documenta para cada requisito Must su artefacto BMAD, historia, código, prueba y commit verificable."
+verify = "Todos los Must tienen una cadena completa y cada ruta, prueba y commit citado existe."
+covers = ["CAP-2"]
+after = [1]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 3
+type = "story"
+title = "Validar README desde un clon limpio"
+description = "Completa y prueba los pasos de instalación, arranque y carga de datos para alcanzar la demo en menos de 15 minutos."
+verify = "Una persona ajena al entorno actual clona el repositorio y llega a F4 → F1 en menos de 15 minutos siguiendo solo el README."
+covers = ["CAP-3"]
+after = [1]
+hitl = true
+risk = "medium"
+
+[[entry]]
+id = 4
+type = "story"
+title = "Ejecutar prueba de usabilidad PX-05"
+description = "Una persona externa completa una tarea F4 y una F1 sin instrucciones, registrando finalización, tiempo y dificultades."
+verify = "El informe PX-05 contiene las dos tareas, resultado, tiempo y observaciones, y confirma Evidencia antes del Puntaje."
+covers = ["CAP-4"]
+after = [3]
+hitl = true
+risk = "low"
+
+[[entry]]
+id = 5
+type = "story"
+title = "Ejecutar calidad, rendimiento y recursos"
+description = "Ejecuta PX-09 y las mediciones acordadas para p95 y PX-08 sobre el corpus y entorno definidos."
+verify = "Los informes registran configuración, datos, resultados y veredicto frente a los umbrales acordados, sin ampliar automatización si PX-09 falla."
+covers = ["CAP-5"]
+after = [1, "1.1"]
+hitl = true
+risk = "medium"
+
+[[entry]]
+id = 6
+type = "story"
+title = "Registrar aceptación con Sebastián"
+description = "Ejecuta la sesión de aceptación de F4 y F1 y registra criterios aceptados, rechazados y observaciones."
+verify = "Existe un acta fechada que identifica a Sebastián, cada funcionalidad, sus criterios y el resultado de aceptación."
+covers = ["CAP-6"]
+after = [2, 3, 4, 5]
+hitl = true
+risk = "medium"
+
+[[entry]]
+id = 7
+type = "story"
+title = "Refactor sweep del incremento"
+description = "Resuelve deuda y hallazgos diferidos de las cuatro épicas sin introducir alcance nuevo."
+verify = "Todas las suites siguen pasando y no quedan hallazgos de revisión materiales sin responsable o ticket."
+covers = ["CAP-1", "CAP-2", "CAP-3", "CAP-4", "CAP-5", "CAP-6"]
+after = [1, 2, 3, 4, 5, 6]
+hitl = false
+risk = "low"
+
+[[entry]]
+id = 8
+type = "story"
+title = "Cerrar suite E2E integrada F4 → F1"
+description = "Ejecuta el tracer y los recorridos críticos integrados sobre la versión candidata a entrega."
+verify = "La suite prueba aprobación automática, revisión motivada, escalamiento prioritario, Corrección, conflicto y vencimiento desde la interfaz."
+covers = ["CAP-7"]
+after = [7]
+hitl = false
+risk = "low"
