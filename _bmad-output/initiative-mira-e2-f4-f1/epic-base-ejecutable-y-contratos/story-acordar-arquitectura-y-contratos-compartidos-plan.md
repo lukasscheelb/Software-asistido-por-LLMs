@@ -3,7 +3,7 @@ title: 'Acordar arquitectura y contratos compartidos'
 type: 'chore'
 ticket: '1'
 created: '2026-10-03'
-status: 'built'
+status: done
 route: 'oneshot'
 route_source: 'auto'
 baseline_revision: '7388525120ef99b50b612ff7c44044028ca2581e'

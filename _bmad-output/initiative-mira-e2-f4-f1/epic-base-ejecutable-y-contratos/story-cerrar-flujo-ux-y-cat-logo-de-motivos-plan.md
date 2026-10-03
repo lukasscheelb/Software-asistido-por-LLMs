@@ -3,7 +3,7 @@ title: 'Cerrar flujo UX y catálogo de motivos'
 type: 'chore'
 ticket: '2'
 created: '2026-10-03'
-status: 'built'
+status: done
 route: 'oneshot'
 route_source: 'auto'
 baseline_revision: 'f386bf6d501200369d8cb3ea2936990251d1bc77'
