@@ -61,6 +61,11 @@ PF-05 y PF-14 pasan desde la interfaz: el Operador decide con Evidencia primero 
 
 ## Open Questions
 
+### Resolved in story 1.1
+
+- CAP-2 adopta AD-15 y AD-16: apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`; PX-08 ejecuta 30 revisiones Playwright y mide con `psutil` los árboles de procesos de Django y Chromium, con RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
+- CAP-6 adopta AD-4 y AD-11: Django 5.2.18 LTS sobre SQLite local y concurrencia optimista por `expected_case_version` dentro de una transacción.
+
+### Pending
+
 - ¿Cuál es el catálogo inicial de Categorías de motivo para decisiones y Correcciones? Responsable: PM y Sebastián; bloquea CAP-4 y CAP-5.
-- ¿Qué interacción, volumen, entorno, métrica y umbral se usarán para medir CAP-2? Responsable: Arquitectura, QA y Sebastián.
-- ¿Qué stack, persistencia y mecanismo de concurrencia implementarán CAP-6? Responsable: Arquitectura.

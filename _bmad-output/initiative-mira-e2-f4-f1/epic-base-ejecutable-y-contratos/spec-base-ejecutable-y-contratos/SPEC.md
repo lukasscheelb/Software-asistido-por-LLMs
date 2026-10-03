@@ -52,7 +52,12 @@ Un clon limpio inicia la aplicación y las pruebas; CC-F4-02 atraviesa contratos
 
 ## Open Questions
 
+### Resolved in story 1.1
+
+- **OQ-2 — Rendimiento (2026-10-03, Arquitectura + Sebastián):** medir la apertura del detalle desde la Bandeja con 100 Casos y 3 Evidencias por Caso, Django + SQLite local limitado a 2 vCPU/4 GiB, 5 calentamientos y 30 muestras; aceptar con `p95 ≤ 2 s`.
+- **OQ-3 — Recursos (2026-10-03, QA + Arquitectura):** ejecutar 30 revisiones Playwright y medir los árboles de procesos de Django y Chromium con `psutil`; aceptar con RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
+- **OQ-4 — Tecnología (2026-10-03, Arquitectura):** usar Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0, con concurrencia optimista por `expected_case_version` dentro de una transacción.
+
+### Pending
+
 - ¿Qué catálogo inicial de motivos y qué superficie visual se usarán para `ERROR / DERIVACIÓN`? Responsable: PM, UX y Sebastián; historias 1.2 y posteriores.
-- ¿Qué interacción, volumen y entorno definen el p95? Responsable: Arquitectura y Sebastián; historia 1.1.
-- ¿Qué métrica, herramienta y umbral definen PX-08? Responsable: QA y Arquitectura; historia 1.1.
-- ¿Qué stack, persistencia y mecanismo de concurrencia implementarán los contratos? Responsable: Arquitectura; historia 1.1.

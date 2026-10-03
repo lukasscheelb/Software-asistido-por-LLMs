@@ -1,6 +1,6 @@
 # Contratos de dominio compartidos
 
-Este archivo fija el significado observable de los contratos. La forma física se decide en CAP-1.
+Este archivo fija el significado observable de los contratos y las decisiones técnicas de CAP-1.
 
 | Concepto | Contrato observable |
 |---|---|
@@ -19,4 +19,12 @@ Este archivo fija el significado observable de los contratos. La forma física s
 - Una Intervención humana no borra entradas, Evidencia ni resultados anteriores.
 - F1 consume la Salida F4 y su explicación sin recalcular la Política.
 - Fixtures y tiempos de prueba son deterministas.
-- Los contratos no prescriben base de datos, framework ni mecanismo de concurrencia hasta resolver CAP-1.
+- Django persiste mediante repositorios sobre SQLite local; el dominio no depende del ORM.
+- Toda Decisión o Corrección compara `expected_case_version` con la Versión vigente dentro de una transacción y responde `stale_version` sin escribir cuando difieren.
+
+## Contrato de verificación CAP-1
+
+- **Tecnología:** Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0.
+- **NFR-3:** apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos y 30 muestras; `p95 ≤ 2 s`.
+- **PX-08:** 30 revisiones Playwright medidas con `psutil` sobre los árboles de procesos de Django y Chromium; RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
+- **Decisión:** OQ-2, OQ-3 y OQ-4 cerradas el 2026-10-03 por sus responsables definidos en el PRD.

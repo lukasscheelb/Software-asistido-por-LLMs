@@ -6,8 +6,8 @@ Strong build substrate with partial adoption status. All initiative capabilities
 
 ## Findings
 
-- **Medium — Starter not accepted by user.** AD-1 is explicitly tagged `[ASSUMPTION]` and Deferred names the acceptance gate before story 1.3. No autofix is appropriate.
-- **Medium — Performance and resource criteria remain undefined.** NFR-3/NFR-4 are correctly deferred to story 1.1 with a revisit condition.
+- **Resolved 2026-10-03 — Starter accepted in story 1.1.** AD-1 is now an accepted decision; the CAP-1 decision register records the stack, concurrency, NFR-3 and PX-08 contracts.
+- **Resolved 2026-10-03 — Performance and resource criteria defined.** AD-15 and AD-16 fix the NFR-3 and PX-08 interactions, loads, environment, samples, metrics and thresholds accepted in story 1.1.
 - **Low — Production topology omitted.** AD-12 and Deferred explicitly keep hosting, auth, backups and production database outside the academic increment.
 
 ## Checklist

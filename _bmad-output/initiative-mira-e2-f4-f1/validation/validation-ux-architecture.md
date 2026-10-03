@@ -1,16 +1,16 @@
 # Validación de bmad-ux y bmad-architecture
 
 Fecha: 2026-10-03  
-Modo: fast path con supuestos explícitos y revisión determinista.
+Modo: fast path con supuestos explícitos, revisión determinista y cierre HITL de arquitectura en la story 1.1.
 
 ## Resultado
 
-- Estado: parcial, listo para revisión humana.
+- Estado: arquitectura aceptada; UX conserva decisiones HITL de la story 1.2.
 - UX: `DESIGN.md` y `EXPERIENCE.md` finalizados como contrato de trabajo.
 - Cobertura UX: UJ-1 a UJ-4 tienen flujo independiente, protagonista, pasos, clímax y fallo.
 - Componentes: 9 nombres alineados entre apariencia y comportamiento.
 - Tokens: 17 referencias `{path.to.token}` resuelven en `DESIGN.md`.
-- Arquitectura: 14 decisiones `AD-N` con `Binds`, `Prevents` y `Rule`.
+- Arquitectura: 16 decisiones `AD-N` con `Binds`, `Prevents` y `Rule`.
 - Linter oficial: cero hallazgos.
 - Reviewer Gate: versión tecnológica y compatibilidad adversarial revisadas; los hallazgos altos fueron corregidos.
 - Ticketing: 33 historias intactas y `unpinned_after = 0`.
@@ -33,7 +33,7 @@ Supuestos pendientes de aceptación:
 ## Arquitectura
 
 - Paradigma: monolito modular con límites hexagonales.
-- Starter propuesto: Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0.
+- Starter aceptado: Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0.
 - Dominio puro para F4; mutaciones solo por application services.
 - Concurrencia optimista con `expected_case_version`.
 - Evaluaciones, Decisiones y Correcciones append-only.
@@ -42,11 +42,14 @@ Supuestos pendientes de aceptación:
 - Vocabulario compartido propiedad de `domain`.
 - Bandeja como proyección de lectura, nunca segunda fuente de verdad.
 
-Supuestos y decisiones pendientes:
+Decisiones aceptadas en la story 1.1 el 2026-10-03:
 
-- Aceptar o sustituir el starter antes de iniciar 1.3.
-- Definir interacción, volumen y entorno del p95.
-- Definir métrica, herramienta y umbral PX-08.
+- Concurrencia optimista con `expected_case_version` dentro de una transacción.
+- NFR-3: apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`.
+- PX-08: 30 revisiones Playwright medidas con `psutil` sobre los árboles de procesos de Django y Chromium, RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
+
+Pendiente de la story 1.2:
+
 - Definir catálogo inicial de motivos y superficie final de `ERROR / DERIVACIÓN`.
 
 ## Reviewer Gate
@@ -59,4 +62,4 @@ No se usaron subagentes porque no estaban disponibles; los tres lentes se ejecut
 
 ## Publicación
 
-No se iniciaron historias ni se creó commit. Los artefactos aún deben ser adoptados por `bmad-spec` o aceptados como companions antes de cerrar las historias HITL 1.1 y 1.2.
+Los artefactos iniciales quedaron versionados en `7388525120ef99b50b612ff7c44044028ca2581e`. La story 1.1 registra el cierre de OQ-2, OQ-3 y OQ-4; la story 1.2 conserva las decisiones UX pendientes.

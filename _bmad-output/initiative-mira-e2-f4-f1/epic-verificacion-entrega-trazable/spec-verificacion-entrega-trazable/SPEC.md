@@ -55,7 +55,7 @@ El incremento solo es entregable si otra persona puede reproducirlo, demostrarlo
 
 Un evaluador externo clona, ejecuta y demuestra el recorrido F4 → F1 en menos de `15` minutos, mientras todos los Must conservan evidencia verificable hasta commit.
 
-## Open Questions
+## Resolved Inputs
 
-- ¿Qué interacción, volumen y entorno se usarán para p95? Debe provenir de la historia HITL 1.1 antes de ejecutar CAP-5.
-- ¿Qué métrica, herramienta y umbral se usarán para PX-08? Debe provenir de la historia HITL 1.1 antes de ejecutar CAP-5.
+- **p95, story 1.1:** apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos y 30 muestras; `p95 ≤ 2 s`.
+- **PX-08, story 1.1:** 30 revisiones Playwright medidas con `psutil` sobre los árboles de procesos de Django y Chromium; RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.

@@ -278,11 +278,11 @@ Una persona externa al equipo debe completar una tarea de F4 y una de F1 sin ins
 
 ### NFR-3. Rendimiento de pantalla (origen: RQNF-001, Must)
 
-El objetivo heredado es `p95 ≤ 2 s` para la pantalla aplicable. **[NOTE FOR PM: Arquitectura y Sebastián Rodríguez deben confirmar qué interacción se mide, el volumen del conjunto y el entorno antes de usarlo como criterio de aceptación.]**
+La apertura del detalle desde la Bandeja debe alcanzar `p95 ≤ 2 s` con 100 Casos y 3 Evidencias por Caso, Django + SQLite local limitado a 2 vCPU/4 GiB, 5 ejecuciones de calentamiento y 30 muestras medidas.
 
 ### NFR-4. Consumo de recursos (origen: RQNF-008, Should)
 
-PX-08 debe medir el consumo de recursos durante una sesión de revisión reproducible. **[NOTE FOR PM: QA y arquitectura deben fijar métrica, herramienta y umbral antes de implementar la prueba.]**
+PX-08 debe ejecutar 30 revisiones Playwright y medir con `psutil` los árboles de procesos de Django y Chromium durante toda la sesión. El criterio es RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
 
 ### NFR-5. Determinismo y reproducibilidad
 
@@ -406,16 +406,16 @@ Los datos de demostración deben ser ficticios. Credenciales o secretos no deben
 ## 13. Preguntas abiertas
 
 1. **OQ-1 - Categorías de motivo:** ¿cuál es el catálogo inicial para aprobar, rechazar, solicitar antecedentes y corregir? Responsable: PM + Sebastián; resolver antes de cerrar UX.
-2. **OQ-2 - Rendimiento:** ¿qué interacción, volumen de datos y entorno cubre `p95 ≤ 2 s`? Responsable: Arquitectura + Sebastián; resolver antes de aprobar arquitectura.
-3. **OQ-3 - Recursos:** ¿qué métrica y umbral verificará PX-08? Responsable: QA + Arquitectura; resolver antes del plan de pruebas.
-4. **OQ-4 - Tecnología:** ¿qué stack, persistencia y mecanismo de concurrencia implementarán el PRD? Responsable: Arquitectura; resolver antes de fragmentar historias técnicas.
+2. **OQ-2 - Rendimiento — RESUELTA 2026-10-03:** apertura Bandeja → detalle; 100 Casos y 3 Evidencias por Caso; Django + SQLite local en 2 vCPU/4 GiB; 5 calentamientos y 30 muestras; `p95 ≤ 2 s`. Responsables: Arquitectura + Sebastián.
+3. **OQ-3 - Recursos — RESUELTA 2026-10-03:** 30 revisiones Playwright, medición de los árboles de procesos de Django y Chromium con `psutil`, RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`. Responsables: QA + Arquitectura.
+4. **OQ-4 - Tecnología — RESUELTA 2026-10-03:** Python 3.13.16, Django 5.2.18 LTS, SQLite local, Playwright Python 1.63.0 y concurrencia optimista por `expected_case_version`. Responsable: Arquitectura.
 5. **OQ-5 - Error / Derivación:** ¿el Caso inválido debe mostrarse en una vista de excepción o solo como resultado de F4 en la demo? Responsable: UX + PM; resolver antes de cerrar el flujo de pantallas.
 
 ## 14. Índice de supuestos y notas
 
 - No se introducen supuestos funcionales no confirmados: las decisiones de política, plazos, conexión F4 → F1 y alcance provienen del brief, baseline y validación posterior.
-- Las decisiones técnicas quedan deliberadamente abiertas en OQ-2 a OQ-4.
-- Las dos `[NOTE FOR PM]` de NFR-3 y NFR-4 deben resolverse antes de convertir esos requisitos en criterios de aceptación ejecutables.
+- OQ-2 a OQ-4 quedaron resueltas el 2026-10-03 en la story 1.1 y sus criterios ejecutables viven en NFR-3, NFR-4 y la Architecture Spine.
+- OQ-1 y OQ-5 permanecen abiertas para la story UX 1.2.
 
 ## 15. Fuentes
 

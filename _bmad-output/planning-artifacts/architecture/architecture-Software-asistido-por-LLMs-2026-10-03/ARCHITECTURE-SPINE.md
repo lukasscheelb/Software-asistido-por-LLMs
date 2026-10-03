@@ -40,7 +40,7 @@ flowchart LR
 
 ## Invariants & Rules
 
-### AD-1 — Starter local verificable [ASSUMPTION]
+### AD-1 — Starter local verificable
 
 - **Binds:** base/CAP-1, base/CAP-3, verification/CAP-3
 - **Prevents:** que cada historia elija runtime, framework o harness incompatibles.
@@ -124,6 +124,18 @@ flowchart LR
 - **Prevents:** estado de Bandeja que diverja de Evaluaciones, Intervenciones o plazos.
 - **Rule:** la Bandeja es una query projection derivada de la Evaluación vigente, Intervenciones append-only y calendario; solo `REVISIÓN` y `ESCALADO` ingresan, y ninguna ruta escribe estado directamente en una fila de Bandeja.
 
+### AD-15 — Escenario reproducible de rendimiento
+
+- **Binds:** base/CAP-1, f1/CAP-2, verification/CAP-5
+- **Prevents:** aceptar `p95 ≤ 2 s` con una interacción, carga o entorno ambiguos.
+- **Rule:** NFR-3 mide desde la acción de abrir un Caso en la Bandeja hasta que su detalle queda visible, con 100 Casos y 3 Evidencias por Caso, Django + SQLite local limitado a 2 vCPU y 4 GiB, 5 ejecuciones de calentamiento y 30 muestras medidas; el p95 debe ser `≤ 2 s`.
+
+### AD-16 — Presupuesto reproducible de recursos
+
+- **Binds:** base/CAP-1, f1/CAP-2, verification/CAP-5
+- **Prevents:** afirmar eficiencia sin incluir el navegador ni fijar métrica, sesión y umbral.
+- **Rule:** PX-08 ejecuta 30 revisiones consecutivas con Playwright y `psutil`, mide los árboles de procesos de Django y Chromium durante toda la sesión y exige RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
+
 ## Consistency Conventions
 
 | Concern | Convention |
@@ -148,6 +160,14 @@ Verificado contra documentación oficial el 2026-10-03.
 | Django | 5.2.18 LTS |
 | SQLite | Bundled with Python 3.13.16 |
 | Playwright for Python | 1.63.0 |
+
+## CAP-1 Decision Register
+
+| Question | Decision | Responsible | Date |
+|---|---|---|---|
+| OQ-2 — Rendimiento | Aplicar AD-15: apertura Bandeja → detalle, 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`. | Arquitectura + Sebastián | 2026-10-03 |
+| OQ-3 — Recursos | Aplicar AD-16: 30 revisiones Playwright, medición de los árboles de procesos de Django y Chromium con `psutil`, RSS máximo `≤ 1 GiB` y CPU promedio `≤ 1 núcleo lógico`. | QA + Arquitectura | 2026-10-03 |
+| OQ-4 — Tecnología | Aceptar AD-1, AD-4 y AD-11: Python 3.13.16, Django 5.2.18 LTS, Playwright Python 1.63.0, SQLite local y concurrencia optimista por `expected_case_version`. | Arquitectura | 2026-10-03 |
 
 ## Structural Seed
 
@@ -182,7 +202,7 @@ erDiagram
 
 | Capability / Area | Lives in | Governed by |
 |---|---|---|
-| base/CAP-1 | `composition.py`, settings, test configuration | AD-1, AD-2, AD-12 |
+| base/CAP-1 | `composition.py`, settings, test configuration | AD-1, AD-2, AD-12, AD-15, AD-16 |
 | base/CAP-2 | `web` and configured reason catalog | AD-9, Deferred UX decisions |
 | base/CAP-3 | composition, `web`, test harness | AD-1, AD-2, AD-12 |
 | base/CAP-4 | `domain`, application ports, repositories | AD-2, AD-4, AD-5, AD-11 |
@@ -193,13 +213,10 @@ erDiagram
 | f1/CAP-4..CAP-6 | application commands, repositories | AD-4, AD-5, AD-10, AD-11 |
 | f1/CAP-7 | Clock, BusinessCalendar, queue query | AD-7, AD-11 |
 | f1/CAP-8 | `web`, fixtures, E2E | AD-8, AD-9 |
-| verification/CAP-1..CAP-7 | tests, traceability artifacts, README | AD-1, AD-8, AD-10, AD-12 |
+| verification/CAP-1..CAP-7 | tests, traceability artifacts, README | AD-1, AD-8, AD-10, AD-12, AD-15, AD-16 |
 
 ## Deferred
 
-- **Starter acceptance:** confirmar Python/Django/SQLite antes de iniciar 1.3; una alternativa debe preservar AD-2 a AD-12.
-- **NFR-3:** fijar interacción, volumen y entorno del p95 antes de construir la medición; la instrumentación vive en `web` y tests.
-- **NFR-4:** fijar métrica, herramienta y umbral PX-08 antes de CAP-5 de verificación.
 - **Catálogo de motivos:** UX/PM/Sebastián definen valores; arquitectura fija que sea configuración validada, no `if` dispersos.
 - **ERROR / DERIVACIÓN:** UX/PM eligen estado inline o vista dedicada; ambos consumen el mismo código de dominio.
 - **Producción:** hosting, PostgreSQL, autenticación, secretos, observabilidad externa, backups y migración operacional quedan fuera hasta que el alcance incluya despliegue productivo.
