@@ -130,3 +130,13 @@
 - Se decide que el PRD deberá fijar casos de prueba controlados antes de implementar.
 - Representante del cliente E2: Sebastián Rodríguez.
 - Estado: brief validado con observaciones para PRD.
+
+
+## 14. Candidato local persistente y cierre técnico — 2026-10-04
+
+- DEC-E2-08: desacuerdo declarado con motivo; Corrección marca Discrepancia, decisión sola no.
+- Implementación local en main `622f1c89a62469fbfb53fcfcf2774980a1cad2b3`: SQLite, CAS transaccional, snapshots y append-only por repositorio/modelos, corpus F4/F1, evidencia PDF/PNG y UI versionada.
+- Runtime aprobado Django 5.2.17 reconciliado en contratos efectivos; historial previo conservado.
+- 25 pruebas Django y 4 pytest verifican persistencia, carrera, fronteras, errores, corrección y navegador.
+- Medición registrada diagnóstica: p95 0.4871s, RSS 842932224 bytes, CPU 1.2759 núcleos. CPU excede umbral; hardware AD-15 no acreditado.
+- Sesiones externas, aceptación de Sebastián y v2.0 final pendientes. Número de grupo dejado en blanco por instrucción del usuario.

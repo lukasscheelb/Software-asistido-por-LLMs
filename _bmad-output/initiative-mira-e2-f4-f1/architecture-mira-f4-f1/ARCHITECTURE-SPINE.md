@@ -44,7 +44,7 @@ flowchart LR
 
 - **Binds:** base/CAP-1, base/CAP-3, verification/CAP-3
 - **Prevents:** que cada historia elija runtime, framework o harness incompatibles.
-- **Rule:** usar Python `3.13.16`, Django `5.2.18` LTS y Playwright Python `1.63.0`; dependencias exactas quedan en `uv.lock`. Sustituir este starter requiere una decisión que preserve todos los AD de esta spine.
+- **Rule:** usar Python `3.13.16`, Django `5.2.17` LTS y Playwright Python `1.63.0`; dependencias exactas quedan en `uv.lock`. Sustituir este starter requiere una decisión que preserve todos los AD de esta spine.
 
 ### AD-2 — Límites de módulos y dirección de dependencias
 
@@ -157,7 +157,7 @@ Verificado contra documentación oficial el 2026-10-03.
 | Name | Version |
 |---|---|
 | Python | 3.13.16 |
-| Django | 5.2.18 LTS |
+| Django | 5.2.17 LTS |
 | SQLite | Bundled with Python 3.13.16 |
 | Playwright for Python | 1.63.0 |
 
@@ -167,7 +167,7 @@ Verificado contra documentación oficial el 2026-10-03.
 |---|---|---|---|
 | OQ-2 — Rendimiento | Aplicar AD-15: apertura Bandeja → detalle, 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`. | Arquitectura + Sebastián | 2026-10-03 |
 | OQ-3 — Recursos | Aplicar AD-16: 30 revisiones Playwright, medición de los árboles de procesos de Django y Chromium con `psutil`, RSS máximo `≤ 1 GiB` y CPU promedio `≤ 1 núcleo lógico`. | QA + Arquitectura | 2026-10-03 |
-| OQ-4 — Tecnología | Aceptar AD-1, AD-4 y AD-11: Python 3.13.16, Django 5.2.18 LTS, Playwright Python 1.63.0, SQLite local y concurrencia optimista por `expected_case_version`. | Arquitectura | 2026-10-03 |
+| OQ-4 — Tecnología | Aceptar AD-1, AD-4 y AD-11: Python 3.13.16, Django 5.2.17 LTS, Playwright Python 1.63.0, SQLite local y concurrencia optimista por `expected_case_version`. | Arquitectura | 2026-10-03 |
 
 ## Structural Seed
 
@@ -218,3 +218,6 @@ erDiagram
 ## Deferred
 
 - **Producción:** hosting, PostgreSQL, autenticación, secretos, observabilidad externa, backups y migración operacional quedan fuera hasta que el alcance incluya despliegue productivo.
+
+
+> Reconciliación 2026-10-04: runtime efectivo Django 5.2.17 aprobado por usuario en story 1.3 y plan de cierre; el historial original permanece en Git.

@@ -56,9 +56,12 @@ Un clon limpio inicia la aplicación y las pruebas; CC-F4-02 atraviesa contratos
 
 - **OQ-2 — Rendimiento (2026-10-03, Arquitectura + Sebastián):** medir la apertura del detalle desde la Bandeja con 100 Casos y 3 Evidencias por Caso, Django + SQLite local limitado a 2 vCPU/4 GiB, 5 calentamientos y 30 muestras; aceptar con `p95 ≤ 2 s`.
 - **OQ-3 — Recursos (2026-10-03, QA + Arquitectura):** ejecutar 30 revisiones Playwright y medir los árboles de procesos de Django y Chromium con `psutil`; aceptar con RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
-- **OQ-4 — Tecnología (2026-10-03, Arquitectura):** usar Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0, con concurrencia optimista por `expected_case_version` dentro de una transacción.
+- **OQ-4 — Tecnología (2026-10-03, Arquitectura):** usar Python 3.13.16, Django 5.2.17 LTS, SQLite local y Playwright Python 1.63.0, con concurrencia optimista por `expected_case_version` dentro de una transacción.
 
 ### Resolved in story 1.2
 
 - **OQ-1 — Categorías de motivo (2026-10-03, PM + Sebastián):** usar el catálogo específico por acción definido en `domain-contracts.md`; `other` está disponible para todas las acciones y exige comentario.
 - **OQ-5 — Error / Derivación (2026-10-03, UX + PM):** mostrarlo inline en Resultado F4, conservar entradas, identificar campo y causa, y no crear una fila F1. `Corregir entradas` vuelve al mismo borrador transitorio, enfoca el primer campo inválido y permite reejecutar sin modificar el fixture.
+
+
+> Reconciliación 2026-10-04: runtime efectivo Django 5.2.17 aprobado por usuario en story 1.3 y plan de cierre; el historial original permanece en Git.

@@ -416,7 +416,7 @@ Los datos de demostración deben ser ficticios. Credenciales o secretos no deben
 1. **OQ-1 - Categorías de motivo — RESUELTA 2026-10-03:** catálogo específico por acción definido en FR-11 y `domain-contracts.md`; `other` exige comentario. Responsables: PM + Sebastián.
 2. **OQ-2 - Rendimiento — RESUELTA 2026-10-03:** apertura Bandeja → detalle; 100 Casos y 3 Evidencias por Caso; Django + SQLite local en 2 vCPU/4 GiB; 5 calentamientos y 30 muestras; `p95 ≤ 2 s`. Responsables: Arquitectura + Sebastián.
 3. **OQ-3 - Recursos — RESUELTA 2026-10-03:** 30 revisiones Playwright, medición de los árboles de procesos de Django y Chromium con `psutil`, RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`. Responsables: QA + Arquitectura.
-4. **OQ-4 - Tecnología — RESUELTA 2026-10-03:** Python 3.13.16, Django 5.2.18 LTS, SQLite local, Playwright Python 1.63.0 y concurrencia optimista por `expected_case_version`. Responsable: Arquitectura.
+4. **OQ-4 - Tecnología — RESUELTA 2026-10-03:** Python 3.13.16, Django 5.2.17 LTS, SQLite local, Playwright Python 1.63.0 y concurrencia optimista por `expected_case_version`. Responsable: Arquitectura.
 5. **OQ-5 - Error / Derivación — RESUELTA 2026-10-03:** resultado inline en Resultado F4, con entradas conservadas, campo y causa, acción `Corregir entradas` hacia el mismo borrador transitorio y sin fila F1 ni mutación del fixture. Responsables: UX + PM.
 
 ## 14. Índice de supuestos y notas
@@ -431,3 +431,6 @@ Los datos de demostración deben ser ficticios. Credenciales o secretos no deben
 - `LLM - MIRA_Entrega2_bitacora_decisiones.md`, incluida la sección 13 de validación.
 - `LLM - MIRA_E2_Baseline_F4_F1.md`
 - `Contexto-fase1-bmad/LLM - Entrega_2_MIRA_SDD_BMAD.pdf`
+
+
+> Reconciliación 2026-10-04: runtime efectivo Django 5.2.17 aprobado por usuario en story 1.3 y plan de cierre; el historial original permanece en Git.

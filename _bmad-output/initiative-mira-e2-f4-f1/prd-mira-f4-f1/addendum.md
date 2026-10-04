@@ -4,7 +4,7 @@ Este addendum conserva decisiones y tensiones relevantes para trabajos posterior
 
 ## Decisiones técnicas resueltas en arquitectura
 
-- **OQ-4 (2026-10-03):** Python 3.13.16, Django 5.2.18 LTS, SQLite local y Playwright Python 1.63.0; concurrencia optimista por `expected_case_version` dentro de una transacción.
+- **OQ-4 (2026-10-03):** Python 3.13.16, Django 5.2.17 LTS, SQLite local y Playwright Python 1.63.0; concurrencia optimista por `expected_case_version` dentro de una transacción.
 - **OQ-2 (2026-10-03):** apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos y 30 muestras; `p95 ≤ 2 s`.
 - **OQ-3 (2026-10-03):** 30 revisiones Playwright medidas con `psutil` sobre los árboles de procesos de Django y Chromium; RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
 
@@ -26,3 +26,6 @@ Este addendum conserva decisiones y tensiones relevantes para trabajos posterior
 - Rechazar automáticamente Puntajes bajos: descartado por control humano y DEC-01.
 - Incorporar el panel del supervisor: diferido para evitar convertir la marca de escalamiento en una tercera funcionalidad.
 - Incluir administración visual de umbrales: diferido a F5; F4 consume una Política configurable por datos de prueba.
+
+
+> Reconciliación 2026-10-04: runtime efectivo Django 5.2.17 aprobado por usuario en story 1.3 y plan de cierre; el historial original permanece en Git.

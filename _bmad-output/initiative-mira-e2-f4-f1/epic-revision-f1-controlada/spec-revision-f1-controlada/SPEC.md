@@ -64,8 +64,11 @@ PF-05 y PF-14 pasan desde la interfaz: el Operador decide con Evidencia primero 
 ### Resolved in story 1.1
 
 - CAP-2 adopta AD-15 y AD-16: apertura Bandeja → detalle con 100 Casos, 3 Evidencias por Caso, 2 vCPU/4 GiB, 5 calentamientos, 30 muestras y `p95 ≤ 2 s`; PX-08 ejecuta 30 revisiones Playwright y mide con `psutil` los árboles de procesos de Django y Chromium, con RSS máximo agregado `≤ 1 GiB` y CPU promedio agregado `≤ 1 núcleo lógico`.
-- CAP-6 adopta AD-4 y AD-11: Django 5.2.18 LTS sobre SQLite local y concurrencia optimista por `expected_case_version` dentro de una transacción.
+- CAP-6 adopta AD-4 y AD-11: Django 5.2.17 LTS sobre SQLite local y concurrencia optimista por `expected_case_version` dentro de una transacción.
 
 ### Resolved in story 1.2
 
 - CAP-4 y CAP-5 adoptan el catálogo por acción de `domain-contracts.md`: aprobar (`requirements_met`, `evidence_consistent`), rechazar (`requirements_not_met`, `evidence_inconsistent`), solicitar antecedentes (`information_incomplete`, `evidence_unreadable`, `clarification_required`), corregir (`extraction_error`, `evidence_value_mismatch`) y `other` para todas con comentario obligatorio.
+
+
+> Reconciliación 2026-10-04: runtime efectivo Django 5.2.17 aprobado por usuario en story 1.3 y plan de cierre; el historial original permanece en Git.

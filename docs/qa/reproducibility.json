@@ -1,0 +1,44 @@
+{
+  "revision": "622f1c89a62469fbfb53fcfcf2774980a1cad2b3",
+  "method": "git archive HEAD en directorio temporal limpio; caché local de paquetes/runtime disponible",
+  "external_person_session": false,
+  "seconds": 8.65181189996656,
+  "steps": [
+    {
+      "command": "uv sync --locked",
+      "seconds": 3.586974000092596,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Using CPython 3.13.16\nCreating virtual environment at: .venv\nResolved 17 packages in 1ms\n   Building mira @ file:///C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/mira-clone-30pij2iq\n      Built mira @ file:///C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/mira-clone-30pij2iq\nPrepared 1 package in 927ms\nInstalled 17 packages in 2.51s\n + asgiref==3.12.1\n + colorama==0.4.6\n + django==5.2.17\n + greenlet==3.5.6\n + iniconfig==2.3.0\n + mira==0.1.0 (from file:///C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/mira-clone-30pij2iq)\n + packaging==26.3\n + playwright==1.63.0\n + pluggy==1.6.0\n + psutil==7.2.2\n + pyee==13.0.1\n + pygments==2.21.0\n + pytest==9.1.1\n + pytest-django==4.14.0\n + sqlparse==0.6.0\n + typing-extensions==4.16.0\n + tzdata==2026.5\n"
+    },
+    {
+      "command": "uv run python manage.py check",
+      "seconds": 1.967228600056842,
+      "exit_code": 0,
+      "stdout": "System check identified no issues (0 silenced).\n",
+      "stderr": ""
+    },
+    {
+      "command": "uv run python manage.py migrate --noinput",
+      "seconds": 0.8063066999893636,
+      "exit_code": 0,
+      "stdout": "Operations to perform:\n  Apply all migrations: contenttypes, mira_store\nRunning migrations:\n  Applying contenttypes.0001_initial... OK\n  Applying contenttypes.0002_remove_content_type_name... OK\n  Applying mira_store.0001_initial... OK\n",
+      "stderr": ""
+    },
+    {
+      "command": "uv run python manage.py load_demo",
+      "seconds": 0.7910103999311104,
+      "exit_code": 0,
+      "stdout": "15 Casos ficticios disponibles; historial conservado.\n",
+      "stderr": ""
+    },
+    {
+      "command": "uv run python manage.py shell -c from django.test import Client; c=Client(); assert c.get('/bandeja/').status_code==200; assert c.post('/ejecutar-f4/',{'case_id':'CC-F4-02'}).status_code==200; assert c.get('/casos/CC-F4-02/').status_code==200",
+      "seconds": 0.855938300024718,
+      "exit_code": 0,
+      "stdout": "4 objects imported automatically (use -v 2 for details).\n\n",
+      "stderr": ""
+    }
+  ],
+  "verdict": "REPRODUCCIÓN TÉCNICA LOCAL; sesión externa <15 min pendiente"
+}
