@@ -4,7 +4,13 @@ from dataclasses import dataclass
 from datetime import date
 
 from mira.domain.deadlines import CaseDeadlines, evaluate_deadlines
-from mira.domain.policy import ControlledCase, F4Evaluation, F4Outcome, Policy, evaluate_case
+from mira.domain.policy import (
+    ControlledCase,
+    F4Evaluation,
+    F4Outcome,
+    Policy,
+    evaluate_case,
+)
 from mira.domain.review import HumanDecision
 
 
@@ -17,7 +23,10 @@ class QueueItem:
 
     @property
     def priority(self) -> str:
-        if self.evaluation.priority == "Alta" or self.deadlines.contractual_state == "Vencido":
+        if (
+            self.evaluation.priority == "Alta"
+            or self.deadlines.contractual_state == "Vencido"
+        ):
             return "Alta"
         return "Normal"
 
@@ -29,19 +38,26 @@ def build_queue(
     query: str = "",
     priority: str = "all",
     decisions: dict[str, HumanDecision] | None = None,
+    evaluations: dict[str, F4Evaluation] | None = None,
 ) -> tuple[QueueItem, ...]:
     decisions = decisions or {}
     normalized_query = query.casefold()
     items = []
     for case in cases:
-        evaluation = evaluate_case(case, policy)
+        evaluation = (
+            evaluations[case.case_id]
+            if evaluations is not None
+            else evaluate_case(case, policy)
+        )
         if evaluation.outcome not in (F4Outcome.REVIEW, F4Outcome.ESCALATED):
             continue
         decision = decisions.get(case.case_id)
-        if decision is not None:
+        if decision is not None and decision.action != "request_info":
             continue
         deadlines = evaluate_deadlines(case, today)
-        item = QueueItem(case=case, evaluation=evaluation, deadlines=deadlines, decision=decision)
+        item = QueueItem(
+            case=case, evaluation=evaluation, deadlines=deadlines, decision=decision
+        )
         if priority != "all" and item.priority.casefold() != priority.casefold():
             continue
         searchable = f"{case.case_id} {case.applicant} {evaluation.reason}".casefold()
@@ -49,4 +65,13 @@ def build_queue(
             continue
         items.append(item)
 
-    return tuple(sorted(items, key=lambda item: (item.priority != "Alta", item.deadlines.contractual_due, item.case.case_id)))
+    return tuple(
+        sorted(
+            items,
+            key=lambda item: (
+                item.priority != "Alta",
+                item.deadlines.contractual_due,
+                item.case.case_id,
+            ),
+        )
+    )

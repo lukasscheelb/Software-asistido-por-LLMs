@@ -10,6 +10,7 @@ class HumanAction(StrEnum):
     APPROVE = "approve"
     REJECT = "reject"
     REQUEST_INFO = "request_info"
+    CORRECT = "correct"
 
 
 class CaseStatus(StrEnum):
@@ -40,16 +41,37 @@ class HumanDecision:
     created_at: str
     platform_outcome: F4Outcome
     discrepancy: bool
+    case_version: int = 1
 
 
 REASON_CATEGORIES = (
     ReasonCategory("requirements_met", "Requisitos cumplidos", (HumanAction.APPROVE,)),
-    ReasonCategory("evidence_consistent", "Evidencia consistente", (HumanAction.APPROVE,)),
-    ReasonCategory("requirements_not_met", "Requisitos no cumplidos", (HumanAction.REJECT,)),
-    ReasonCategory("evidence_inconsistent", "Evidencia inconsistente", (HumanAction.REJECT,)),
-    ReasonCategory("information_incomplete", "Antecedentes incompletos", (HumanAction.REQUEST_INFO,)),
-    ReasonCategory("evidence_unreadable", "Evidencia ilegible", (HumanAction.REQUEST_INFO,)),
-    ReasonCategory("clarification_required", "Aclaración requerida", (HumanAction.REQUEST_INFO,)),
+    ReasonCategory(
+        "evidence_consistent", "Evidencia consistente", (HumanAction.APPROVE,)
+    ),
+    ReasonCategory(
+        "requirements_not_met", "Requisitos no cumplidos", (HumanAction.REJECT,)
+    ),
+    ReasonCategory(
+        "evidence_inconsistent", "Evidencia inconsistente", (HumanAction.REJECT,)
+    ),
+    ReasonCategory(
+        "information_incomplete",
+        "Antecedentes incompletos",
+        (HumanAction.REQUEST_INFO,),
+    ),
+    ReasonCategory(
+        "evidence_unreadable", "Evidencia ilegible", (HumanAction.REQUEST_INFO,)
+    ),
+    ReasonCategory(
+        "clarification_required", "Aclaración requerida", (HumanAction.REQUEST_INFO,)
+    ),
+    ReasonCategory("extraction_error", "Error de extracción", (HumanAction.CORRECT,)),
+    ReasonCategory(
+        "evidence_value_mismatch",
+        "Valor distinto de la evidencia",
+        (HumanAction.CORRECT,),
+    ),
     ReasonCategory("other", "Otro", tuple(HumanAction), requires_comment=True),
 )
 
@@ -70,11 +92,15 @@ def status_for_action(action: HumanAction) -> CaseStatus:
 
 
 def category_by_code(code: str) -> ReasonCategory | None:
-    return next((category for category in REASON_CATEGORIES if category.code == code), None)
+    return next(
+        (category for category in REASON_CATEGORIES if category.code == code), None
+    )
 
 
 def categories_for_action(action: HumanAction) -> tuple[ReasonCategory, ...]:
-    return tuple(category for category in REASON_CATEGORIES if action in category.actions)
+    return tuple(
+        category for category in REASON_CATEGORIES if action in category.actions
+    )
 
 
 def build_human_decision(
@@ -85,6 +111,7 @@ def build_human_decision(
     comment: str,
     operator: str,
     created_at: str,
+    discrepancy: bool = False,
     platform_outcome: F4Outcome,
 ) -> tuple[HumanDecision | None, dict[str, str]]:
     errors: dict[str, str] = {}
@@ -104,10 +131,13 @@ def build_human_decision(
     if category is not None and category.requires_comment and not clean_comment:
         errors["comment"] = "El comentario es obligatorio cuando el motivo es Otro."
 
+    if action == HumanAction.CORRECT:
+        errors["action"] = "Utiliza el formulario de Corrección."
+    if discrepancy and not clean_comment:
+        errors["comment"] = "Declara el motivo del desacuerdo en el comentario."
     if action is None or category is None or errors:
         return None, errors
 
-    discrepancy = action in {HumanAction.APPROVE, HumanAction.REJECT}
     return (
         HumanDecision(
             case_id=case_id,

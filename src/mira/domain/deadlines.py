@@ -6,7 +6,20 @@ from datetime import date, timedelta
 from mira.domain.policy import ControlledCase
 
 
-MONTHS_ES = ("ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic")
+MONTHS_ES = (
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sep",
+    "oct",
+    "nov",
+    "dic",
+)
 
 
 @dataclass(frozen=True)

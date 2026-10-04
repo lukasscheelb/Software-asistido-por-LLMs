@@ -1,6 +1,6 @@
 """Pure F4 policy for controlled demonstration cases."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 from enum import StrEnum
@@ -57,6 +57,7 @@ class F4Evaluation:
     rule: str
     reason: str
     priority: str
+    errors: dict[str, str] = field(default_factory=dict)
 
     @property
     def outcome_class(self) -> str:
@@ -77,16 +78,29 @@ DEFAULT_POLICY = Policy(
 )
 
 
-def evaluate_case(case: ControlledCase, policy: Policy = DEFAULT_POLICY) -> F4Evaluation:
+def evaluate_case(
+    case: ControlledCase, policy: Policy = DEFAULT_POLICY
+) -> F4Evaluation:
     """Evaluate one controlled case without IO or mutable state."""
 
-    numeric_values = (case.score, case.authenticity, case.coherence)
-    if any(value is not None and (value < 0 or value > 100) for value in numeric_values):
+    errors = {}
+    for name in ("score", "authenticity", "coherence"):
+        value = getattr(case, name)
+        if value is None and name != "score":
+            continue
+        if (
+            not isinstance(value, Decimal)
+            or not value.is_finite()
+            or not Decimal("0") <= value <= Decimal("100")
+        ):
+            errors[name] = "Debe ser un número finito entre 0 y 100."
+    if errors:
         return F4Evaluation(
             outcome=F4Outcome.ERROR,
             rule="Validación de entradas",
-            reason="El Puntaje y las Señales deben estar entre 0 y 100.",
+            reason="Puntaje o Señal inválidos: " + ", ".join(errors),
             priority="Sin prioridad",
+            errors=errors,
         )
 
     if case.fraud_detected:

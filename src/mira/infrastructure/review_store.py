@@ -1,19 +1,122 @@
-"""In-memory review intervention store for the local F1 demo."""
+"""SQLite snapshots and atomic compare-and-swap interventions."""
 
-from mira.domain.review import HumanDecision
+from dataclasses import asdict
+from datetime import date
+from decimal import Decimal
+from django.db import transaction
+from django.db.models import F
+from mira.domain.policy import (
+    ControlledCase,
+    Evidence,
+    DEFAULT_POLICY,
+    F4Evaluation,
+    F4Outcome,
+    evaluate_case,
+)
+from mira.domain.review import HumanDecision, HumanAction, CaseStatus
+from mira.infrastructure.models import CaseRecord, EvaluationRecord, InterventionRecord
 
 
-_DECISIONS: dict[str, HumanDecision] = {}
+class StaleVersion(Exception):
+    pass
 
 
-def save_decision(decision: HumanDecision) -> HumanDecision:
-    _DECISIONS[decision.case_id] = decision
-    return decision
+def serial(value):
+    if isinstance(value, dict):
+        return {k: serial(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [serial(v) for v in value]
+    if isinstance(value, (Decimal, date)):
+        return str(value)
+    return value
 
 
-def get_decision(case_id: str) -> HumanDecision | None:
-    return _DECISIONS.get(case_id)
+def seed_case(case, policy=DEFAULT_POLICY):
+    with transaction.atomic():
+        record, created = CaseRecord.objects.get_or_create(
+            case_id=case.case_id,
+            defaults={
+                "payload": serial(asdict(case)),
+                "current_values": {"amount": "120000"},
+            },
+        )
+        if created:
+            EvaluationRecord.objects.create(
+                case=record,
+                inputs=serial(asdict(case)),
+                policy=serial(asdict(policy)),
+                result=serial(asdict(evaluate_case(case, policy))),
+            )
+    return record
 
 
-def clear_decisions() -> None:
-    _DECISIONS.clear()
+def decode_case(data):
+    data = dict(data)
+    for field in ("score", "authenticity", "coherence"):
+        data[field] = Decimal(data[field]) if data[field] is not None else None
+    data["received_date"] = date.fromisoformat(data["received_date"])
+    data["evidence"] = tuple(Evidence(**e) for e in data["evidence"])
+    return ControlledCase(**data)
+
+
+def cases():
+    return tuple(decode_case(r.payload) for r in CaseRecord.objects.order_by("case_id"))
+
+
+def snapshot(case_id):
+    record = CaseRecord.objects.get(pk=case_id)
+    evaluation = record.evaluationrecord
+    return (
+        record,
+        F4Evaluation(
+            **{**evaluation.result, "outcome": F4Outcome(evaluation.result["outcome"])}
+        ),
+        evaluation.policy,
+    )
+
+
+def save_intervention(case_id, expected_case_version, kind, payload):
+    with transaction.atomic():
+        changed = CaseRecord.objects.filter(
+            pk=case_id, version=expected_case_version
+        ).update(version=F("version") + 1)
+        if changed != 1:
+            raise StaleVersion()
+        if (
+            kind == "decision"
+            and InterventionRecord.objects.filter(
+                case_id=case_id, kind="decision"
+            ).exists()
+        ):
+            raise StaleVersion()
+        InterventionRecord.objects.create(
+            case_id=case_id,
+            version=expected_case_version + 1,
+            kind=kind,
+            payload=serial(payload),
+        )
+        if kind == "correction":
+            record = CaseRecord.objects.get(pk=case_id)
+            values = dict(record.current_values)
+            values[payload["field"]] = payload["corrected"]
+            CaseRecord.objects.filter(pk=case_id).update(current_values=values)
+    return payload
+
+
+def get_decision(case_id):
+    event = InterventionRecord.objects.filter(case_id=case_id, kind="decision").last()
+    if not event:
+        return None
+    data = dict(event.payload)
+    data["action"] = HumanAction(data["action"])
+    data["status"] = CaseStatus(data["status"])
+    data["platform_outcome"] = F4Outcome(data["platform_outcome"])
+    return HumanDecision(**data)
+
+
+def history(case_id):
+    return list(
+        InterventionRecord.objects.filter(case_id=case_id).values(
+            "version", "kind", "payload"
+        )
+    )

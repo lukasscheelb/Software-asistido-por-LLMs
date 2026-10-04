@@ -20,13 +20,13 @@
       {% if query or priority != "all" %}<a class="text-link" href="{% url 'web:bandeja' %}">Limpiar</a>{% endif %}
     </form>
     {% if items %}
-      <div class="queue-table-wrap"><table class="queue-table"><thead><tr><th scope="col">Caso</th><th scope="col">Salida F4</th><th scope="col">Razón principal</th><th scope="col">Prioridad</th><th scope="col">Plazo contractual</th><th scope="col"><span class="visually-hidden">Abrir</span></th></tr></thead><tbody>
+      <div class="queue-table-wrap"><table class="queue-table"><thead><tr><th scope="col">Caso</th><th scope="col">Salida F4</th><th scope="col">Razón principal</th><th scope="col">Prioridad</th><th scope="col">Estado</th><th scope="col">Plazo interno</th><th scope="col">Plazo contractual</th><th scope="col"><span class="visually-hidden">Abrir</span></th></tr></thead><tbody>
         {% for item in items %}<tr>
           <td data-label="Caso"><a class="case-link" href="{% url 'web:detalle_caso' item.case.case_id %}">{{ item.case.case_id }}</a><span>{{ item.case.applicant }}</span></td>
           <td data-label="Salida F4"><span class="status status--{{ item.evaluation.outcome_class }}">{{ item.evaluation.outcome }}</span></td>
           <td data-label="Razón principal" class="reason-cell">{{ item.evaluation.reason }}</td>
-          <td data-label="Prioridad"><span class="priority priority--{{ item.priority|lower }}">{{ item.priority }}</span>{% if item.deadlines.supervisor_mark %}<span>Supervisor</span>{% endif %}</td>
-          <td data-label="Plazo contractual"><strong>{{ item.deadlines.contractual_label }}</strong><span>{{ item.deadlines.contractual_state }}</span></td>
+          <td data-label="Prioridad"><span class="priority priority--{{ item.priority|lower }}">{{ item.priority }}</span>{% if item.evaluation.outcome.value == "ESCALADO" or item.deadlines.supervisor_mark %}<span>Supervisor</span>{% endif %}</td>
+          <td data-label="Estado">{% if item.decision %}{{ item.decision.status }}{% else %}PENDIENTE DE REVISIÓN{% endif %}</td><td data-label="Plazo interno">{{ item.deadlines.internal_label }} · {{ item.deadlines.internal_state }}</td><td data-label="Plazo contractual"><strong>{{ item.deadlines.contractual_label }}</strong><span>{{ item.deadlines.contractual_state }}</span></td>
           <td class="row-action"><a href="{% url 'web:detalle_caso' item.case.case_id %}" aria-label="Abrir {{ item.case.case_id }}">Abrir</a></td>
         </tr>{% endfor %}
       </tbody></table></div>

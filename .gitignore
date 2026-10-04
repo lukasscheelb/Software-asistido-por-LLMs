@@ -10,3 +10,5 @@ htmlcov/
 playwright-report/
 test-results/
 staticfiles/
+
+test.sqlite3
