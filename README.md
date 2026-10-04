@@ -102,6 +102,6 @@ Demo: ejecutar CC-F4-04/05/09, corregir el borrador de error, abrir CC-F1-01 y s
 
 ## Archivos de entrega candidata
 
-Etiqueta local: `v2.0-rc1`, sobre `main`. [Informe PDF](entrega/MIRA-Meyer-Scheel-Rodriguez.pdf) y [presentación editable](entrega/MIRA-Entrega2.pptx). El grupo se dejó en blanco por instrucción del usuario; completar portada y renombrar el PDF como `NUMEROGRUPO-MIRA-Meyer-Scheel-Rodriguez.pdf` antes de entregar. Fuentes: `docs/informe-candidato.md` y `docs/guion-presentacion.md`.
+Etiqueta local: `v2.0-rc1`, sobre `main`. [Informe PDF](entrega/MIRA-Meyer-Scheel-Rodriguez.pdf), [informe Word editable](entrega/MIRA-Meyer-Scheel-Rodriguez.docx) y [presentación editable](entrega/MIRA-Entrega2.pptx). El grupo se dejó en blanco por instrucción del usuario; completar portada y renombrar el PDF como `NUMEROGRUPO-MIRA-Meyer-Scheel-Rodriguez.pdf` antes de entregar. Fuentes: `docs/informe-candidato.md` y `docs/guion-presentacion.md`.
 
 La revisión BMAD terminó con los parches cerrados y sin hallazgos diferidos: `docs/qa/review-bmad.md`. Verificación: 33 Django y 8 pytest OK. La etiqueta v2.0 final queda reservada para el cierre validado; completar las actas reales pendientes, revisar la reflexión personal y resolver/acreditar recursos. Esta versión no se publicó automáticamente en GitHub.
