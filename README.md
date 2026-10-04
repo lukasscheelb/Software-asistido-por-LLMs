@@ -23,9 +23,12 @@ Abrir `http://127.0.0.1:8000/`. La ruta inicial redirige a `/bandeja/`.
 reproduce las dependencias de `uv.lock`. La base `db.sqlite3` se crea localmente y
 no se versiona.
 
-La demo incluye cuatro Casos ficticios: la Bandeja permite buscar y filtrar los que
-requieren revisión, `Ejecutar F4` aplica la Política determinista del piloto y el
-detalle presenta la Evidencia antes del Puntaje. No se usan datos personales reales.
+La demo incluye nueve Casos ficticios para la matriz F4. La Bandeja permite buscar
+y filtrar los que requieren revisión, `Ejecutar F4` aplica la Política
+determinista del piloto y el detalle presenta la Evidencia antes del Puntaje. En
+F1 el operador puede registrar una decisión humana mínima con acción, categoría de
+motivo obligatoria y comentario obligatorio cuando el motivo es `Otro`. No se usan
+datos personales reales.
 
 La verificación automatizada base se ejecuta con `uv run python manage.py test mira.web`.
 El contrato de ampliación hacia pytest y Playwright, capas, marcadores CAP-3 y

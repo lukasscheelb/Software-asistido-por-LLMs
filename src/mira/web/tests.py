@@ -12,6 +12,7 @@ from mira.domain.policy import (
     evaluate_case,
 )
 from mira.infrastructure.controlled_cases import get_controlled_case, list_controlled_cases
+from mira.infrastructure.review_store import clear_decisions, get_decision
 
 
 def controlled_case(
@@ -46,6 +47,9 @@ def controlled_case(
 
 
 class F4PolicyTests(SimpleTestCase):
+    def setUp(self):
+        clear_decisions()
+
     def test_pf04_boundary_matrix_for_f4_cases(self):
         cases = {
             "CC-F4-01": controlled_case("CC-F4-01", "59.99", "80", "80"),
@@ -107,6 +111,9 @@ class F4PolicyTests(SimpleTestCase):
 
 
 class MiraWebRouteTests(SimpleTestCase):
+    def setUp(self):
+        clear_decisions()
+
     def test_home_redirects_to_review_queue(self):
         response = self.client.get("/")
 
@@ -153,6 +160,50 @@ class MiraWebRouteTests(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertLess(content.index("Evidencia"), content.index("Puntaje y Señales"))
         self.assertContains(response, get_controlled_case("CC-F4-02").evidence[0].filename)
+
+    def test_human_decision_requires_reason(self):
+        response = self.client.post(
+            reverse("web:detalle_caso", args=["CC-F4-02"]),
+            {"action": "request_info", "reason": "", "comment": ""},
+        )
+
+        self.assertContains(response, "Selecciona una categoría de motivo.")
+        self.assertIsNone(get_decision("CC-F4-02"))
+
+    def test_human_decision_requires_comment_for_other_reason(self):
+        response = self.client.post(
+            reverse("web:detalle_caso", args=["CC-F4-02"]),
+            {"action": "request_info", "reason": "other", "comment": "   "},
+        )
+
+        self.assertContains(response, "El comentario es obligatorio cuando el motivo es Otro.")
+        self.assertIsNone(get_decision("CC-F4-02"))
+
+    def test_human_decision_records_request_info_and_removes_case_from_queue(self):
+        response = self.client.post(
+            reverse("web:detalle_caso", args=["CC-F4-02"]),
+            {"action": "request_info", "reason": "information_incomplete", "comment": "Falta respaldo bancario."},
+        )
+
+        decision = get_decision("CC-F4-02")
+        self.assertContains(response, "Decisión registrada correctamente.")
+        self.assertContains(response, "ESPERANDO ANTECEDENTES")
+        self.assertEqual(decision.reason_label, "Antecedentes incompletos")
+        self.assertFalse(decision.discrepancy)
+
+        queue_response = self.client.get(reverse("web:bandeja"))
+        self.assertNotContains(queue_response, "CC-F4-02")
+
+    def test_human_rejection_marks_discrepancy(self):
+        response = self.client.post(
+            reverse("web:detalle_caso", args=["CC-F4-06"]),
+            {"action": "reject", "reason": "requirements_not_met", "comment": ""},
+        )
+
+        decision = get_decision("CC-F4-06")
+        self.assertContains(response, "RECHAZADO")
+        self.assertContains(response, "Discrepancia")
+        self.assertTrue(decision.discrepancy)
 
     def test_unknown_case_returns_404(self):
         response = self.client.get(reverse("web:detalle_caso", args=["NO-EXISTE"]))

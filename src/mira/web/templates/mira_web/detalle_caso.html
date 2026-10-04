@@ -2,7 +2,7 @@
 {% block title %}{{ case.case_id }} | MIRA{% endblock %}
 {% block content %}
   <nav class="breadcrumb" aria-label="Migas de pan"><a href="{% url 'web:bandeja' %}">Bandeja</a><span aria-hidden="true">/</span><span>{{ case.case_id }}</span></nav>
-  <header class="page-header detail-header"><div><p class="section-kicker">Detalle de Caso</p><h1>{{ case.case_id }}</h1><p class="page-description">{{ case.applicant }} · {{ case.product }}</p></div><span class="status status--{{ evaluation.outcome_class }}">{{ evaluation.outcome }}</span></header>
+  <header class="page-header detail-header"><div><p class="section-kicker">Detalle de Caso</p><h1>{{ case.case_id }}</h1><p class="page-description">{{ case.applicant }} · {{ case.product }}</p></div><div class="status-stack"><span class="status status--{{ evaluation.outcome_class }}">{{ evaluation.outcome }}</span>{% if decision %}<span class="status status--approved">{{ decision.status }}</span>{% endif %}</div></header>
   <div class="detail-grid">
     <section class="evidence-section" aria-labelledby="evidence-title"><div class="section-heading"><div><h2 id="evidence-title">Evidencia</h2><p>Revisa el hallazgo antes del Puntaje.</p></div></div><div class="evidence-list">
       {% for evidence in case.evidence %}<article class="evidence-item"><div class="document-preview" aria-hidden="true"><span>{{ forloop.counter|stringformat:"02d" }}</span><strong>{{ evidence.kind }}</strong></div><div><h3>{{ evidence.filename }}</h3><p class="evidence-location">{{ evidence.location }}</p><p>{{ evidence.finding }}</p></div></article>{% endfor %}
@@ -10,6 +10,26 @@
     <aside class="case-sidebar" aria-labelledby="explanation-title">
       <section><h2 id="explanation-title">Explicación F4</h2><p class="result-reason">{{ evaluation.reason }}</p><dl class="stacked-facts"><div><dt>Regla aplicada</dt><dd>{{ evaluation.rule }}</dd></div><div><dt>Prioridad</dt><dd>{{ evaluation.priority }}</dd></div><div><dt>Ingreso</dt><dd>{{ case.received_at }}</dd></div><div><dt>Plazo interno</dt><dd>{{ case.internal_deadline }}</dd></div><div><dt>Plazo contractual</dt><dd>{{ case.contractual_deadline }}</dd></div></dl></section>
       <section class="score-section"><h2>Puntaje y Señales</h2><dl class="signal-list"><div><dt>Puntaje</dt><dd>{{ case.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ case.authenticity|default_if_none:"Ausente" }}</dd></div><div><dt>Coherencia</dt><dd>{{ case.coherence|default_if_none:"Ausente" }}</dd></div><div><dt>Fraude</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div><div><dt>Automatización</dt><dd>{{ case.automation_enabled|yesno:"Activa,Deshabilitada" }}</dd></div></dl></section>
+      <section class="review-section"><h2>Decisión humana</h2>
+        {% if saved %}<p class="success-message" role="status">Decisión registrada correctamente.</p>{% endif %}
+        {% if errors.case %}<p class="form-error">{{ errors.case }}</p>{% endif %}
+        {% if decision %}
+          <dl class="stacked-facts"><div><dt>Estado</dt><dd>{{ decision.status }}</dd></div><div><dt>Acción</dt><dd>{{ decision.action_label }}</dd></div><div><dt>Motivo</dt><dd>{{ decision.reason_label }}</dd></div><div><dt>Operador</dt><dd>{{ decision.operator }}</dd></div><div><dt>Fecha</dt><dd>{{ decision.created_at }}</dd></div><div><dt>Discrepancia</dt><dd>{{ decision.discrepancy|yesno:"Sí,No" }}</dd></div></dl>
+          {% if decision.comment %}<p class="decision-comment">{{ decision.comment }}</p>{% endif %}
+        {% elif can_review %}
+          <form class="decision-form" method="post">{% csrf_token %}
+            <fieldset><legend>Acción</legend>{% for action in action_options %}<label class="radio-option"><input type="radio" name="action" value="{{ action.0.value }}" {% if form_data.action == action.0.value %}checked{% endif %}>{{ action.1 }}</label>{% endfor %}</fieldset>
+            {% if errors.action %}<p class="form-error">{{ errors.action }}</p>{% endif %}
+            <label><span>Categoría de motivo</span><select name="reason" required><option value="">Seleccionar motivo</option>{% for category in reason_categories %}<option value="{{ category.code }}" {% if form_data.reason == category.code %}selected{% endif %}>{{ category.label }}</option>{% endfor %}</select></label>
+            {% if errors.reason %}<p class="form-error">{{ errors.reason }}</p>{% endif %}
+            <label><span>Comentario</span><textarea name="comment" rows="4" placeholder="Obligatorio si eliges Otro">{{ form_data.comment }}</textarea></label>
+            {% if errors.comment %}<p class="form-error">{{ errors.comment }}</p>{% endif %}
+            <button class="primary-button" type="submit">Registrar decisión</button>
+          </form>
+        {% else %}
+          <p class="result-reason">Este Caso no requiere intervención humana desde F1.</p>
+        {% endif %}
+      </section>
     </aside>
   </div>
 {% endblock %}

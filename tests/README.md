@@ -2,9 +2,9 @@
 
 El proyecto ya contiene una suite base ejecutable con el runner de Django en
 `src/mira/web/tests.py`. Esa suite cubre la Política F4, la Bandeja, el detalle de
-Caso y el orden Evidencia antes de Puntaje. Este documento conserva además los
-puntos de conexión para ampliar el harness con pytest y Playwright en una story
-posterior.
+Caso, el orden Evidencia antes de Puntaje y la decisión humana mínima de F1 con
+motivos obligatorios. Este documento conserva además los puntos de conexión para
+ampliar el harness con pytest y Playwright en una story posterior.
 
 ## Comando disponible
 
@@ -18,12 +18,14 @@ uv run python manage.py test mira.web
 - Entrada de comandos: `uv run python manage.py ...`.
 - Ruta inicial: `GET /` responde con una redirección temporal a `/bandeja/`.
 - Bandeja: `GET /bandeja/` responde `200` y renderiza los Casos controlados
-  `CC-F4-02` y `CC-F4-03` sin depender de JavaScript.
+  derivados a `REVISIÓN` o `ESCALADO` sin depender de JavaScript.
 - Ejecución F4: `GET /ejecutar-f4/` presenta el selector de Casos y
   `POST /ejecutar-f4/` devuelve una de las cuatro salidas deterministas de la
   Política.
 - Detalle: `GET /casos/<case_id>/` muestra primero la Evidencia y después el
-  Puntaje y las Señales; un identificador desconocido responde `404`.
+  Puntaje y las Señales; `POST /casos/<case_id>/` registra una decisión humana
+  mínima cuando la acción y la categoría de motivo son válidas; un identificador
+  desconocido responde `404`.
 - Composition root: `mira.composition`; solo este módulo ensamblará adaptadores
   concretos cuando existan.
 - Capas: `tests/unit` cubrira `mira.domain`, `tests/integration` cubrira puertos y
