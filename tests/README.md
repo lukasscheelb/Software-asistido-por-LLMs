@@ -9,8 +9,13 @@ que conecte el harness deberá mantener el arranque web actual sin cambios.
 - Settings de Django: `mira.settings` mediante `DJANGO_SETTINGS_MODULE`.
 - Entrada de comandos: `uv run python manage.py ...`.
 - Ruta inicial: `GET /` responde con una redirección temporal a `/bandeja/`.
-- Ruta visible: `GET /bandeja/` responde `200` y renderiza `Bandeja` y
-  `No hay Casos pendientes.` sin depender de JavaScript.
+- Bandeja: `GET /bandeja/` responde `200` y renderiza los Casos controlados
+  `CC-F4-02` y `CC-F4-03` sin depender de JavaScript.
+- Ejecución F4: `GET /ejecutar-f4/` presenta el selector de Casos y
+  `POST /ejecutar-f4/` devuelve una de las cuatro salidas deterministas de la
+  Política.
+- Detalle: `GET /casos/<case_id>/` muestra primero la Evidencia y después el
+  Puntaje y las Señales; un identificador desconocido responde `404`.
 - Composition root: `mira.composition`; solo este módulo ensamblará adaptadores
   concretos cuando existan.
 - Capas: `tests/unit` cubrira `mira.domain`, `tests/integration` cubrira puertos y
@@ -46,8 +51,9 @@ alterarán esos archivos ni compartirán `db.sqlite3` entre ejecuciones.
 
 La configuración futura de pytest registrará `cap_3`, `unit`, `integration` y
 `e2e`. La prueba base de CAP-3 comprobará la redirección, el estado HTTP, el HTML
-server-rendered y los dos textos visibles de la Bandeja. Los nombres de las
-pruebas citaran CAP-3.
+server-rendered, los filtros de la Bandeja y las cuatro salidas controladas de F4.
+También verificará el orden Evidencia antes de Puntaje en el detalle. Los nombres
+de las pruebas citaran CAP-3.
 
 En concreto, `cap_3 and unit` ejecutará una guardia estática sobre el AST de imports
 de `src/mira`: rechazará dependencias contrarias a

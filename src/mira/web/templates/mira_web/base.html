@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>{% block title %}MIRA{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'mira_web/styles.css' %}">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="app-shell">
+      <header class="app-navigation">
+        <a class="brand" href="{% url 'web:bandeja' %}" aria-label="MIRA, inicio">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span><strong>MIRA</strong><small>Decisiones asistidas</small></span>
+        </a>
+        <nav class="primary-navigation" aria-label="Navegación principal">
+          <p class="navigation-label">Operación</p>
+          <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" {% if active_navigation == 'bandeja' %}aria-current="page"{% endif %}>Bandeja</a>
+          <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" {% if active_navigation == 'ejecutar' %}aria-current="page"{% endif %}>Ejecutar F4</a>
+        </nav>
+        <details class="mobile-navigation">
+          <summary>Menú</summary>
+          <nav aria-label="Navegación principal móvil">
+            <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" aria-label="Bandeja">Bandeja</a>
+            <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" aria-label="Ejecutar F4">Ejecutar F4</a>
+          </nav>
+        </details>
+        <div class="environment-block">
+          <span class="environment-dot" aria-hidden="true"></span>
+          <span><strong>Piloto local</strong><small>Datos ficticios</small></span>
+        </div>
+      </header>
+      <main id="contenido" class="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
+    </div>
+  </body>
+</html>

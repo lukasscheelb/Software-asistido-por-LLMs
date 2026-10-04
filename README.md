@@ -22,6 +22,10 @@ Abrir `http://127.0.0.1:8000/`. La ruta inicial redirige a `/bandeja/`.
 reproduce las dependencias de `uv.lock`. La base `db.sqlite3` se crea localmente y
 no se versiona.
 
+La demo incluye cuatro Casos ficticios: la Bandeja permite buscar y filtrar los que
+requieren revisión, `Ejecutar F4` aplica la Política determinista del piloto y el
+detalle presenta la Evidencia antes del Puntaje. No se usan datos personales reales.
+
 El harness automatizado se conectará en una story posterior. Su contrato, capas,
 marcadores CAP-3 y comandos previstos están documentados en `tests/README.md`.
 Este starter es solo para desarrollo y verificación local; no incluye configuración
