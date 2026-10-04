@@ -140,3 +140,47 @@
 - 25 pruebas Django y 4 pytest verifican persistencia, carrera, fronteras, errores, corrección y navegador.
 - Medición registrada diagnóstica: p95 0.4871s, RSS 842932224 bytes, CPU 1.2759 núcleos. CPU excede umbral; hardware AD-15 no acreditado.
 - Sesiones externas, aceptación de Sebastián y v2.0 final pendientes. Número de grupo dejado en blanco por instrucción del usuario.
+
+
+## 15. Auditoría de la entrega y aprobación del cierre BMAD — 2026-10-04
+
+- Se revisaron los enunciados y el repositorio frente a la rúbrica de E2, con foco en implementación funcional, trazabilidad, pruebas, reproducibilidad y documentos de entrega.
+- Se priorizaron la persistencia de intervenciones, el control de concurrencia, la Corrección auditada, la evidencia visible y el cierre verificable del incremento F4 + F1.
+- Se versionó el plan BMAD en `_bmad-output/implementation-artifacts/plan-cierre-mira-e2-f4-f1.md` y se conservaron los artefactos y decisiones de E1.
+- El usuario aprobó las correcciones con opción A y solicitó integrar la rama de preparación en `main`; se realizó la integración fast-forward y el trabajo posterior continuó directamente en `main` (aprobación registrada en `e429d4d`).
+- Se ratificó DEC-E2-08: el desacuerdo debe declararse con motivo; una Corrección registra Discrepancia y una Decisión, por sí sola, no implica desacuerdo.
+
+## 16. Implementación y correcciones posteriores a la revisión — 2026-10-04
+
+- Se completó F4 → F1 con SQLite, snapshots de evaluación y política, control transaccional por versión y eventos append-only en repositorio/modelos. `load_demo` conserva intervenciones al repetirse.
+- Se incorporaron 15 Casos ficticios, evidencia PDF/PNG visible, historial persistente, Corrección de importe que conserva el original y la Decisión humana, motivos obligatorios y comentario obligatorio para `Otro`.
+- Se mantuvieron los parámetros del piloto (T=90, mínimos 70), precedencia de fraude, reloj controlado de Santiago y plazos de 3/5 días hábiles; los vencidos y las solicitudes de antecedentes permanecen abiertos.
+- Se conservaron snapshots antiguos sin reescribir evaluaciones, se hizo coherente la lectura del detalle y se bloquearon ambos formularios ante `stale_version` hasta recargar.
+- Se corrigieron entradas decimales localizadas, NaN/Infinity, duplicación de borradores, retención de datos al fallar una Corrección, mensajes de confirmación y rutas de modificación ORM de snapshots.
+- La revisión BMAD documentó cuatro lentes, su clasificación de hallazgos y los parches; todos los hallazgos enviados a corrección quedaron cerrados. Evidencia: `docs/qa/review-bmad.md` y `docs/qa/review-fixes.md`.
+- Commits de referencia: implementación `622f1c8`, compatibilidad histórica `f7dada6`, correcciones de revisión `beca2cb` y cierre candidato `a818042`.
+
+## 17. Verificación final y límites del candidato — 2026-10-04
+
+- La verificación final registrada pasó instalación bloqueada (`uv sync --locked`), comprobación Django, migraciones y carga del corpus; runtime reconciliado: Python 3.13.16 y Django 5.2.17.
+- Resultado final: **33 pruebas Django y 8 pytest aprobadas**. Este registro actualiza los conteos intermedios de la sección 14 y conserva su evidencia histórica.
+- Se verificaron persistencia entre procesos, concurrencia por versión, fronteras F4, errores sin efectos laterales, evidencia, Corrección, historial y flujos Chromium. Se completó la matriz Must con historias, código, pruebas, commits y hashes de fuentes actuales.
+- Se corrigió el muestreo CPU para capturar contadores iniciales/finales y declarar brechas. Medición final diagnóstica: p95 **0,5228 s**, RSS máximo **837.009.408 bytes** (aprox. 798,2 MiB), CPU promedio **1,3237 núcleos**, sin brechas observadas de contadores.
+- p95 y memoria cumplen sus umbrales observados; CPU supera el límite de 1 núcleo. El hardware no acredita AD-15, por lo que estos resultados no certifican aceptación de rendimiento. Fuente: `docs/qa/measurements.json`; medición anterior conservada por separado.
+- Se registró reproducción técnica desde una exportación Git limpia con caché local (8,65 s); no equivale a una sesión de instalación realizada por una persona externa.
+- Siguen pendientes PX-05/usabilidad humana, sesión externa de reproducción, aceptación de Sebastián Rodríguez y resolución/acreditación de CPU y entorno AD-15. Actas: `docs/qa/actas-pendientes.md`.
+- Se creó la etiqueta candidata **`v2.0-rc1`** sobre `88804a0`; `v2.0` final queda reservada para el cierre validado.
+
+## 18. Informe, presentación y versión Word editable — 2026-10-04
+
+- Se prepararon el informe 6.1–6.8, matriz de trazabilidad Must, comparativa, guion, capturas y documentos de QA.
+- Se incorporaron `entrega/MIRA-Meyer-Scheel-Rodriguez.pdf` (12 páginas) y `entrega/MIRA-Entrega2.pptx` (13 diapositivas), con registros de revisión e integridad en `docs/qa/artifacts.json`.
+- Por instrucción del usuario, el número de grupo quedó en blanco para completarlo manualmente; debe ajustarse la portada y el nombre requerido antes de entregar.
+- Se convirtió el informe a `entrega/MIRA-Meyer-Scheel-Rodriguez.docx` y se enlazó desde README (commit `68de896`): texto y tres tablas editables, cinco imágenes y grupo en blanco.
+- La conversión verificó contenido de la fuente e integridad del paquete DOCX. La paginación visual de Word no pudo verificarse en este entorno; debe revisarse al abrirlo en Word.
+
+## 19. Autorización de publicación en GitHub — 2026-10-04
+
+- El usuario solicitó actualizar esta bitácora y realizar commit y push de todo el trabajo de la sesión al repositorio `lukasscheelb/Software-asistido-por-LLMs`.
+- Esta autorización posterior reemplaza la restricción operativa de no hacer push del plan inicial. La publicación debe conservar el historial y los hashes, subir `main` y la etiqueta candidata `v2.0-rc1`, sin forzar referencias.
+- La aceptación humana y la acreditación de rendimiento siguen pendientes aunque se publique el candidato. El resultado del push se verificará contra las referencias remotas.
