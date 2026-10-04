@@ -56,13 +56,13 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `domain/review.py`, `application/ports.py`, `application/services.py`: comandos de decisión/corrección y conflictos.
-- [ ] `infrastructure/models.py`, `infrastructure/migrations/`, `review_store.py`: casos/versiones/evaluaciones e intervenciones append-only, CAS atómico.
-- [ ] `composition.py`, `domain/policy.py`, `infrastructure/clock.py`: ensamblaje, reloj compartido y entradas finitas.
-- [ ] `fixtures/`, `web/management/commands/load_demo.py`: corpus F4/F1 idempotente y evidencia PDF/imágenes visible.
-- [ ] `web/views.py`, `web/urls.py`, `web/templates/`, `web/static/`: formularios versionados, historial, correcciones, supervisor, estados y ambos plazos.
-- [ ] `web/tests.py`, `tests/`, `pyproject.toml`, `uv.lock`: persistencia, carrera, errores, E2E y mediciones con configuración/resultados reales.
-- [ ] `docs/`, `README.md`, bitácora E2 y `_bmad-output/`: matriz Must con hashes, comparativa, QA, runtime coherente y cierre escrito/presentación; actas humanas pendientes.
+- [x] `domain/review.py`, `application/ports.py`, `application/services.py`: comandos de decisión/corrección y conflictos.
+- [x] `infrastructure/models.py`, `infrastructure/migrations/`, `review_store.py`: casos/versiones/evaluaciones e intervenciones append-only, CAS atómico.
+- [x] `composition.py`, `domain/policy.py`, `infrastructure/clock.py`: ensamblaje, reloj compartido y entradas finitas.
+- [x] `fixtures/`, `web/management/commands/load_demo.py`: corpus F4/F1 idempotente y evidencia PDF/imágenes visible.
+- [x] `web/views.py`, `web/urls.py`, `web/templates/`, `web/static/`: formularios versionados, historial, correcciones, supervisor, estados y ambos plazos.
+- [x] `web/tests.py`, `tests/`, `pyproject.toml`, `uv.lock`: persistencia, carrera, errores, E2E y mediciones con configuración/resultados reales.
+- [x] `docs/`, `README.md`, bitácora E2 y `_bmad-output/`: matriz Must con hashes, comparativa, QA, runtime coherente y cierre escrito/presentación; actas humanas pendientes.
 
 Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/tests/docs, dependencias y documentos BMAD.
 
@@ -90,3 +90,14 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 - `uv run python manage.py test mira.web` y `uv run pytest tests`: suites y navegador aislado.
 - `uv run python tests/quality/measure.py`: p95/recursos con muestras; si no se acredita el entorno AD-15, resultado diagnóstico.
 - Navegador: evidencia, historial, corrección y conflicto entre pestañas. Externo PX-05 y aceptación de Sebastián siguen siendo sesiones humanas.
+
+
+## Implementación y verificación registrada — 2026-10-04
+
+- Candidato técnico local en main: `622f1c89a62469fbfb53fcfcf2774980a1cad2b3`; documentación/QA: `7afd478` (hash completo en matriz). No se realizó push.
+- SQLite, snapshots de evaluación/política, versión CAS y eventos append-only por repositorio/modelos; correcciones preservan decisión y originales. Corpus de 15 casos con PDF/PNG ficticios.
+- `manage.py check`, migraciones y carga idempotente válidas; 25 pruebas Django, 5 pytest (incluye cadena verificable de rutas/historias/pruebas/hashes/commits), navegador Chromium y reinicio mediante procesos nuevos.
+- Medición real del commit técnico: p95 0,4871s; RSS máx 842932224 bytes; CPU promedio 1,2759 núcleos, supera ≤1. Hardware 12 lógicos/34224758784 bytes RAM, no acredita 2vCPU/4GiB: diagnóstico, no aceptación AD-15.
+- Reproducción técnica git archive limpio con caché: 8,65s; sesión externa de clon limpio pendiente.
+- Fuentes informe 6.1–6.8, comparativa dos tablas/indicadores propuestos, guion y actas pendientes en docs. Número de grupo en blanco por instrucción humana.
+- Pendientes de cierre final: revisión BMAD del candidato, PX-05 externo, aceptación de Sebastián y medición acreditada AD-15/PX-08/resolución de CPU. v2.0 final reservada; no se inventa ninguna aceptación o sesión humana.
