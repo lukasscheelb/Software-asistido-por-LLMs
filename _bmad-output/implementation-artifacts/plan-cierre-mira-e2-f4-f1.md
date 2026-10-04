@@ -3,7 +3,7 @@ title: 'Cerrar correcciones MIRA F4 y F1'
 type: 'bugfix'
 ticket: ''
 created: '2026-10-04'
-status: 'draft'
+status: 'in-progress'
 route: 'full'
 route_source: 'auto'
 review: ''
@@ -23,7 +23,7 @@ context:
 
 **Problem:** F4/F1 pierde intervenciones al reiniciar, admite decisiones concurrentes y carece de correcciones, evidencia visible y cierre verificable.
 
-**Approach:** Completar el incremento contra sus contratos BMAD, conservando IDs E1 y commits trazables en `fix/mira-e2-bmad`. El usuario solicita todas las correcciones prioritarias de la auditoría como una versión candidata coherente.
+**Approach:** Completar el incremento contra sus contratos BMAD, conservando IDs E1 y commits trazables directamente en `main`. El usuario solicita todas las correcciones prioritarias de la auditoría como una versión candidata coherente.
 
 ## Boundaries & Constraints
 
@@ -73,11 +73,12 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 - Dado un Must, cuando se consulta su matriz, entonces existen historia/código/prueba/commit.
 - Dada una sesión humana no realizada, cuando se consulta el cierre, entonces figura pendiente.
 
-## Open Questions
-
-1. Discrepancia: F4 deriva, no recomienda aprobar/rechazar. **A:** operador declara desacuerdo con motivo; corrección marca discrepancia. **B:** mantener aprobación/rechazo como discrepancia frente a derivación. A distingue resolución de desacuerdo; B conserva la convención actual. Registrar DEC-E2 antes de implementar.
-
 ## Implementation Notes
+
+- 2026-10-04: el usuario aprueba todo el plan con opción A y pide unir la rama a main. Merge fast-forward completado; implementar directamente en main. DEC-E2-08: el operador declara desacuerdo con motivo; una corrección registra discrepancia; una decisión por sí sola no implica desacuerdo.
+- Runtime local disponible: `.venv/Scripts/python.exe` en raíz del repo. uv: `C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/audit-env/Scripts/uv.exe`. Variables de runtime/cache escribibles: UV_CACHE_DIR=`C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/uv-cache`, UV_PYTHON_INSTALL_DIR=`C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/uv-python`.
+- Git necesita `-c safe.directory=C:/Users/lukas/Documents/Codex/2026-10-04/nece/work/repo-actual`; identidad por comando `-c user.name=Codex -c user.email=codex@local`. Commits locales por grupo coherente están autorizados; no hacer push.
+- Fuera del repo, salidas para usuario solo en `C:/Users/lukas/Documents/Codex/2026-10-04/nece/outputs`; intermediarios en work.
 
 ## Plan Change Log
 
