@@ -96,7 +96,7 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 
 - Candidato técnico local en main: `622f1c89a62469fbfb53fcfcf2774980a1cad2b3`; documentación/QA: `7afd478` (hash completo en matriz). No se realizó push.
 - SQLite, snapshots de evaluación/política, versión CAS y eventos append-only por repositorio/modelos; correcciones preservan decisión y originales. Corpus de 15 casos con PDF/PNG ficticios.
-- `manage.py check`, migraciones y carga idempotente válidas; 25 pruebas Django, 5 pytest (incluye cadena verificable de rutas/historias/pruebas/hashes/commits), navegador Chromium y reinicio mediante procesos nuevos.
+- `manage.py check`, migraciones y carga idempotente válidas; 26 pruebas Django, 5 pytest (incluye cadena verificable de rutas/historias/pruebas/hashes/commits), navegador Chromium y reinicio mediante procesos nuevos.
 - Medición real del commit técnico: p95 0,4871s; RSS máx 842932224 bytes; CPU promedio 1,2759 núcleos, supera ≤1. Hardware 12 lógicos/34224758784 bytes RAM, no acredita 2vCPU/4GiB: diagnóstico, no aceptación AD-15.
 - Reproducción técnica git archive limpio con caché: 8,65s; sesión externa de clon limpio pendiente.
 - Fuentes informe 6.1–6.8, comparativa dos tablas/indicadores propuestos, guion y actas pendientes en docs. Número de grupo en blanco por instrucción humana.

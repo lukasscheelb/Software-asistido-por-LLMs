@@ -54,7 +54,7 @@ Autoría aproximada con evidencia: `622f1c8` registra 38 archivos cambiados, 144
 
 ## 6.5 Pruebas y verificación
 
-25 pruebas Django y 5 pytest (incluida verificación de trazabilidad) pasan. PF-04 se concreta en CC-F4-01…09 y pruebas con salidas esperadas de `policy-cases.md`: fronteras 59,99/60/90/90,01, fraude, señal69,99/ausente, OFF y error. Se agregan NaN/Infinity y precedencia de error para evitar una aprobación accidental. PF-05 se concreta en CC-F1-01…04: motivo/categoría incompatible/Otro vacío, 120000→100000, antecedentes, versión obsoleta; PF-14 conserva calendario y alertas CC-F1-05/06. Estas son reformulaciones ejecutables del contrato, sin sustituir los criterios E1.
+26 pruebas Django y 5 pytest (incluida verificación de trazabilidad) pasan. PF-04 se concreta en CC-F4-01…09 y pruebas con salidas esperadas de `policy-cases.md`: fronteras 59,99/60/90/90,01, fraude, señal69,99/ausente, OFF y error. Se agregan NaN/Infinity y precedencia de error para evitar una aprobación accidental. PF-05 se concreta en CC-F1-01…04: motivo/categoría incompatible/Otro vacío, 120000→100000, antecedentes, versión obsoleta; PF-14 conserva calendario y alertas CC-F1-05/06. Estas son reformulaciones ejecutables del contrato, sin sustituir los criterios E1.
 
 `tests/test_e2e.py` recorre por Chromium las nueve salidas F4 y la recuperación de error; F1 inspecciona PDF/PNG, verifica evidencia antes del score, corrige, solicita antecedentes, mantiene decisión en conflicto entre pestañas y muestra vencido abierto. `ConcurrentReviewTests` usa dos conexiones SQLite reales; `test_restart.py` escribe y lee desde procesos nuevos. PX-09 del corpus ficticio pasa; no implica validez del motor real ni habilita ampliación del piloto.
 

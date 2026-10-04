@@ -442,3 +442,19 @@ class ImmutableHistoryTests(TestCase):
             record.save()
         with self.assertRaises(ValueError):
             EvaluationRecord.objects.filter(pk=record.pk).update(result={})
+
+class LegacySnapshotTests(TestCase):
+    def test_legacy_error_snapshot_remains_immutable_and_correctable(self):
+        from dataclasses import asdict, replace
+        from mira.infrastructure.models import CaseRecord, EvaluationRecord
+        from mira.infrastructure.review_store import serial, snapshot
+        case = replace(get_controlled_case('CC-F4-09'), case_id='LEGACY-ERROR')
+        record = CaseRecord.objects.create(case_id=case.case_id, payload=serial(asdict(case)), current_values={'amount':'120000'})
+        result = serial(asdict(evaluate_case(case)))
+        result.pop('errors')
+        original = EvaluationRecord.objects.create(case=record, inputs=serial(asdict(case)), policy=serial(asdict(DEFAULT_POLICY)), result=result)
+        response = self.client.post(reverse('web:ejecutar_f4'), {'case_id':case.case_id})
+        self.assertContains(response, 'Corregir entradas')
+        self.assertIn('score', snapshot(case.case_id)[1].errors)
+        original.refresh_from_db()
+        self.assertNotIn('errors', original.result)
