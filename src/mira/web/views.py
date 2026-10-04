@@ -2,6 +2,10 @@
 
 from django.http import Http404, HttpRequest, HttpResponse, FileResponse
 from django.shortcuts import render
+from django.db import transaction
+from mira.infrastructure.review_store import decode_case, get_decision
+from mira.domain.deadlines import evaluate_deadlines
+from mira.infrastructure.clock import clock
 
 from mira.composition import (
     case_detail,
@@ -48,7 +52,8 @@ def ejecutar_f4(request: HttpRequest) -> HttpResponse:
     if result and request.POST.get("draft") == "1":
         from dataclasses import replace
         from decimal import Decimal, InvalidOperation
-        from uuid import uuid4
+        from hashlib import sha256
+        import json
         from mira.domain.policy import evaluate_case
         from mira.infrastructure.review_store import seed_case
 
@@ -63,9 +68,41 @@ def ejecutar_f4(request: HttpRequest) -> HttpResponse:
         case = replace(result[0], **values)
         evaluation = evaluate_case(case)
         if evaluation.outcome != F4Outcome.ERROR:
-            case = replace(case, case_id=case.case_id + "-D-" + uuid4().hex[:8])
+            identity = json.dumps(
+                [
+                    selected_id,
+                    *(
+                        str(values[field].normalize())
+                        if values[field] is not None
+                        else None
+                        for field in ("score", "authenticity", "coherence")
+                    ),
+                ]
+            )
+            case = replace(
+                case,
+                case_id=selected_id
+                + "-D-"
+                + sha256(identity.encode()).hexdigest()[:16],
+            )
             seed_case(case)
         result = case, evaluation
+    if result:
+        display_values = {
+            field: str(getattr(result[0], field))
+            if getattr(result[0], field) is not None
+            else "Ausente"
+            for field in ("score", "authenticity", "coherence")
+        }
+        if not draft:
+            draft = {
+                field: str(getattr(result[0], field))
+                if getattr(result[0], field) is not None
+                else ""
+                for field in display_values
+            }
+    else:
+        display_values = {}
     return render(
         request,
         "mira_web/ejecutar_f4.html",
@@ -75,6 +112,7 @@ def ejecutar_f4(request: HttpRequest) -> HttpResponse:
             "selected_id": selected_id,
             "result": result,
             "draft": draft,
+            "display_values": display_values,
             "error": ""
             if not selected_id or result
             else "Selecciona un Caso controlado válido.",
@@ -90,6 +128,17 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
     case, evaluation, deadlines, decision = result
     errors: dict[str, str] = {}
     saved = False
+    is_correction = request.POST.get("command") == "correct"
+    correction_data = (
+        {
+            field: request.POST.get(
+                field, "Operador demo" if field == "operator" else ""
+            )
+            for field in ("corrected", "reason", "comment", "operator")
+        }
+        if is_correction
+        else {"operator": "Operador demo"}
+    )
     form_data = {
         "action": request.POST.get("action", ""),
         "reason": request.POST.get("reason", ""),
@@ -127,8 +176,17 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
                     discrepancy=request.POST.get("discrepancy") == "on",
                 )
                 saved = _new_decision is not None
-        case, evaluation, deadlines, decision = case_detail(case_id)
-    record, _evaluation, policy = snapshot(case_id)
+    # A deferred SQLite read transaction freezes related state at its first read.
+    # Materialize every projection before leaving it, after the command has ended.
+    with transaction.atomic():
+        record, evaluation, policy = snapshot(case_id)
+        case = decode_case(record.payload)
+        deadlines = evaluate_deadlines(case, clock.today())
+        decision = get_decision(case_id)
+        events = history(case_id)
+    stale = errors.get("code") == "stale_version"
+    correction_errors = errors if is_correction else {}
+    decision_errors = errors if not is_correction or stale else {}
 
     return render(
         request,
@@ -138,7 +196,12 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
             "case": case,
             "case_version": record.version,
             "current_amount": record.current_values.get("amount"),
-            "history": history(case_id),
+            "history": events,
+            "can_correct": not stale
+            and evaluation.outcome in (F4Outcome.REVIEW, F4Outcome.ESCALATED),
+            "correction_data": correction_data,
+            "correction_errors": correction_errors,
+            "correction_saved": saved and is_correction,
             "policy": policy,
             "correction_categories": [
                 c for c in REASON_CATEGORIES if HumanAction.CORRECT in c.actions
@@ -147,16 +210,17 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
             "deadlines": deadlines,
             "decision": decision,
             "can_review": evaluation.outcome in (F4Outcome.REVIEW, F4Outcome.ESCALATED)
-            and decision is None,
+            and decision is None
+            and not stale,
             "action_options": ACTION_OPTIONS,
             "reason_categories": [
                 c
                 for c in REASON_CATEGORIES
                 if c.code not in ("extraction_error", "evidence_value_mismatch")
             ],
-            "errors": errors,
+            "errors": decision_errors,
             "form_data": form_data,
-            "saved": saved,
+            "saved": saved and not is_correction,
         },
     )
 

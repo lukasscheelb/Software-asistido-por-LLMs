@@ -443,40 +443,218 @@ class ImmutableHistoryTests(TestCase):
         with self.assertRaises(ValueError):
             EvaluationRecord.objects.filter(pk=record.pk).update(result={})
 
+
 class LegacySnapshotTests(TestCase):
     def test_legacy_error_snapshot_remains_immutable_and_correctable(self):
         from dataclasses import asdict, replace
         from mira.infrastructure.models import CaseRecord, EvaluationRecord
         from mira.infrastructure.review_store import serial, snapshot
-        case = replace(get_controlled_case('CC-F4-09'), case_id='LEGACY-ERROR')
-        record = CaseRecord.objects.create(case_id=case.case_id, payload=serial(asdict(case)), current_values={'amount':'120000'})
+
+        case = replace(get_controlled_case("CC-F4-09"), case_id="LEGACY-ERROR")
+        record = CaseRecord.objects.create(
+            case_id=case.case_id,
+            payload=serial(asdict(case)),
+            current_values={"amount": "120000"},
+        )
         result = serial(asdict(evaluate_case(case)))
-        result.pop('errors')
-        original = EvaluationRecord.objects.create(case=record, inputs=serial(asdict(case)), policy=serial(asdict(DEFAULT_POLICY)), result=result)
-        response = self.client.post(reverse('web:ejecutar_f4'), {'case_id':case.case_id})
-        self.assertContains(response, 'Corregir entradas')
-        self.assertIn('score', snapshot(case.case_id)[1].errors)
+        result.pop("errors")
+        original = EvaluationRecord.objects.create(
+            case=record,
+            inputs=serial(asdict(case)),
+            policy=serial(asdict(DEFAULT_POLICY)),
+            result=result,
+        )
+        response = self.client.post(
+            reverse("web:ejecutar_f4"), {"case_id": case.case_id}
+        )
+        self.assertContains(response, "Corregir entradas")
+        self.assertIn("score", snapshot(case.case_id)[1].errors)
         original.refresh_from_db()
-        self.assertNotIn('errors', original.result)
+        self.assertNotIn("errors", original.result)
+
 
 class CorrectionOtherReasonTests(TestCase):
     def test_other_correction_requires_comment_without_changing_case(self):
         from mira.infrastructure.review_store import snapshot, history
-        call_command('load_demo', verbosity=0)
-        url = reverse('web:detalle_caso', args=['CC-F1-01'])
-        payload = {'command':'correct', 'reason':'other', 'comment':'   ', 'corrected':'100000', 'expected_case_version':'1'}
+
+        call_command("load_demo", verbosity=0)
+        url = reverse("web:detalle_caso", args=["CC-F1-01"])
+        payload = {
+            "command": "correct",
+            "reason": "other",
+            "comment": "   ",
+            "corrected": "100000",
+            "expected_case_version": "1",
+        }
         response = self.client.post(url, payload)
-        self.assertContains(response, 'reason_required')
-        record = snapshot('CC-F1-01')[0]
+        self.assertContains(response, "reason_required")
+        record = snapshot("CC-F1-01")[0]
         self.assertEqual(record.version, 1)
-        self.assertEqual(record.current_values['amount'], '120000')
-        self.assertEqual(history('CC-F1-01'), [])
-        response = self.client.post(url, {**payload, 'comment':'El respaldo ficticio indica 100000.'})
-        self.assertContains(response, 'Decisión registrada correctamente.')
-        record = snapshot('CC-F1-01')[0]
+        self.assertEqual(record.current_values["amount"], "120000")
+        self.assertEqual(history("CC-F1-01"), [])
+        response = self.client.post(
+            url, {**payload, "comment": "El respaldo ficticio indica 100000."}
+        )
+        self.assertContains(response, "Corrección registrada correctamente.")
+        record = snapshot("CC-F1-01")[0]
         self.assertEqual(record.version, 2)
-        self.assertEqual(record.current_values['amount'], '100000')
-        events = history('CC-F1-01')
+        self.assertEqual(record.current_values["amount"], "100000")
+        events = history("CC-F1-01")
         self.assertEqual(len(events), 1)
-        self.assertEqual(events[0]['payload']['reason_code'], 'other')
-        self.assertEqual(events[0]['payload']['original'], '120000')
+        self.assertEqual(events[0]["payload"]["reason_code"], "other")
+        self.assertEqual(events[0]["payload"]["original"], "120000")
+
+
+class ReviewAuditRegressionTests(TestCase):
+    def setUp(self):
+        call_command("load_demo", verbosity=0)
+
+    def post(self, **payload):
+        return self.client.post(reverse("web:detalle_caso", args=["CC-F1-01"]), payload)
+
+    def test_correction_invalid_numbers_preserve_everything(self):
+        from mira.infrastructure.review_store import snapshot, history
+
+        self.post(action="approve", reason="requirements_met", expected_case_version=1)
+        original_decision = get_decision("CC-F1-01")
+        original_history = history("CC-F1-01")
+        for value in ("-1", "NaN", "sNaN", "Infinity", "-Infinity", "no-numérico", ""):
+            with self.subTest(value=value):
+                response = self.post(
+                    command="correct",
+                    corrected=value,
+                    reason="extraction_error",
+                    comment="Texto conservado",
+                    operator="Operadora ficticia",
+                    expected_case_version=2,
+                )
+                self.assertContains(response, "invalid_input")
+                self.assertEqual(
+                    response.context["correction_data"]["corrected"], value
+                )
+                self.assertEqual(
+                    response.context["correction_data"]["operator"],
+                    "Operadora ficticia",
+                )
+                self.assertEqual(
+                    response.context["correction_data"]["reason"], "extraction_error"
+                )
+                self.assertEqual(
+                    response.context["correction_data"]["comment"], "Texto conservado"
+                )
+                record = snapshot("CC-F1-01")[0]
+                self.assertEqual(record.version, 2)
+                self.assertEqual(record.current_values["amount"], "120000")
+                self.assertEqual(get_decision("CC-F1-01"), original_decision)
+                self.assertEqual(history("CC-F1-01"), original_history)
+
+    def test_stale_response_requires_reload_before_either_form(self):
+        self.post(
+            command="correct",
+            corrected="100000",
+            reason="extraction_error",
+            expected_case_version=1,
+        )
+        for command in ("correct", "decide"):
+            response = self.post(
+                command=command,
+                action="approve",
+                reason="other",
+                comment="Comentario válido",
+                corrected="90000",
+                expected_case_version=1,
+            )
+            self.assertContains(response, "stale_version")
+            self.assertNotContains(response, 'name="expected_case_version"')
+            self.assertFalse(response.context["can_review"])
+            self.assertFalse(response.context["can_correct"])
+        reloaded = self.client.get(reverse("web:detalle_caso", args=["CC-F1-01"]))
+        self.assertTrue(reloaded.context["can_correct"])
+        self.assertTrue(reloaded.context["can_review"])
+
+    def test_projection_replaces_old_precommand_read_and_is_atomic(self):
+        from unittest.mock import patch
+        from django.db import connection
+        from mira.composition import case_detail
+        from mira.infrastructure.review_store import history
+
+        old = case_detail("CC-F1-01")
+        self.post(action="approve", reason="requirements_met", expected_case_version=1)
+
+        def decision_read(case_id):
+            self.assertTrue(connection.in_atomic_block)
+            return get_decision(case_id)
+
+        with (
+            patch("mira.web.views.case_detail", return_value=old),
+            patch("mira.web.views.get_decision", side_effect=decision_read),
+        ):
+            response = self.client.get(reverse("web:detalle_caso", args=["CC-F1-01"]))
+        self.assertEqual(response.context["decision"].action, "approve")
+        self.assertEqual(response.context["case_version"], 2)
+        self.assertEqual(response.context["history"], history("CC-F1-01"))
+
+    def test_append_only_base_manager_and_bulk_upsert(self):
+        from mira.infrastructure.models import EvaluationRecord, InterventionRecord
+
+        self.post(action="approve", reason="requirements_met", expected_case_version=1)
+        for model in (EvaluationRecord, InterventionRecord):
+            record = model.objects.first()
+            original = model.objects.values().get(pk=record.pk)
+            with self.assertRaises(ValueError):
+                model._base_manager.filter(pk=record.pk).update(
+                    **({"result": {}} if model == EvaluationRecord else {"payload": {}})
+                )
+            with self.assertRaises(ValueError):
+                model.objects.bulk_create(
+                    [record],
+                    update_conflicts=True,
+                    update_fields=["result"]
+                    if model == EvaluationRecord
+                    else ["payload"],
+                    unique_fields=["id"],
+                )
+            self.assertEqual(model.objects.values().get(pk=record.pk), original)
+
+
+class F4DraftAuditRegressionTests(TestCase):
+    def setUp(self):
+        call_command("load_demo", verbosity=0)
+
+    def submit(self, **values):
+        return self.client.post(
+            reverse("web:ejecutar_f4"),
+            {
+                "case_id": "CC-F4-09",
+                "draft": "1",
+                "authenticity": "80",
+                "coherence": "80",
+                **values,
+            },
+        )
+
+    def test_nonfinite_drafts_are_correctable_errors(self):
+        for value in ("NaN", "sNaN", "Infinity", "-Infinity"):
+            response = self.submit(score=value)
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(response, "ERROR / DERIVACIÓN")
+            self.assertContains(response, "Corregir entradas")
+            self.assertEqual(response.context["draft"]["score"], value)
+            self.assertContains(response, f'value="{value}"')
+
+    def test_fractional_raw_draft_survives_validation_and_retry_is_idempotent(self):
+        from mira.infrastructure.models import CaseRecord
+        from mira.infrastructure.review_store import snapshot
+
+        response = self.submit(score="69.99", authenticity="101")
+        self.assertContains(response, 'value="69.99"')
+        self.assertNotContains(response, 'value="69,99"')
+        count = CaseRecord.objects.count()
+        first = self.submit(score="69.99")
+        second = self.submit(score="69.99")
+        generated = first.context["result"][0].case_id
+        self.assertEqual(second.context["result"][0].case_id, generated)
+        self.assertEqual(CaseRecord.objects.count(), count + 1)
+        self.assertEqual(snapshot(generated)[1].outcome, F4Outcome.REVIEW)
+        self.assertEqual(snapshot("CC-F4-09")[1].outcome, F4Outcome.ERROR)
+        self.assertEqual(snapshot("CC-F4-09")[0].payload["score"], "101")

@@ -30,12 +30,12 @@
           <p class="result-reason">Este Caso no requiere intervención humana desde F1.</p>
         {% endif %}
       </section>
-      {% if evaluation.outcome.value == "REVISIÓN" or evaluation.outcome.value == "ESCALADO" %}
-      <section><h2>Corrección</h2><p>Importe vigente: {{ current_amount }}. La Corrección conserva el original y la Decisión humana.</p>
+      {% if can_correct %}
+      <section><h2>Corrección</h2>{% if correction_saved %}<p role="status" class="success-message">Corrección registrada correctamente.</p>{% endif %}{% if correction_errors.code %}<p role="alert" class="form-error">{{ correction_errors.code }}: {{ correction_errors.case }}</p>{% endif %}<p>Importe vigente: {{ current_amount }}. La Corrección conserva el original y la Decisión humana.</p>
       <form method="post" class="decision-form">{% csrf_token %}<input type="hidden" name="command" value="correct"><input type="hidden" name="expected_case_version" value="{{ case_version }}">
-      <label>Importe corregido<input name="corrected" required inputmode="decimal" placeholder="100000"></label>
-      <label>Categoría de motivo<select name="reason" required><option value="">Seleccionar motivo</option>{% for category in correction_categories %}<option value="{{ category.code }}">{{ category.label }}</option>{% endfor %}</select></label>
-      <label>Comentario<textarea name="comment" placeholder="Obligatorio para Otro"></textarea></label><label>Operador declarado (demo)<input name="operator" value="Operador demo" required></label><button type="submit" class="primary-button">Registrar Corrección</button></form></section>{% endif %}
+      <label>Importe corregido<input name="corrected" value="{{ correction_data.corrected }}" required inputmode="decimal" placeholder="100000"></label>
+      <label>Categoría de motivo<select name="reason" required><option value="">Seleccionar motivo</option>{% for category in correction_categories %}<option value="{{ category.code }}" {% if correction_data.reason == category.code %}selected{% endif %}>{{ category.label }}</option>{% endfor %}</select></label>
+      <label>Comentario<textarea name="comment" placeholder="Obligatorio para Otro">{{ correction_data.comment }}</textarea></label><label>Operador declarado (demo)<input name="operator" value="{{ correction_data.operator }}" required></label><button type="submit" class="primary-button">Registrar Corrección</button></form></section>{% endif %}
       <section><h2>Historial de intervenciones</h2>{% for event in history %}<article><h3>Versión {{ event.version }} · {{ event.kind }}</h3><p>{{ event.payload.operator }} · {{ event.payload.created_at }} · {{ event.payload.reason_label }}</p>{% if event.kind == "correction" %}<p>Original {{ event.payload.original }} → corregido {{ event.payload.corrected }}</p>{% else %}<p>{{ event.payload.status }}</p>{% endif %}<p>Discrepancia: {{ event.payload.discrepancy|yesno:"Sí,No" }} · {{ event.payload.comment }}</p></article>{% empty %}<p>Sin intervenciones.</p>{% endfor %}</section>
     </aside>
   </div>

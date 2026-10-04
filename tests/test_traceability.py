@@ -1,16 +1,43 @@
-import hashlib,json,subprocess,tomllib
+import hashlib, json, subprocess, tomllib
 from pathlib import Path
 
+
 def test_must_chain_paths_tests_stories_hashes_and_commits_exist():
-    root=Path(__file__).resolve().parents[1]
-    matrix=json.loads((root/'docs/qa/traceability.json').read_text(encoding='utf-8'))
-    git=['git','-c',f'safe.directory={root.as_posix()}']
-    assert len(matrix['requirements']) == 22
-    for row in matrix['requirements']:
-        for path in row['artifacts']+[row['code'],row['test']]: assert (root/path).is_file(),path
-        tickets=tomllib.loads((root/row['story_file']).read_text(encoding='utf-8'))
-        assert any(entry['id']==row['story_id'] for entry in tickets['entry'])
-        assert row['test_name'] in (root/row['test']).read_text(encoding='utf-8')
-        for path in (row['code'],row['test']):
-            data=subprocess.check_output(git+['show',row['commit']+':'+path],cwd=root)
-            assert hashlib.sha256(data).hexdigest()==row['hashes'][path]
+    root = Path(__file__).resolve().parents[1]
+    matrix = json.loads(
+        (root / "docs/qa/traceability.json").read_text(encoding="utf-8")
+    )
+    git = ["git", "-c", f"safe.directory={root.as_posix()}"]
+    assert len(matrix["requirements"]) == 22
+    manifest = json.loads((root / "docs/qa/hashes.json").read_text(encoding="utf-8"))
+    for path, expected in manifest["files"].items():
+        assert normalized_source_hash(root / path) == expected, path
+    for row in matrix["requirements"]:
+        for path in row["artifacts"] + [row["code"], row["test"]]:
+            assert (root / path).is_file(), path
+        tickets = tomllib.loads((root / row["story_file"]).read_text(encoding="utf-8"))
+        assert any(entry["id"] == row["story_id"] for entry in tickets["entry"])
+        assert row["test_name"] in (root / row["test"]).read_text(encoding="utf-8")
+        for path in (row["code"], row["test"]):
+            data = subprocess.check_output(
+                git + ["show", row["commit"] + ":" + path], cwd=root
+            )
+            assert hashlib.sha256(data).hexdigest() == row["hashes"][path]
+            assert normalized_source_hash(root / path) == row["hashes"][path], path
+
+
+def normalized_source_hash(path):
+    data = path.read_bytes()
+    if path.suffix in (".py", ".html", ".css", ".md", ".toml", ".json"):
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
+def test_normalized_source_hash_changes_when_working_file_changes(tmp_path):
+    path = tmp_path / "source.py"
+    path.write_bytes(b"x = 1\r\n")
+    original = normalized_source_hash(path)
+    path.write_bytes(b"x = 1\n")
+    assert normalized_source_hash(path) == original
+    path.write_bytes(b"x = 2\n")
+    assert normalized_source_hash(path) != original

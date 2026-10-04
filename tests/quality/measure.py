@@ -9,6 +9,69 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "docs" / "qa" / "measurements.json"
 
 
+class ResourceCounters:
+    """Capture endpoint counters and disclose incomplete process lifetimes."""
+
+    def __init__(self, roots):
+        self.roots = roots
+        self.cpu = {}
+        self.rss = []
+        self.gaps = {
+            "started_after_initial": [],
+            "missing_at_final": [],
+            "read_errors": [],
+        }
+
+    def processes(self):
+        processes = {}
+        for root in self.roots:
+            try:
+                parent = psutil.Process(root)
+                for proc in [parent, *parent.children(recursive=True)]:
+                    processes[(proc.pid, proc.create_time())] = proc
+            except psutil.Error as error:
+                self.gaps["read_errors"].append(
+                    {"pid": root, "error": type(error).__name__}
+                )
+        return processes
+
+    def capture(self, phase):
+        total = 0
+        seen = set()
+        for key, proc in self.processes().items():
+            try:
+                total += proc.memory_info().rss
+                now = sum(proc.cpu_times()[:2])
+                seen.add(key)
+                if key not in self.cpu:
+                    self.cpu[key] = (now, now)
+                    if phase != "initial":
+                        self.gaps["started_after_initial"].append(
+                            {
+                                "pid": key[0],
+                                "created_at": key[1],
+                                "unobserved_initial_cpu_seconds": now,
+                            }
+                        )
+                else:
+                    first, _last = self.cpu[key]
+                    self.cpu[key] = (first, now)
+            except psutil.Error as error:
+                self.gaps["read_errors"].append(
+                    {"pid": key[0], "phase": phase, "error": type(error).__name__}
+                )
+        if phase == "final":
+            self.gaps["missing_at_final"] = [
+                {"pid": key[0], "created_at": key[1]}
+                for key in self.cpu
+                if key not in seen
+            ]
+        self.rss.append(total)
+
+    def cpu_seconds(self):
+        return sum(last - first for first, last in self.cpu.values())
+
+
 def main():
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="mira-quality-") as scratch:
@@ -56,38 +119,18 @@ def main():
                 break
             except Exception:
                 time.sleep(0.1)
-        rss = []
-        cpu = {}
         stop = threading.Event()
-        roots = []
+        counters = None
 
         def sample():
-            while not stop.is_set():
-                processes = {}
-                for root in roots:
-                    try:
-                        parent = psutil.Process(root)
-                        for proc in [parent, *parent.children(recursive=True)]:
-                            processes[proc.pid] = proc
-                    except psutil.Error:
-                        pass
-                total = 0
-                for pid, proc in processes.items():
-                    try:
-                        total += proc.memory_info().rss
-                        now = sum(proc.cpu_times()[:2])
-                        first, last = cpu.get(pid, (now, now))
-                        cpu[pid] = (first, now)
-                    except psutil.Error:
-                        pass
-                rss.append(total)
-                stop.wait(0.05)
+            while not stop.wait(0.05):
+                counters.capture("sample")
 
         try:
             with sync_playwright() as pw:
                 browser = pw.chromium.launch(headless=True)
                 driver_pid = pw._impl_obj._connection._transport._proc.pid
-                roots[:] = [server.pid, driver_pid]
+                counters = ResourceCounters([server.pid, driver_pid])
                 page = browser.new_page()
                 times = []
                 for i in range(35):
@@ -99,6 +142,7 @@ def main():
                         times.append(time.perf_counter() - start)
                 sampler = threading.Thread(target=sample, daemon=True)
                 start = time.perf_counter()
+                counters.capture("initial")
                 sampler.start()
                 for i in range(30):
                     page.goto(base + f"/casos/QA-{i:03d}/")
@@ -108,9 +152,10 @@ def main():
                     ).select_option("information_incomplete")
                     page.get_by_role("button", name="Registrar decisión").click()
                     assert "ESPERANDO ANTECEDENTES" in page.locator("main").inner_text()
-                elapsed = time.perf_counter() - start
                 stop.set()
                 sampler.join()
+                counters.capture("final")
+                elapsed = time.perf_counter() - start
                 browser.close()
             ordered = sorted(times)
             p95 = ordered[28]
@@ -137,10 +182,11 @@ def main():
                 "p95_observed_pass": p95 <= 2,
                 "reviews": 30,
                 "sample_interval_seconds": 0.05,
-                "resource_samples": len(rss),
-                "rss_max_bytes": max(rss),
-                "cpu_average_cores": sum(last - first for first, last in cpu.values())
-                / elapsed,
+                "resource_samples": len(counters.rss),
+                "rss_max_bytes": max(counters.rss),
+                "cpu_average_cores": counters.cpu_seconds() / elapsed,
+                "cpu_counter_gaps": counters.gaps,
+                "cpu_counter_method": "Initial counters captured synchronously before workload; final counters after workload, before browser shutdown. Missing lifecycle counters explicitly disclosed; CPU may be underestimated when gaps exist",
                 "rss_threshold_bytes": 1073741824,
                 "cpu_threshold_cores": 1,
                 "resource_duration_seconds": elapsed,

@@ -29,6 +29,10 @@ def test_integrated_f4_f1_browser(live_server):
         page.locator("[name=score]").fill("60")
         page.get_by_role("button", name="Reejecutar borrador").click()
         assert "REVISIÓN" in page.locator(".result-panel").inner_text()
+        generated_id = page.locator("#result-title").inner_text()
+        page.get_by_role("link", name="Abrir detalle", exact=True).click()
+        assert generated_id in page.locator("h1").inner_text()
+        assert "60" in page.locator(".score-section").inner_text()
         page.goto(base + "/casos/CC-F1-01/")
         assert page.locator('object[type="application/pdf"]').count() > 0
         pdf = page.request.get(base + "/casos/CC-F1-01/evidencia/1/")
@@ -69,3 +73,10 @@ def test_integrated_f4_f1_browser(live_server):
         image = page.request.get(base + "/casos/CC-F4-02/evidencia/2/")
         assert image.body().startswith(b"\x89PNG")
         browser.close()
+
+    from mira.infrastructure.review_store import snapshot
+
+    assert snapshot(generated_id)[0].payload["score"] == "60"
+    assert snapshot(generated_id)[1].outcome == "REVISIÓN"
+    assert snapshot("CC-F4-09")[0].payload["score"] == "101"
+    assert snapshot("CC-F4-09")[1].outcome == "ERROR / DERIVACIÓN"

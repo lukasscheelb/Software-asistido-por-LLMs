@@ -12,6 +12,21 @@ class AppendOnlyQuerySet(models.QuerySet):
     def update(self, **kwargs):
         raise ValueError("El historial es append-only.")
 
+    def bulk_create(
+        self,
+        objs,
+        batch_size=None,
+        ignore_conflicts=False,
+        update_conflicts=False,
+        update_fields=None,
+        unique_fields=None,
+    ):
+        if update_conflicts:
+            raise ValueError("El historial es append-only.")
+        return super().bulk_create(
+            objs, batch_size=batch_size, ignore_conflicts=ignore_conflicts
+        )
+
     def delete(self):
         raise ValueError("El historial es append-only.")
 
@@ -21,6 +36,8 @@ class AppendOnlyRecord(models.Model):
 
     class Meta:
         abstract = True
+        base_manager_name = "objects"
+        default_manager_name = "objects"
 
     def save(self, *args, **kwargs):
         if self.pk and type(self).objects.filter(pk=self.pk).exists():
@@ -45,7 +62,8 @@ class InterventionRecord(AppendOnlyRecord):
     kind = models.CharField(max_length=20)
     payload = models.JSONField()
 
-    class Meta:
+    class Meta(AppendOnlyRecord.Meta):
+        abstract = False
         constraints = [
             models.UniqueConstraint(
                 fields=["case", "version"], name="unique_case_intervention_version"
