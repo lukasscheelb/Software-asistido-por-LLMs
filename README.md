@@ -14,6 +14,7 @@ Desde la raíz del repositorio:
 uv sync --locked
 uv run python manage.py check
 uv run python manage.py migrate --noinput
+uv run python manage.py test mira.web
 uv run python manage.py runserver
 ```
 
@@ -26,8 +27,9 @@ La demo incluye cuatro Casos ficticios: la Bandeja permite buscar y filtrar los 
 requieren revisión, `Ejecutar F4` aplica la Política determinista del piloto y el
 detalle presenta la Evidencia antes del Puntaje. No se usan datos personales reales.
 
-El harness automatizado se conectará en una story posterior. Su contrato, capas,
-marcadores CAP-3 y comandos previstos están documentados en `tests/README.md`.
+La verificación automatizada base se ejecuta con `uv run python manage.py test mira.web`.
+El contrato de ampliación hacia pytest y Playwright, capas, marcadores CAP-3 y
+comandos previstos está documentado en `tests/README.md`.
 Este starter es solo para desarrollo y verificación local; no incluye configuración
 productiva.
 

@@ -1,8 +1,16 @@
 # Contrato del harness de pruebas
 
-Esta story deja solo los puntos de conexión de CAP-3. Este directorio no contiene
-pruebas ejecutables, configuración de pytest ni navegadores de Playwright. La story
-que conecte el harness deberá mantener el arranque web actual sin cambios.
+El proyecto ya contiene una suite base ejecutable con el runner de Django en
+`src/mira/web/tests.py`. Esa suite cubre la Política F4, la Bandeja, el detalle de
+Caso y el orden Evidencia antes de Puntaje. Este documento conserva además los
+puntos de conexión para ampliar el harness con pytest y Playwright en una story
+posterior.
+
+## Comando disponible
+
+```powershell
+uv run python manage.py test mira.web
+```
 
 ## Puntos de conexión
 
@@ -62,10 +70,9 @@ sean importables y comprobará que `mira.composition` sea el único módulo auto
 a importar simultáneamente puertos de `application` y adaptadores concretos de
 `infrastructure`.
 
-## Comandos previstos
+## Comandos previstos para la ampliación pytest/Playwright
 
-Estos comandos documentan el contrato futuro; todavía no están disponibles en
-esta story:
+Estos comandos documentan el contrato futuro; todavía no están disponibles:
 
 ```powershell
 uv run playwright install chromium
