@@ -194,3 +194,4 @@
 - Se actualizaron referencias del historial, matrices y documentos derivados; FR-20 se enlaza a la versión actual del informe y se conserva la prueba de hashes del árbol actual.
 - La publicación reescrita usa leases explícitos de main y v2.0-rc1 para impedir sobrescribir cambios concurrentes. La etiqueta candidata incorpora mantenimiento documental y nueva verificación; v2.0 final no se declara aceptada.
 - Siguen pendientes PX-05 humano, aceptación de Sebastián y acreditación/rendimiento AD-15. Cambiar la identidad de Git no sustituye esas evidencias.
+- Verificación posterior: check Django válido, **33 Django y 8 pytest aprobadas**, incluida FR-20; código, pruebas, fixtures y dependencias sin cambios. PDF (12 páginas) y PPTX (13 diapositivas) revisados; integridad Word verificada, paginación nativa Word no disponible. Registro: `docs/qa/identity-rewrite-verification.json`.

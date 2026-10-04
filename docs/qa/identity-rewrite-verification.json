@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-04",
+  "source_document_commit": "63438f8e795e1371fb80380de8b58fa0f78d16f9",
+  "commits_rewritten": 16,
+  "code_tests_fixtures_dependencies_unchanged": true,
+  "original_commit_trees_and_messages_preserved": true,
+  "django_check": "pass",
+  "django_tests": {
+    "passed": 33,
+    "failed": 0
+  },
+  "pytest": {
+    "passed": 8,
+    "failed": 0,
+    "seconds": 30.48
+  },
+  "fr20": "Commit y hashes actualizados sin desactivar la prueba del árbol actual",
+  "pdf_pages_reviewed": 12,
+  "pptx_slides_reviewed": 13,
+  "word_package_integrity": "pass",
+  "native_word_pagination_verified": false,
+  "human_acceptance": "pending",
+  "hardware_ad15": "pending"
+}
