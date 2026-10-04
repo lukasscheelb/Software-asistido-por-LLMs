@@ -1,5 +1,5 @@
 {
-  "revision": "7afd4785fca3d9998471240793fa15d1815aea31",
+  "revision": "f7dada68a881a16dea97e2ed8bcbe5c05a02dca6",
   "algorithm": "SHA-256 de blobs Git (LF normalizados para fuentes)",
   "files": {
     "src/mira/asgi.py": "ea16587cad23dea8a7270d2d6aa49701737851fa08eb4e75f64dabf8a65b8424",
@@ -19,10 +19,10 @@
     "src/mira/infrastructure/clock.py": "515d55e5748cd78209ca346c68a5c3dd12a3efd1e565682012545789e13e68a2",
     "src/mira/infrastructure/controlled_cases.py": "096b83d687b009ec6d0186525d7c67517fc8ae84815401d3fd87f6d8d96ab2bb",
     "src/mira/infrastructure/models.py": "b4bde7427557dc1c574ad30715e1827da08b481263e618b483a49ba29eb4c5bf",
-    "src/mira/infrastructure/review_store.py": "8d123fb09e1e15cfaf7623e0bfecf6e9937a5cf83bc810b07cc2f99178750a28",
+    "src/mira/infrastructure/review_store.py": "e132f4bba1904edf9a99a2531736c74f9b3c2e838e9a29bb8b7eeb922d488085",
     "src/mira/infrastructure/__init__.py": "a25b6629ab35669accc4c13d67f7ed9b7abdcd31b5626370a67605a30dbdc90d",
     "src/mira/web/apps.py": "68d661a57b7f254568d0c7ca834a7638f6ccf8b49f9bdee74dada679f879c9e2",
-    "src/mira/web/tests.py": "92b108968beb02b2f9051ec28dec926a9d9089d8cc9a13fb4e5e522396938372",
+    "src/mira/web/tests.py": "c1f7c2621d8728768467bd7fa3c841bc9a157d8dacb2a05634e1c465b0e097eb",
     "src/mira/web/urls.py": "d59ce3e2cd499e6a9cd29ab56ad5c84aadb26237f8363b0853a3cb69e8e951ab",
     "src/mira/web/views.py": "98bba857c52b808a552f9556258a29c17605d51b6cbc7416c96d73664f065462",
     "src/mira/web/__init__.py": "f8433350ac6ebc2234cdd386c11203094e65bdc730889b7a5b3a97026cb32a46",
