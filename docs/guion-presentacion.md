@@ -8,5 +8,5 @@ Grupo:
 4. F1: evidencia visible antes del puntaje, razones, operador demo declarado; decisión con categoría y Otro requiere comentario. Corrección 120000→100000 preserva decisión y original.
 5. Integridad: versión esperada, carrera de dos conexiones y conflicto entre pestañas; evaluación/política original no se recalculan; reinicio conserva historial.
 6. Plazos: Santiago L-V, 3/5 días, alerta previa y al vencer; vencido permanece abierto, prioritario y marcado.
-7. Verificación: 26 Django + 5 pytest; navegador y proceso nuevo. Mostrar matriz Must, hashes y JSON de mediciones. Medición diagnóstica: consultar valores definitivos del informe, CPU excede ≤1 y hardware AD-15 no acreditado.
+7. Verificación: 27 Django + 5 pytest; navegador y proceso nuevo. Mostrar matriz Must, hashes y JSON de mediciones. Medición diagnóstica: consultar valores definitivos del informe, CPU excede ≤1 y hardware AD-15 no acreditado.
 8. Cierre: candidato local; v2.0 final pendiente de PX-05 externo, clon externo, AD-15/recursos y aceptación de Sebastián. No presentar actas inexistentes.

@@ -458,3 +458,25 @@ class LegacySnapshotTests(TestCase):
         self.assertIn('score', snapshot(case.case_id)[1].errors)
         original.refresh_from_db()
         self.assertNotIn('errors', original.result)
+
+class CorrectionOtherReasonTests(TestCase):
+    def test_other_correction_requires_comment_without_changing_case(self):
+        from mira.infrastructure.review_store import snapshot, history
+        call_command('load_demo', verbosity=0)
+        url = reverse('web:detalle_caso', args=['CC-F1-01'])
+        payload = {'command':'correct', 'reason':'other', 'comment':'   ', 'corrected':'100000', 'expected_case_version':'1'}
+        response = self.client.post(url, payload)
+        self.assertContains(response, 'reason_required')
+        record = snapshot('CC-F1-01')[0]
+        self.assertEqual(record.version, 1)
+        self.assertEqual(record.current_values['amount'], '120000')
+        self.assertEqual(history('CC-F1-01'), [])
+        response = self.client.post(url, {**payload, 'comment':'El respaldo ficticio indica 100000.'})
+        self.assertContains(response, 'Decisión registrada correctamente.')
+        record = snapshot('CC-F1-01')[0]
+        self.assertEqual(record.version, 2)
+        self.assertEqual(record.current_values['amount'], '100000')
+        events = history('CC-F1-01')
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0]['payload']['reason_code'], 'other')
+        self.assertEqual(events[0]['payload']['original'], '120000')
