@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Bandeja | MIRA</title>
+    <link rel="stylesheet" href="{% static 'mira_web/styles.css' %}">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <div class="app-shell">
+      <header class="app-navigation">
+        <a class="brand" href="{% url 'web:bandeja' %}" aria-label="MIRA, inicio">
+          MIRA
+        </a>
+
+        <nav class="primary-navigation" aria-label="Navegación principal">
+          <a class="navigation-link" href="{% url 'web:bandeja' %}" aria-current="page">
+            Bandeja
+          </a>
+        </nav>
+
+        <details class="mobile-navigation">
+          <summary>Menú</summary>
+          <nav aria-label="Navegación principal móvil">
+            <a
+              class="navigation-link"
+              href="{% url 'web:bandeja' %}"
+              aria-label="Bandeja"
+              aria-current="page"
+            >
+              Bandeja
+            </a>
+          </nav>
+        </details>
+
+        <p class="environment-label">Piloto local</p>
+      </header>
+
+      <main id="contenido" class="main-content" tabindex="-1">
+        <header class="page-header">
+          <h1>Bandeja</h1>
+          <span class="result-count" aria-label="0 casos pendientes">0 casos</span>
+        </header>
+
+        <section class="queue" aria-labelledby="queue-title">
+          <div class="queue-header">
+            <h2 id="queue-title">Casos pendientes</h2>
+          </div>
+          <div class="empty-state" role="status">
+            <p>No hay Casos pendientes.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

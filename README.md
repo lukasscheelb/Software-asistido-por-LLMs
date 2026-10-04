@@ -1,6 +1,31 @@
 # MIRA — Análisis de Requisitos Asistido por LLM
 
-Repositorio correspondiente a la **Entrega 1** del curso **Taller de Desarrollo de Software Conducido por Agentes de IA** de la Universidad de Valparaíso.
+Este repositorio nació como la **Entrega 1** del curso **Taller de Desarrollo de Software Conducido por Agentes de IA** de la Universidad de Valparaíso y conserva ese análisis como base histórica. Actualmente incorpora el incremento académico **MIRA F4 + F1** de la Entrega 2.
+
+## Aplicación local CAP-3
+
+La ejecución local usa Python 3.13.16, Django 5.2.17 y SQLite, y no se conecta a
+servicios externos. La instalación requiere [`uv`](https://docs.astral.sh/uv/) y
+acceso de red para descargar el runtime y los paquetes, salvo que ya estén en caché.
+
+Desde la raíz del repositorio:
+
+```powershell
+uv sync --locked
+uv run python manage.py check
+uv run python manage.py migrate --noinput
+uv run python manage.py runserver
+```
+
+Abrir `http://127.0.0.1:8000/`. La ruta inicial redirige a `/bandeja/`.
+`uv` lee `.python-version`, instala Python 3.13.16 cuando no está disponible y
+reproduce las dependencias de `uv.lock`. La base `db.sqlite3` se crea localmente y
+no se versiona.
+
+El harness automatizado se conectará en una story posterior. Su contrato, capas,
+marcadores CAP-3 y comandos previstos están documentados en `tests/README.md`.
+Este starter es solo para desarrollo y verificación local; no incluye configuración
+productiva.
 
 ## Descripción
 

@@ -1,1 +1,12 @@
 _bmad/render/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+db.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+playwright-report/
+test-results/
+staticfiles/

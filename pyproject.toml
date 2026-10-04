@@ -1,0 +1,16 @@
+[project]
+name = "mira"
+version = "0.1.0"
+description = "Base web local para MIRA F4 + F1"
+readme = "README.md"
+requires-python = "==3.13.16"
+dependencies = [
+    "Django==5.2.17",
+]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mira"]
