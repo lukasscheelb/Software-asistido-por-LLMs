@@ -13,13 +13,13 @@
         {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
         <button class="primary-button" type="submit">Ejecutar Política</button>
       </form>
-      <div class="policy-rules"><h3>Parámetros efectivos</h3><dl><div><dt>Aprobación</dt><dd>Puntaje &gt; 90</dd></div><div><dt>Autenticidad</dt><dd>≥ 70</dd></div><div><dt>Coherencia</dt><dd>≥ 70</dd></div><div><dt>Automatización</dt><dd>Activa</dd></div></dl></div>
+      <div class="policy-rules"><h3>Parámetros efectivos</h3><dl><div><dt>Aprobación</dt><dd>Puntaje &gt; 90</dd></div><div><dt>Autenticidad</dt><dd>≥ 70</dd></div><div><dt>Coherencia</dt><dd>≥ 70</dd></div><div><dt>Automatización</dt><dd>Según Caso</dd></div></dl></div>
     </section>
     <section class="result-panel" aria-labelledby="result-title" aria-live="polite">
       {% if result %}{% with case=result.0 evaluation=result.1 %}
         <div class="result-heading"><div><p class="section-kicker">Resultado F4</p><h2 id="result-title">{{ case.case_id }}</h2></div><span class="status status--{{ evaluation.outcome_class }}">{{ evaluation.outcome }}</span></div>
         <p class="result-reason">{{ evaluation.reason }}</p>
-        <dl class="result-facts"><div><dt>Regla aplicada</dt><dd>{{ evaluation.rule }}</dd></div><div><dt>Puntaje</dt><dd>{{ case.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ case.authenticity }}</dd></div><div><dt>Coherencia</dt><dd>{{ case.coherence }}</dd></div><div><dt>Fraude detectado</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div><div><dt>Prioridad</dt><dd>{{ evaluation.priority }}</dd></div></dl>
+        <dl class="result-facts"><div><dt>Regla aplicada</dt><dd>{{ evaluation.rule }}</dd></div><div><dt>Puntaje</dt><dd>{{ case.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ case.authenticity|default_if_none:"Ausente" }}</dd></div><div><dt>Coherencia</dt><dd>{{ case.coherence|default_if_none:"Ausente" }}</dd></div><div><dt>Fraude detectado</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div><div><dt>Automatización</dt><dd>{{ case.automation_enabled|yesno:"Activa,Deshabilitada" }}</dd></div><div><dt>Prioridad</dt><dd>{{ evaluation.priority }}</dd></div></dl>
         {% if evaluation.outcome in review_outcomes %}<a class="primary-button" href="{% url 'web:detalle_caso' case.case_id %}">Abrir detalle</a>{% else %}<a class="secondary-button" href="{% url 'web:ejecutar_f4' %}">Evaluar otro Caso</a>{% endif %}
       {% endwith %}{% else %}
         <div class="result-placeholder"><span aria-hidden="true">F4</span><h2 id="result-title">Resultado de la evaluación</h2><p>Selecciona un Caso y ejecuta la Política para ver la salida, la regla y las Señales.</p></div>

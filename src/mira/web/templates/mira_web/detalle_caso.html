@@ -9,7 +9,7 @@
     </div></section>
     <aside class="case-sidebar" aria-labelledby="explanation-title">
       <section><h2 id="explanation-title">Explicación F4</h2><p class="result-reason">{{ evaluation.reason }}</p><dl class="stacked-facts"><div><dt>Regla aplicada</dt><dd>{{ evaluation.rule }}</dd></div><div><dt>Prioridad</dt><dd>{{ evaluation.priority }}</dd></div><div><dt>Ingreso</dt><dd>{{ case.received_at }}</dd></div><div><dt>Plazo interno</dt><dd>{{ case.internal_deadline }}</dd></div><div><dt>Plazo contractual</dt><dd>{{ case.contractual_deadline }}</dd></div></dl></section>
-      <section class="score-section"><h2>Puntaje y Señales</h2><dl class="signal-list"><div><dt>Puntaje</dt><dd>{{ case.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ case.authenticity }}</dd></div><div><dt>Coherencia</dt><dd>{{ case.coherence }}</dd></div><div><dt>Fraude</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div></dl></section>
+      <section class="score-section"><h2>Puntaje y Señales</h2><dl class="signal-list"><div><dt>Puntaje</dt><dd>{{ case.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ case.authenticity|default_if_none:"Ausente" }}</dd></div><div><dt>Coherencia</dt><dd>{{ case.coherence|default_if_none:"Ausente" }}</dd></div><div><dt>Fraude</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div><div><dt>Automatización</dt><dd>{{ case.automation_enabled|yesno:"Activa,Deshabilitada" }}</dd></div></dl></section>
     </aside>
   </div>
 {% endblock %}
