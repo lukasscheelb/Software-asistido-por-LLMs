@@ -1,5 +1,5 @@
 {
-  "revision": "622f1c89a62469fbfb53fcfcf2774980a1cad2b3",
+  "revision": "a59ab9c52324c0812eea0433966a70ed7a05024f",
   "method": "git archive HEAD en directorio temporal limpio; caché local de paquetes/runtime disponible",
   "external_person_session": false,
   "seconds": 8.65181189996656,

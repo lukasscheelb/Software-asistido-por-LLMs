@@ -135,7 +135,7 @@
 ## 14. Candidato local persistente y cierre técnico — 2026-10-04
 
 - DEC-E2-08: desacuerdo declarado con motivo; Corrección marca Discrepancia, decisión sola no.
-- Implementación local en main `622f1c89a62469fbfb53fcfcf2774980a1cad2b3`: SQLite, CAS transaccional, snapshots y append-only por repositorio/modelos, corpus F4/F1, evidencia PDF/PNG y UI versionada.
+- Implementación local en main `a59ab9c52324c0812eea0433966a70ed7a05024f`: SQLite, CAS transaccional, snapshots y append-only por repositorio/modelos, corpus F4/F1, evidencia PDF/PNG y UI versionada.
 - Runtime aprobado Django 5.2.17 reconciliado en contratos efectivos; historial previo conservado.
 - 25 pruebas Django y 4 pytest verifican persistencia, carrera, fronteras, errores, corrección y navegador.
 - Medición registrada diagnóstica: p95 0.4871s, RSS 842932224 bytes, CPU 1.2759 núcleos. CPU excede umbral; hardware AD-15 no acreditado.
@@ -147,7 +147,7 @@
 - Se revisaron los enunciados y el repositorio frente a la rúbrica de E2, con foco en implementación funcional, trazabilidad, pruebas, reproducibilidad y documentos de entrega.
 - Se priorizaron la persistencia de intervenciones, el control de concurrencia, la Corrección auditada, la evidencia visible y el cierre verificable del incremento F4 + F1.
 - Se versionó el plan BMAD en `_bmad-output/implementation-artifacts/plan-cierre-mira-e2-f4-f1.md` y se conservaron los artefactos y decisiones de E1.
-- El usuario aprobó las correcciones con opción A y solicitó integrar la rama de preparación en `main`; se realizó la integración fast-forward y el trabajo posterior continuó directamente en `main` (aprobación registrada en `e429d4d`).
+- El usuario aprobó las correcciones con opción A y solicitó integrar la rama de preparación en `main`; se realizó la integración fast-forward y el trabajo posterior continuó directamente en `main` (aprobación registrada en `1cd0378`).
 - Se ratificó DEC-E2-08: el desacuerdo debe declararse con motivo; una Corrección registra Discrepancia y una Decisión, por sí sola, no implica desacuerdo.
 
 ## 16. Implementación y correcciones posteriores a la revisión — 2026-10-04
@@ -158,7 +158,7 @@
 - Se conservaron snapshots antiguos sin reescribir evaluaciones, se hizo coherente la lectura del detalle y se bloquearon ambos formularios ante `stale_version` hasta recargar.
 - Se corrigieron entradas decimales localizadas, NaN/Infinity, duplicación de borradores, retención de datos al fallar una Corrección, mensajes de confirmación y rutas de modificación ORM de snapshots.
 - La revisión BMAD documentó cuatro lentes, su clasificación de hallazgos y los parches; todos los hallazgos enviados a corrección quedaron cerrados. Evidencia: `docs/qa/review-bmad.md` y `docs/qa/review-fixes.md`.
-- Commits de referencia: implementación `622f1c8`, compatibilidad histórica `f7dada6`, correcciones de revisión `beca2cb` y cierre candidato `a818042`.
+- Commits de referencia: implementación `a59ab9c`, compatibilidad histórica `422e777`, correcciones de revisión `0166caa` y cierre candidato `f426957`.
 
 ## 17. Verificación final y límites del candidato — 2026-10-04
 
@@ -169,14 +169,14 @@
 - p95 y memoria cumplen sus umbrales observados; CPU supera el límite de 1 núcleo. El hardware no acredita AD-15, por lo que estos resultados no certifican aceptación de rendimiento. Fuente: `docs/qa/measurements.json`; medición anterior conservada por separado.
 - Se registró reproducción técnica desde una exportación Git limpia con caché local (8,65 s); no equivale a una sesión de instalación realizada por una persona externa.
 - Siguen pendientes PX-05/usabilidad humana, sesión externa de reproducción, aceptación de Sebastián Rodríguez y resolución/acreditación de CPU y entorno AD-15. Actas: `docs/qa/actas-pendientes.md`.
-- Se creó la etiqueta candidata **`v2.0-rc1`** sobre `88804a0`; `v2.0` final queda reservada para el cierre validado.
+- Se creó la etiqueta candidata **`v2.0-rc1`** sobre `5b4c9fe`; `v2.0` final queda reservada para el cierre validado.
 
 ## 18. Informe, presentación y versión Word editable — 2026-10-04
 
 - Se prepararon el informe 6.1–6.8, matriz de trazabilidad Must, comparativa, guion, capturas y documentos de QA.
 - Se incorporaron `entrega/MIRA-Meyer-Scheel-Rodriguez.pdf` (12 páginas) y `entrega/MIRA-Entrega2.pptx` (13 diapositivas), con registros de revisión e integridad en `docs/qa/artifacts.json`.
 - Por instrucción del usuario, el número de grupo quedó en blanco para completarlo manualmente; debe ajustarse la portada y el nombre requerido antes de entregar.
-- Se convirtió el informe a `entrega/MIRA-Meyer-Scheel-Rodriguez.docx` y se enlazó desde README (commit `68de896`): texto y tres tablas editables, cinco imágenes y grupo en blanco.
+- Se convirtió el informe a `entrega/MIRA-Meyer-Scheel-Rodriguez.docx` y se enlazó desde README (commit `64bb6c6`): texto y tres tablas editables, cinco imágenes y grupo en blanco.
 - La conversión verificó contenido de la fuente e integridad del paquete DOCX. La paginación visual de Word no pudo verificarse en este entorno; debe revisarse al abrirlo en Word.
 
 ## 19. Autorización de publicación en GitHub — 2026-10-04
@@ -184,3 +184,13 @@
 - El usuario solicitó actualizar esta bitácora y realizar commit y push de todo el trabajo de la sesión al repositorio `lukasscheelb/Software-asistido-por-LLMs`.
 - Esta autorización posterior reemplaza la restricción operativa de no hacer push del plan inicial. La publicación debe conservar el historial y los hashes, subir `main` y la etiqueta candidata `v2.0-rc1`, sin forzar referencias.
 - La aceptación humana y la acreditación de rendimiento siguen pendientes aunque se publique el candidato. El resultado del push se verificará contra las referencias remotas.
+
+
+## 20. Identidad Git y reescritura autorizada — 2026-10-04
+
+- A solicitud del usuario, con acuerdo comunicado de sus colaboradores, se reescribieron autor y committer de los 16 commits de esta sesión como **Lukas Scheel Belmar**, correo `227247263+lukasscheelb@users.noreply.github.com`.
+- Se conservaron fechas, mensajes y árboles de cada commit; la línea base anterior a la sesión permanece intacta. El respaldo recuperable se guardó fuera del repositorio.
+- Correspondencia entre hashes originales y nuevos: `docs/qa/commit-author-map.json`. La identidad Git no cambia la procedencia real: el código y los parches generados por el agente siguen declarados como tales.
+- Se actualizaron referencias del historial, matrices y documentos derivados; FR-20 se enlaza a la versión actual del informe y se conserva la prueba de hashes del árbol actual.
+- La publicación reescrita usa leases explícitos de main y v2.0-rc1 para impedir sobrescribir cambios concurrentes. La etiqueta candidata incorpora mantenimiento documental y nueva verificación; v2.0 final no se declara aceptada.
+- Siguen pendientes PX-05 humano, aceptación de Sebastián y acreditación/rendimiento AD-15. Cambiar la identidad de Git no sustituye esas evidencias.

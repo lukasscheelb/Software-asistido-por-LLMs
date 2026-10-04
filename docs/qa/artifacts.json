@@ -1,7 +1,7 @@
 {
   "pdf": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
-    "sha256": "ba68d880373422a3c3899f99274701f149f99cf7246986c4987f370051048d75",
+    "sha256": "47b07b7b02e6d5dcd338f99d3f0d0996271d95c2cd5294f7e7f1c6b73c7c0509",
     "pages": 12,
     "visual_review": "12 páginas inspeccionadas; sin recortes ni superposiciones",
     "section_pages": {
@@ -18,7 +18,7 @@
   },
   "presentation": {
     "path": "entrega/MIRA-Entrega2.pptx",
-    "sha256": "31f5e1bc00726a0a3d00c04e4cabbf52acce64bebefa6b518cd830953a6f79db",
+    "sha256": "a6ada4e45322b5522a5158c1a21a03fcd657f8ae9d3489da4a6797c966ed2ed8",
     "slides": 13,
     "native_tables": [
       3,
@@ -35,5 +35,14 @@
     "native_powerpoint_render_verified": false
   },
   "group": "",
-  "status": "Candidato local; actas humanas y AD-15 pendientes"
+  "status": "Candidato publicado; identidad Git actualizada, actas humanas y AD-15 pendientes",
+  "word": {
+    "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
+    "sha256": "8c3d74b8d65f64d23415cdc6089efc3376c481371bffcd9b26c8d3adfc7c577a",
+    "native_tables": 3,
+    "images": 5,
+    "package_integrity": "pass",
+    "native_word_render_verified": false,
+    "limits": "Paginación de Word no verificada; sin compiler disponible en este entorno"
+  }
 }

@@ -33,6 +33,6 @@ Rutas patch conservan la superficie publica; se reengage el implementador. NaN/f
 
 ## Cierre de parches y verificación
 
-Parches `beca2cb`, grafo `632dc13`. Todos los hallazgos enviados a parche quedaron corregidos; no se difirió ninguno. Verificación independiente: uv sync --locked, check, migrate, load_demo; 33 pruebas Django y 8 pytest OK, ejecutados secuencialmente porque comparten la base temporal por defecto. El navegador comprobó NaN corregible, adopción de borrador, evidencia, corrección 120000→100000 y bloqueo de ambas acciones ante versión obsoleta hasta recarga.
+Parches `0166caa`, grafo `ab745af`. Todos los hallazgos enviados a parche quedaron corregidos; no se difirió ninguno. Verificación independiente: uv sync --locked, check, migrate, load_demo; 33 pruebas Django y 8 pytest OK, ejecutados secuencialmente porque comparten la base temporal por defecto. El navegador comprobó NaN corregible, adopción de borrador, evidencia, corrección 120000→100000 y bloqueo de ambas acciones ante versión obsoleta hasta recarga.
 
 Nueva medición en `measurements.json`: p95 0.5228s, RSS 837009408 bytes, CPU 1.3237 núcleos, sin brechas de contadores observadas; CPU excede umbral. Diagnóstico en entorno no acreditado. La medición anterior se conserva. PX-05 y aceptación no se realizaron.

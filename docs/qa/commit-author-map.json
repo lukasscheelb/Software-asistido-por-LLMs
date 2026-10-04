@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-04",
+  "scope": "16 commits de esta sesión; historial anterior conservado",
+  "base": "4337a3a5f6dff92f8eddb20947b2f34a1e80f001",
+  "original_main": "fca5fb2b1f84d91ec91836396f66ee1b5eeb12ce",
+  "rewritten_main": "7525b2af88cbe4d7129767e85e1f133588c3531a",
+  "author": "Lukas Scheel Belmar",
+  "email": "227247263+lukasscheelb@users.noreply.github.com",
+  "content_and_messages_preserved": true,
+  "agent_provenance_preserved": true,
+  "commits": [
+    {
+      "old": "e2ba074162d9997de2df4fbe6103b82a916ed58b",
+      "new": "29987d4245b996cf6810945bacebd55f66202f8a",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "58b5a591855c2003b33a6e5004db5784a92f1177",
+      "new": "74b814958b34afd9e2012f11fba98046deb9b241",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "e429d4d5f10b4cc4d897f820add33e74981ee4f2",
+      "new": "1cd0378d1a77a58a75fe7ac4cb538ac606708a55",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "622f1c89a62469fbfb53fcfcf2774980a1cad2b3",
+      "new": "a59ab9c52324c0812eea0433966a70ed7a05024f",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "7afd4785fca3d9998471240793fa15d1815aea31",
+      "new": "aa824fcf1017278ad5dc62dd66ae8ec81770fa67",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "fe0f9f50fcbe9b8a74330772b845a4db4cccfcc4",
+      "new": "989684a640acdbabe4fc5ef4f0e76ca7fb17fb24",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "f7dada68a881a16dea97e2ed8bcbe5c05a02dca6",
+      "new": "422e777426cef57c319502843f1d976db37c8c25",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "159b9a65f9ce6640cd806b42a5341ec118c14fc1",
+      "new": "f1ad59db41f39a23af91e606c7a68598ea0e4959",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "89644871bddb75b356a5976151d982ef8018b061",
+      "new": "082df64d61abd2d52d38b80f58c5753f069b008b",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "7b0cab841e6753999f3de433ceef9c372e9ca42e",
+      "new": "cfed3fdfa8bb1567a371a3be46a55f01540be948",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "new": "0166caab5c5eac5e72227125ae81963854f6248b",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "632dc13f623e4cf94434d53e42fa197112673939",
+      "new": "ab745aff3347e6c68e6e7976c474bf1aee049a1a",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "a81804291bab12bc267bd5b77d168c9a4145b09c",
+      "new": "f4269572fda1fda33192c3508e16aae4919f9edf",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "88804a0c9b3c3b12ec01f3608e12b457bfaee843",
+      "new": "5b4c9fe894bfa602046aee33b512a33aaf3bf22f",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "68de896e93f1d84ddd3df097b7a28e0a09ce40a5",
+      "new": "64bb6c6dbd3112496055fe29e624145ecb4194ac",
+      "tree_preserved": true,
+      "message_preserved": true
+    },
+    {
+      "old": "fca5fb2b1f84d91ec91836396f66ee1b5eeb12ce",
+      "new": "7525b2af88cbe4d7129767e85e1f133588c3531a",
+      "tree_preserved": true,
+      "message_preserved": true
+    }
+  ]
+}

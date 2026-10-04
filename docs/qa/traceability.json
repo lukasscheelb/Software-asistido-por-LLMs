@@ -1,5 +1,5 @@
 {
-  "revision": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+  "revision": "0166caab5c5eac5e72227125ae81963854f6248b",
   "scope": "7 Must E1 seleccionados, HU-03/HU-04 y FR-1…20; NFR-1/NFR-3. No equivale a aceptación humana.",
   "requirements": [
     {
@@ -15,7 +15,7 @@
       "code": "src/mira/domain/policy.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_finite_numeric_validation",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/domain/policy.py": "401527115c610a0dde8521a9e113b7856f7c018a653e54245044ae6866245a2f",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -35,7 +35,7 @@
       "code": "src/mira/domain/policy.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_pf04_boundary_matrix_for_f4_cases",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/domain/policy.py": "401527115c610a0dde8521a9e113b7856f7c018a653e54245044ae6866245a2f",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -55,7 +55,7 @@
       "code": "src/mira/domain/policy.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_pf04_boundary_matrix_for_f4_cases",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/domain/policy.py": "401527115c610a0dde8521a9e113b7856f7c018a653e54245044ae6866245a2f",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -75,7 +75,7 @@
       "code": "src/mira/domain/policy.py",
       "test": "tests/test_contracts.py",
       "test_name": "test_absence_never_approves",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/domain/policy.py": "401527115c610a0dde8521a9e113b7856f7c018a653e54245044ae6866245a2f",
         "tests/test_contracts.py": "e093e047c65758f659f58a75730f688d248a726ae7d92d6ebb27294640a861b5"
@@ -95,7 +95,7 @@
       "code": "src/mira/infrastructure/review_store.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_evidence_access_and_historical_policy",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/infrastructure/review_store.py": "e132f4bba1904edf9a99a2531736c74f9b3c2e838e9a29bb8b7eeb922d488085",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -115,7 +115,7 @@
       "code": "src/mira/composition.py",
       "test": "tests/test_e2e.py",
       "test_name": "test_integrated_f4_f1_browser",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "tests/test_e2e.py": "699c72574271d7224bae165aea5f03417ed3d75ac4991c84111d97df5ae77ce2",
         "src/mira/composition.py": "387ac330fef8bae1115ce0bfaa20eb05377a9f0244811161a1eb4c4d3d3127b6"
@@ -135,7 +135,7 @@
       "code": "src/mira/application/services.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_controlled_queue_only_exposes_human_review_cases",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/application/services.py": "0b20ed89b9c5e46c135135c42e70d01da36ded210bb497ca355e8e6c63a824ba",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -155,7 +155,7 @@
       "code": "src/mira/web/templates/mira_web/bandeja.html",
       "test": "tests/test_e2e.py",
       "test_name": "test_integrated_f4_f1_browser",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/templates/mira_web/bandeja.html": "23bf6239c6a9db86e9dad586d221092a64ecc9497b108da979d61c36175b9400",
         "tests/test_e2e.py": "699c72574271d7224bae165aea5f03417ed3d75ac4991c84111d97df5ae77ce2"
@@ -175,7 +175,7 @@
       "code": "src/mira/web/templates/mira_web/detalle_caso.html",
       "test": "src/mira/web/tests.py",
       "test_name": "test_case_detail_shows_evidence_before_score",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/templates/mira_web/detalle_caso.html": "4d7ecadf460b3cd6bcaa64f74433083d8d2ac897de28b46cf0a4312d6d186ac2",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -195,7 +195,7 @@
       "code": "src/mira/composition.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_human_decision_records_request_info_and_removes_case_from_queue",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/composition.py": "387ac330fef8bae1115ce0bfaa20eb05377a9f0244811161a1eb4c4d3d3127b6"
@@ -215,7 +215,7 @@
       "code": "src/mira/domain/review.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_other_correction_requires_comment_without_changing_case",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/domain/review.py": "2d80fa640822dc8d86e4cdd61ac448b52a726445ba8014fa1f4b538180dc084b"
@@ -235,7 +235,7 @@
       "code": "src/mira/composition.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_correction_keeps_original_and_decision",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/composition.py": "387ac330fef8bae1115ce0bfaa20eb05377a9f0244811161a1eb4c4d3d3127b6"
@@ -255,7 +255,7 @@
       "code": "src/mira/infrastructure/review_store.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_two_connections_same_version_only_one_wins",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/infrastructure/review_store.py": "e132f4bba1904edf9a99a2531736c74f9b3c2e838e9a29bb8b7eeb922d488085",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -275,7 +275,7 @@
       "code": "src/mira/domain/review.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_disagreement_is_explicit",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/domain/review.py": "2d80fa640822dc8d86e4cdd61ac448b52a726445ba8014fa1f4b538180dc084b"
@@ -295,7 +295,7 @@
       "code": "src/mira/domain/deadlines.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_pf14_business_day_deadlines_are_reproducible",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/domain/deadlines.py": "a4937d0db055b90c2192178445de8e5f589f59724133404307b5c69b6ec9ee4a"
@@ -315,7 +315,7 @@
       "code": "src/mira/domain/deadlines.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_pf14_contractual_overdue_escalates_priority_without_closing_case",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f",
         "src/mira/domain/deadlines.py": "a4937d0db055b90c2192178445de8e5f589f59724133404307b5c69b6ec9ee4a"
@@ -335,7 +335,7 @@
       "code": "src/mira/infrastructure/models.py",
       "test": "tests/test_restart.py",
       "test_name": "test_intervention_survives_fresh_process",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/infrastructure/models.py": "98e68c401986822fa4053c6e0c628285a11d1d5e99bd866cd69e012eae541522",
         "tests/test_restart.py": "f2a6fc78e354a7aa2ab1b99d0f637e854cacb490e863e9d0906ac6961a6121fd"
@@ -355,7 +355,7 @@
       "code": "src/mira/infrastructure/controlled_cases.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_fixture_cases_match_f4_matrix",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/infrastructure/controlled_cases.py": "096b83d687b009ec6d0186525d7c67517fc8ae84815401d3fd87f6d8d96ab2bb",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -375,7 +375,7 @@
       "code": "src/mira/web/views.py",
       "test": "tests/test_e2e.py",
       "test_name": "test_integrated_f4_f1_browser",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/web/views.py": "f195b02f6cc817d8f5d2645c23c655692bf118fce71fbbd3613065bc83a43050",
         "tests/test_e2e.py": "699c72574271d7224bae165aea5f03417ed3d75ac4991c84111d97df5ae77ce2"
@@ -395,7 +395,7 @@
       "code": "docs/informe-candidato.md",
       "test": "tests/test_traceability.py",
       "test_name": "test_must_chain_paths_tests_stories_hashes_and_commits_exist",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "docs/informe-candidato.md": "e8c362f1fa569cbac9c651a4b840965807475cbebcf833d041bcd6cba33c6bff",
         "tests/test_traceability.py": "76b70712b776e5f82a631b9378d149ba1619d7406da3c087a07b4bac05413625"
@@ -415,7 +415,7 @@
       "code": "src/mira/domain/policy.py",
       "test": "src/mira/web/tests.py",
       "test_name": "test_pf04_boundary_matrix_for_f4_cases",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "src/mira/domain/policy.py": "401527115c610a0dde8521a9e113b7856f7c018a653e54245044ae6866245a2f",
         "src/mira/web/tests.py": "f547e05a46c18e86ca8ad9d05fe3ebaedbd6fdc63ea24d65e45904a55660024f"
@@ -435,7 +435,7 @@
       "code": "tests/quality/measure.py",
       "test": "tests/quality/measure.py",
       "test_name": "def main",
-      "commit": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+      "commit": "0166caab5c5eac5e72227125ae81963854f6248b",
       "hashes": {
         "tests/quality/measure.py": "e072a9c0a45c9daf5eda589609880e4764e67b7438b0312e29e1dfa2f8a17a3a"
       },

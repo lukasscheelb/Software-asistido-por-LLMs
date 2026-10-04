@@ -1,5 +1,5 @@
 {
-  "revision": "beca2cb7f6f5a57a598ffdfb30a2a94eb5ddab29",
+  "revision": "0166caab5c5eac5e72227125ae81963854f6248b",
   "algorithm": "SHA-256 de blobs Git; fuentes actuales normalizadas CRLF\u2192LF deben coincidir",
   "files": {
     "src/mira/asgi.py": "ea16587cad23dea8a7270d2d6aa49701737851fa08eb4e75f64dabf8a65b8424",
