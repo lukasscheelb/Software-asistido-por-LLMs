@@ -1,93 +1,27 @@
-# Contrato del harness de pruebas
+# Pruebas del candidato F4 + F1
 
-El proyecto ya contiene una suite base ejecutable con el runner de Django en
-`src/mira/web/tests.py`. Esa suite cubre la Política F4, la Bandeja, el detalle de
-Caso, el orden Evidencia antes de Puntaje y la decisión humana mínima de F1 con
-motivos obligatorios. También cubre el cálculo reproducible de plazos PF-14 con
-calendario lunes a viernes, alerta previa y vencimiento contractual. Este documento
-conserva además los puntos de conexión para ampliar el harness con pytest y
-Playwright en una story posterior.
+Las expectativas se derivan de PF-04, PF-05, PF-14 y del corpus de los SPEC BMAD; no sustituyen aceptación humana.
 
-## Comando disponible
+## Ejecución
+
+Desde la raíz del repositorio, después de `uv sync --locked`:
 
 ```powershell
 uv run python manage.py test mira.web
+$env:PLAYWRIGHT_BROWSERS_PATH="$PWD/.cache/playwright"
+uv run python -m playwright install chromium
+uv run pytest tests
+uv run python tests/quality/measure.py
 ```
 
-## Puntos de conexión
+Django cubre reglas F4, motivos, correcciones, CAS, plazos, persistencia y rutas. La prueba concurrente usa conexiones SQLite distintas contra una base de archivo temporal.
 
-- Settings de Django: `mira.settings` mediante `DJANGO_SETTINGS_MODULE`.
-- Entrada de comandos: `uv run python manage.py ...`.
-- Ruta inicial: `GET /` responde con una redirección temporal a `/bandeja/`.
-- Bandeja: `GET /bandeja/` responde `200` y renderiza los Casos controlados
-  derivados a `REVISIÓN` o `ESCALADO` sin depender de JavaScript.
-- Ejecución F4: `GET /ejecutar-f4/` presenta el selector de Casos y
-  `POST /ejecutar-f4/` devuelve una de las cuatro salidas deterministas de la
-  Política.
-- Detalle: `GET /casos/<case_id>/` muestra primero la Evidencia y después el
-  Puntaje y las Señales; `POST /casos/<case_id>/` registra una decisión humana
-  mínima cuando la acción y la categoría de motivo son válidas; un identificador
-  desconocido responde `404`.
-- Plazos F1: la lógica de dominio calcula 3 y 5 días hábiles desde `received_date`
-  usando una fecha controlada para clasificar `Vigente`, `Alerta previa`,
-  `Vence hoy` y `Vencido`.
-- Composition root: `mira.composition`; solo este módulo ensamblará adaptadores
-  concretos cuando existan.
-- Capas: `tests/unit` cubrira `mira.domain`, `tests/integration` cubrira puertos y
-  adaptadores entre `mira.application` y `mira.infrastructure`, y `tests/e2e`
-  recorrera `mira.web` desde el navegador.
+`tests/test_contracts.py` compara el corpus versionado con resultados esperados. `test_e2e.py` inicia servidor y Chromium, recorre F4 y F1, inspecciona evidencia y verifica conflictos desde la interfaz. `test_restart.py` escribe y lee desde procesos nuevos. `test_traceability.py` comprueba la cadena de artefactos, commits y hashes de fuentes actuales. Las bases y puertos de estas pruebas son temporales; no se usa la base de la demo compartida.
 
-La dirección que debe conservar el harness es
-`web/infrastructure -> application -> domain`. Las pruebas unitarias no usaran
-Django ni SQLite. Las de integración usarán una base SQLite temporal administrada
-por Django. Las E2E iniciarán el servidor local y usarán Chromium contra las rutas
-públicas.
+Los fixtures en `fixtures/` son ficticios. `load_demo` es idempotente y conserva intervenciones. Los scripts y dependencias ejecutables están fijados en `uv.lock`.
 
-## Ciclo de vida E2E previsto
+## Medición y aceptación
 
-La fixture E2E reservará un puerto dinámico asignado por el sistema en
-`127.0.0.1` y publicará la URL base al navegador. Esperará como máximo 10 segundos,
-mediante consultas a `GET /bandeja/`, hasta recibir `200`; si no ocurre, abortará
-con los diagnósticos del proceso web. Un módulo de settings de prueba derivado de
-`mira.settings` apuntará SQLite a un directorio temporal único por ejecución o
-worker, sin usar `db.sqlite3`.
+`tests/quality/measure.py` registra configuración, muestras, p95 de latencia, RSS y CPU en `docs/qa/measurements.json`. Se ejecuta como diagnóstico local: no acredita por sí solo el equipo de 2 vCPU/4 GiB de AD-15. El JSON declara límites de hardware y muestreo.
 
-El servidor, el contexto de Chromium y la base temporal se gestionarán con
-`try/finally`: el teardown detendrá el proceso web, cerrará el navegador y eliminará
-el directorio temporal incluso cuando una prueba falle o sea interrumpida.
-
-## Fixtures previstos
-
-Los fixtures futuros viviran en `fixtures/`, seran ficticios, versionados e
-idempotentes. Las pruebas podrán construir datos temporales propios, pero no
-alterarán esos archivos ni compartirán `db.sqlite3` entre ejecuciones.
-
-## Marcadores CAP-3 previstos
-
-La configuración futura de pytest registrará `cap_3`, `unit`, `integration` y
-`e2e`. La prueba base de CAP-3 comprobará la redirección, el estado HTTP, el HTML
-server-rendered, los filtros de la Bandeja y las cuatro salidas controladas de F4.
-También verificará el orden Evidencia antes de Puntaje en el detalle. Los nombres
-de las pruebas citaran CAP-3.
-
-En concreto, `cap_3 and unit` ejecutará una guardia estática sobre el AST de imports
-de `src/mira`: rechazará dependencias contrarias a
-`web/infrastructure -> application -> domain`, verificará que todos los límites
-sean importables y comprobará que `mira.composition` sea el único módulo autorizado
-a importar simultáneamente puertos de `application` y adaptadores concretos de
-`infrastructure`.
-
-## Comandos previstos para la ampliación pytest/Playwright
-
-Estos comandos documentan el contrato futuro; todavía no están disponibles:
-
-```powershell
-uv run playwright install chromium
-uv run pytest -m "cap_3 and unit"
-uv run pytest -m "cap_3 and integration"
-uv run pytest -m "cap_3 and e2e"
-```
-
-Playwright for Python se fijará en `1.63.0`. La versión exacta de pytest deberá
-aprobarse y bloquearse en `uv.lock` al implementar el harness; no se incorpora
-ninguna dependencia de pruebas en esta story.
+PX-05 requiere un integrante externo, y la aceptación requiere al representante del cliente. Registrar tareas, resultados, tiempos y criterios en `docs/qa/actas-pendientes.md`; las pruebas automatizadas no completan esas actas.

@@ -3,12 +3,12 @@ title: 'Cerrar correcciones MIRA F4 y F1'
 type: 'bugfix'
 ticket: ''
 created: '2026-10-04'
-status: 'in-progress'
+status: 'built'
 route: 'full'
 route_source: 'auto'
-review: ''
-review_source: ''
-lenses_ran: []
+review: 'thorough'
+review_source: 'auto'
+lenses_ran: ['blind-hunter', 'edge-case-hunter', 'verification-gap', 'intent-alignment']
 review_loop_iteration: 0
 baseline_revision: '4337a3a5f6dff92f8eddb20947b2f34a1e80f001'
 context:
@@ -84,6 +84,32 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 
 ## Review Triage Log
 
+| ID | Veredicto | Ruta | Evidencia y decision |
+|---|---|---|---|
+| H1 | medium | patch | GET puede mostrar decision anterior con version nueva: intercalacion comprobada con Client y guardado entre case_detail y snapshot. Leer el contexto relacionado coherentemente. |
+| H2 | medium | patch | POST obsoleto vuelve a mostrar formulario de Correccion con version nueva; prueba de intercalacion/stale confirmada. Requerir recarga antes de otro envio. |
+| H3 | high | patch | 69.99 se renderiza como 69,99 en value y Decimal no lo acepta. Reproducido en POST de borrador; comparte causa de formato con E2. |
+| H4 | medium | patch | Dos POST identicos de borrador crean dos casos: recuento 15->17 en BD aislada. Identidad estable de borrador evita duplicados sin nueva ruta publica. |
+| H5 | medium | patch | Otro vacio borra importe, categoria, comentario y operador de Correccion; comprobado contenido de respuesta. Retener datos y errores junto al formulario. |
+| H6 | low | patch | Correccion exitosa confirma una Decision, reproducido. Corregir texto directamente y expectativa de prueba. |
+| H7 | medium | patch | _base_manager.update y bulk_create(update_conflicts=True) sobrescribieron snapshots en BD aislada. Proteger mismas operaciones existentes; no exigir defensa SQL admin. |
+| H8 | medium | patch | test_traceability compara blobs historicos entre si, no fuentes actuales: puede certificar matriz antigua tras cambios. Comprobar hashes actuales normalizados y actualizar matriz del candidato. |
+| H9 | low | rechazado | N+1 y escaneo estan presentes, pero corpus de demo es 15 y p95 observado con100 es0.4871s<2. No demuestra que provoquen exceso CPU; el refactor excede correccion directa para un defecto despreciable en uso actual. |
+| H10 | medium | patch | Sampler fija primer contador cuando ya inicio trabajo y no captura final: omite consumo de bordes. Capturar baseline/final y declarar huecos de ciclo de vida; mantener diagnostico. |
+| E1 | high | patch | POST scoreNaN respondio500 por numberformat de Django; salida dominioERROR no basta. Renderizar valor sin localizacion de Decimal no finito, conservando entrada. |
+| E2 | high | patch | Confirmado value69,99 en borrador con autenticidad69.99. Mismo defecto de H3; usar strings canonicos/raw para inputs. |
+| E3 | false | rechazado | La UI ya no ofrece otra Decision tras request_info; SPEC excluye nueva evidencia/reapertura y exige no cerrar por falta de antecedentes. Espera abierta es intencional; aprobar de nuevo sin nuevo flujo no es comportamiento anunciado. |
+| G1 | medium | patch | Gap pre-verificado: solo100000 valido en pruebas de Correccion; finitos F4 no ejercitan comando. Agregar negativas/NaN/Infinity/malformadas y estado intacto. |
+| G2 | medium | patch | Gap pre-verificado: E2E mira REVISIÓN transitoria y no sigue link generado; ausencia de seed pasaria. Seguir detalle persistido y conservar snapshot original. |
+| I1 | low | rechazado | Reinicio se prueba entre procesos de composicion y no navegador: diferencia real de superficie, pero no se reclama sesion humana ni recuperacion UI en esa prueba; mismo adaptador durable ya ejercido. |
+| I2 | false | rechazado | Conexiones concurrentes y pestañas secuenciales aportan evidencia complementaria declarada; no afirma simultaneidad de clicks Chromium. |
+| I3 | false | rechazado | Correccion especificada120000->100000 se implementa sobre importe. No se reclama editor general; borrador nuevo conserva original. No hay divergencia con matriz aprobada. |
+| I4 | false | rechazado | Prueba garantiza disponibilidad/orden; informe deja PX05 humano pendiente. No se declara comprension/legibilidad evaluada externamente. |
+| I5 | false | rechazado | SQL administrativo se declara fuera de demo; no se reclama inmutabilidad frente a SQL. H7 sigue siendo un defecto distinto dentro de ORM y se corrige. |
+| I6 | false | rechazado | Informe no certifica hardware/CPU/aceptacion. El usuario aprobo candidato con sesiones pendientes, no actas falsas. |
+| I7 | low | rechazado | Main corroborado con git branch/log. Test de cadena es tecnico, no demostracion semantica total; pruebas PF/PX complementan. H8 especifico sobre archivos actuales si se corrige. |
+| I8 | false | rechazado | Intencion aislada no enumera auditoria, pero plan aprobado contextualiza prioridades y matriz. No constituye un defecto del diff ni requiere inventar una nueva lista. |
+
 ## Verification
 
 - `uv sync --locked`, `manage.py check`, `migrate --noinput`: instalación/esquema válidos.
@@ -101,3 +127,9 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 - Reproducción técnica git archive limpio con caché: 8,65s; sesión externa de clon limpio pendiente.
 - Fuentes informe 6.1–6.8, comparativa dos tablas/indicadores propuestos, guion y actas pendientes en docs. Número de grupo en blanco por instrucción humana.
 - Pendientes de cierre final: revisión BMAD del candidato, PX-05 externo, aceptación de Sebastián y medición acreditada AD-15/PX-08/resolución de CPU. v2.0 final reservada; no se inventa ninguna aceptación o sesión humana.
+
+
+
+## Verificación final del candidato
+
+Parches beca2cb y grafo 632dc13 revisados. 33 Django y 8 pytest pasan; instalación bloqueada, esquema y fixtures válidos. Navegador: NaN, borrador persistido, evidencia, corrección e historial; versión obsoleta bloquea formularios hasta recarga. Medición actual: p95 0.5228s, RSS 837009408 bytes, CPU 1.3237 núcleos (excede ≤1); sin brechas de contadores. Resultado diagnóstico, AD-15/PX-05/aceptación humana pendientes. Cuatro lentes finalizados y parches cerrados, sin hallazgos diferidos.

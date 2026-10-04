@@ -34,9 +34,9 @@ meta interna de 3 días hábiles y compromiso contractual de 5 días hábiles. N
 usan datos personales reales.
 
 La verificación automatizada se ejecuta con `uv run python manage.py test mira.web`.
-El contrato de ampliación hacia pytest y Playwright, capas, marcadores CAP-3 y
-comandos previstos está documentado en `tests/README.md`.
-Este starter es solo para desarrollo y verificación local; no incluye configuración
+Las pruebas adicionales con pytest y Playwright se ejecutan con los comandos
+indicados al final de este archivo; los contratos están en `tests/README.md`.
+Este incremento es para desarrollo y verificación local; no incluye configuración
 productiva.
 
 ## Descripción
@@ -72,7 +72,7 @@ Los prompts completos se encuentran documentados dentro del repositorio.
 - Lukas Scheel
 - Sebastián Rodríguez
 
-**Representante del cliente:** Lukas Scheel
+**Representante del cliente E1:** Lukas Scheel. **E2:** Sebastián Rodríguez.
 
 ## Consideraciones
 
@@ -99,3 +99,9 @@ uv run python tests/quality/measure.py
 Las mediciones son diagnósticas si no se acredita el equipo AD-15 de 2 vCPU/4 GiB. La ejecución registrada observa p95 y RSS bajo umbral, CPU sobre umbral; consultar JSON con las 30 muestras. PX-05 y aceptación de Sebastián siguen pendientes. El operador demo se declara, sin autenticación productiva. Fecha compartida: 2026-10-06 12:00 America/Santiago, inyectable mediante `ControlledClock`; calendario L-V, sin feriados adicionales.
 
 Demo: ejecutar CC-F4-04/05/09, corregir el borrador de error, abrir CC-F1-01 y su evidencia, corregir 120000→100000, solicitar antecedentes en CC-F1-03, abrir CC-F1-04 en dos pestañas y confirmar una misma versión; consultar alertas CC-F1-05/06 y reiniciar para comprobar historial.
+
+## Archivos de entrega candidata
+
+Etiqueta local: `v2.0-rc1`, sobre `main`. [Informe PDF](entrega/MIRA-Meyer-Scheel-Rodriguez.pdf) y [presentación editable](entrega/MIRA-Entrega2.pptx). El grupo se dejó en blanco por instrucción del usuario; completar portada y renombrar el PDF como `NUMEROGRUPO-MIRA-Meyer-Scheel-Rodriguez.pdf` antes de entregar. Fuentes: `docs/informe-candidato.md` y `docs/guion-presentacion.md`.
+
+La revisión BMAD terminó con los parches cerrados y sin hallazgos diferidos: `docs/qa/review-bmad.md`. Verificación: 33 Django y 8 pytest OK. La etiqueta v2.0 final queda reservada para el cierre validado; completar las actas reales pendientes, revisar la reflexión personal y resolver/acreditar recursos. Esta versión no se publicó automáticamente en GitHub.

@@ -1,0 +1,39 @@
+{
+  "pdf": {
+    "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
+    "sha256": "ba68d880373422a3c3899f99274701f149f99cf7246986c4987f370051048d75",
+    "pages": 12,
+    "visual_review": "12 páginas inspeccionadas; sin recortes ni superposiciones",
+    "section_pages": {
+      "6.1": 1,
+      "6.2": 1,
+      "6.3": 1,
+      "6.4": 1,
+      "6.5": 1,
+      "6.6": 2,
+      "6.7": 1,
+      "6.8": 1
+    },
+    "limits": "6.1 y 6.8 ocupan menos de media plana; todas las secciones dentro del máximo"
+  },
+  "presentation": {
+    "path": "entrega/MIRA-Entrega2.pptx",
+    "sha256": "31f5e1bc00726a0a3d00c04e4cabbf52acce64bebefa6b518cd830953a6f79db",
+    "slides": 13,
+    "native_tables": [
+      3,
+      4,
+      9,
+      10,
+      11,
+      12
+    ],
+    "visual_review": "13 diapositivas importadas del PPTX final e inspeccionadas",
+    "package_integrity": "pass",
+    "layout_findings": 0,
+    "first_party_import_passed": true,
+    "native_powerpoint_render_verified": false
+  },
+  "group": "",
+  "status": "Candidato local; actas humanas y AD-15 pendientes"
+}
