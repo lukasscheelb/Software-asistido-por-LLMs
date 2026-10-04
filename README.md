@@ -27,8 +27,10 @@ La demo incluye nueve Casos ficticios para la matriz F4. La Bandeja permite busc
 y filtrar los que requieren revisión, `Ejecutar F4` aplica la Política
 determinista del piloto y el detalle presenta la Evidencia antes del Puntaje. En
 F1 el operador puede registrar una decisión humana mínima con acción, categoría de
-motivo obligatoria y comentario obligatorio cuando el motivo es `Otro`. No se usan
-datos personales reales.
+motivo obligatoria y comentario obligatorio cuando el motivo es `Otro`. Los plazos
+de F1 se calculan con una fecha controlada del piloto, calendario lunes a viernes,
+meta interna de 3 días hábiles y compromiso contractual de 5 días hábiles. No se
+usan datos personales reales.
 
 La verificación automatizada base se ejecuta con `uv run python manage.py test mira.web`.
 El contrato de ampliación hacia pytest y Playwright, capas, marcadores CAP-3 y

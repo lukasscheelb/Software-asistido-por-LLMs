@@ -1,9 +1,12 @@
+from datetime import date
 from decimal import Decimal
 
 from django.test import SimpleTestCase
 from django.urls import reverse
 
 from mira.application.services import build_queue
+from mira.composition import CONTROLLED_TODAY
+from mira.domain.deadlines import add_business_days, evaluate_deadlines
 from mira.domain.policy import (
     DEFAULT_POLICY,
     ControlledCase,
@@ -32,6 +35,7 @@ def controlled_case(
         coherence=Decimal(coherence) if coherence is not None else None,
         fraud_detected=fraud_detected,
         automation_enabled=automation_enabled,
+        received_date=date(2026, 10, 1),
         received_at="01 oct 2026 · 09:00",
         internal_deadline="06 oct 2026",
         contractual_deadline="08 oct 2026",
@@ -101,13 +105,40 @@ class F4PolicyTests(SimpleTestCase):
                 self.assertEqual(evaluate_case(cases[case_id], DEFAULT_POLICY).outcome, expected_outcome)
 
     def test_controlled_queue_only_exposes_human_review_cases(self):
-        queue = build_queue(list_controlled_cases(), DEFAULT_POLICY)
+        queue = build_queue(list_controlled_cases(), DEFAULT_POLICY, CONTROLLED_TODAY)
 
         self.assertEqual(
             [item.case.case_id for item in queue],
-            ["CC-F4-01", "CC-F4-05", "CC-F4-03", "CC-F4-02", "CC-F4-06", "CC-F4-07", "CC-F4-08"],
+            ["CC-F4-03", "CC-F4-01", "CC-F4-05", "CC-F4-02", "CC-F4-06", "CC-F4-07", "CC-F4-08"],
         )
         self.assertTrue(all(item.evaluation.outcome in {F4Outcome.REVIEW, F4Outcome.ESCALATED} for item in queue))
+
+    def test_pf14_business_day_deadlines_are_reproducible(self):
+        case = get_controlled_case("CC-F4-02")
+        deadlines = evaluate_deadlines(case, CONTROLLED_TODAY)
+
+        self.assertEqual(add_business_days(date(2026, 10, 1), 3), date(2026, 10, 6))
+        self.assertEqual(add_business_days(date(2026, 10, 1), 5), date(2026, 10, 8))
+        self.assertEqual(deadlines.internal_state, "Vence hoy")
+        self.assertEqual(deadlines.contractual_state, "Vigente")
+
+    def test_pf14_contractual_overdue_escalates_priority_without_closing_case(self):
+        case = get_controlled_case("CC-F4-03")
+        deadlines = evaluate_deadlines(case, CONTROLLED_TODAY)
+        queue = build_queue(list_controlled_cases(), DEFAULT_POLICY, CONTROLLED_TODAY)
+        item = next(item for item in queue if item.case.case_id == "CC-F4-03")
+
+        self.assertEqual(deadlines.contractual_state, "Vencido")
+        self.assertTrue(deadlines.supervisor_mark)
+        self.assertEqual(item.priority, "Alta")
+        self.assertEqual(item.evaluation.outcome, F4Outcome.REVIEW)
+
+    def test_pf14_internal_pre_alert_is_visible_before_due_date(self):
+        case = get_controlled_case("CC-F4-06")
+        deadlines = evaluate_deadlines(case, CONTROLLED_TODAY)
+
+        self.assertEqual(deadlines.internal_label, "07 oct 2026")
+        self.assertEqual(deadlines.internal_state, "Alerta previa")
 
 
 class MiraWebRouteTests(SimpleTestCase):
@@ -131,6 +162,8 @@ class MiraWebRouteTests(SimpleTestCase):
         self.assertContains(response, "CC-F4-06")
         self.assertContains(response, "CC-F4-07")
         self.assertContains(response, "CC-F4-08")
+        self.assertContains(response, "Vencido")
+        self.assertContains(response, "Supervisor")
         self.assertNotContains(response, "CC-F4-04")
         self.assertNotContains(response, "CC-F4-09")
 

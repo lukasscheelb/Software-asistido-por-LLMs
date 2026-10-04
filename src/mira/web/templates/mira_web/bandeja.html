@@ -25,8 +25,8 @@
           <td data-label="Caso"><a class="case-link" href="{% url 'web:detalle_caso' item.case.case_id %}">{{ item.case.case_id }}</a><span>{{ item.case.applicant }}</span></td>
           <td data-label="Salida F4"><span class="status status--{{ item.evaluation.outcome_class }}">{{ item.evaluation.outcome }}</span></td>
           <td data-label="Razón principal" class="reason-cell">{{ item.evaluation.reason }}</td>
-          <td data-label="Prioridad"><span class="priority priority--{{ item.evaluation.priority|lower }}">{{ item.evaluation.priority }}</span></td>
-          <td data-label="Plazo contractual"><strong>{{ item.case.contractual_deadline }}</strong><span>Vigente</span></td>
+          <td data-label="Prioridad"><span class="priority priority--{{ item.priority|lower }}">{{ item.priority }}</span>{% if item.deadlines.supervisor_mark %}<span>Supervisor</span>{% endif %}</td>
+          <td data-label="Plazo contractual"><strong>{{ item.deadlines.contractual_label }}</strong><span>{{ item.deadlines.contractual_state }}</span></td>
           <td class="row-action"><a href="{% url 'web:detalle_caso' item.case.case_id %}" aria-label="Abrir {{ item.case.case_id }}">Abrir</a></td>
         </tr>{% endfor %}
       </tbody></table></div>

@@ -1,5 +1,6 @@
 """Fictitious, deterministic cases used by the local MIRA preview."""
 
+from datetime import date
 from decimal import Decimal
 
 from mira.domain.policy import ControlledCase, Evidence
@@ -15,6 +16,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("80"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 1),
         received_at="01 oct 2026 · 09:12",
         internal_deadline="06 oct 2026",
         contractual_deadline="08 oct 2026",
@@ -29,6 +31,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("80"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 1),
         received_at="01 oct 2026 · 10:35",
         internal_deadline="06 oct 2026",
         contractual_deadline="08 oct 2026",
@@ -46,9 +49,10 @@ CONTROLLED_CASES = (
         coherence=Decimal("80"),
         fraud_detected=False,
         automation_enabled=True,
-        received_at="30 sep 2026 · 16:48",
-        internal_deadline="05 oct 2026",
-        contractual_deadline="07 oct 2026",
+        received_date=date(2026, 9, 28),
+        received_at="28 sep 2026 · 16:48",
+        internal_deadline="01 oct 2026",
+        contractual_deadline="05 oct 2026",
         evidence=(Evidence("factura_controlada_03.pdf", "PDF ficticio", "Página 1 · Puntaje simulado", "El Puntaje iguala 90, por lo que no cumple la regla estricta de Puntaje mayor que 90."),),
     ),
     ControlledCase(
@@ -60,6 +64,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("70"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 11:05",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",
@@ -74,6 +79,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("90"),
         fraud_detected=True,
         automation_enabled=True,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 12:20",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",
@@ -88,6 +94,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("90"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 13:10",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",
@@ -102,6 +109,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("90"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 14:05",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",
@@ -116,6 +124,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("90"),
         fraud_detected=False,
         automation_enabled=False,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 15:30",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",
@@ -130,6 +139,7 @@ CONTROLLED_CASES = (
         coherence=Decimal("90"),
         fraud_detected=False,
         automation_enabled=True,
+        received_date=date(2026, 10, 2),
         received_at="02 oct 2026 · 16:15",
         internal_deadline="07 oct 2026",
         contractual_deadline="09 oct 2026",

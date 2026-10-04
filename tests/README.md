@@ -3,8 +3,10 @@
 El proyecto ya contiene una suite base ejecutable con el runner de Django en
 `src/mira/web/tests.py`. Esa suite cubre la Política F4, la Bandeja, el detalle de
 Caso, el orden Evidencia antes de Puntaje y la decisión humana mínima de F1 con
-motivos obligatorios. Este documento conserva además los puntos de conexión para
-ampliar el harness con pytest y Playwright en una story posterior.
+motivos obligatorios. También cubre el cálculo reproducible de plazos PF-14 con
+calendario lunes a viernes, alerta previa y vencimiento contractual. Este documento
+conserva además los puntos de conexión para ampliar el harness con pytest y
+Playwright en una story posterior.
 
 ## Comando disponible
 
@@ -26,6 +28,9 @@ uv run python manage.py test mira.web
   Puntaje y las Señales; `POST /casos/<case_id>/` registra una decisión humana
   mínima cuando la acción y la categoría de motivo son válidas; un identificador
   desconocido responde `404`.
+- Plazos F1: la lógica de dominio calcula 3 y 5 días hábiles desde `received_date`
+  usando una fecha controlada para clasificar `Vigente`, `Alerta previa`,
+  `Vence hoy` y `Vencido`.
 - Composition root: `mira.composition`; solo este módulo ensamblará adaptadores
   concretos cuando existan.
 - Capas: `tests/unit` cubrira `mira.domain`, `tests/integration` cubrira puertos y

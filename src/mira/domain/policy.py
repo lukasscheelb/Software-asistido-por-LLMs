@@ -1,6 +1,7 @@
 """Pure F4 policy for controlled demonstration cases."""
 
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal
 from enum import StrEnum
 from typing import TypeAlias
@@ -43,6 +44,7 @@ class ControlledCase:
     coherence: SignalValue
     fraud_detected: bool
     automation_enabled: bool
+    received_date: date
     received_at: str
     internal_deadline: str
     contractual_deadline: str

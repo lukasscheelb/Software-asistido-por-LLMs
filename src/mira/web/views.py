@@ -27,8 +27,8 @@ def bandeja(request: HttpRequest) -> HttpResponse:
         "query": query,
         "priority": priority,
         "total_pending": len(all_items),
-        "high_priority": sum(item.evaluation.priority == "Alta" for item in all_items),
-        "normal_priority": sum(item.evaluation.priority == "Normal" for item in all_items),
+        "high_priority": sum(item.priority == "Alta" for item in all_items),
+        "normal_priority": sum(item.priority == "Normal" for item in all_items),
     }
     return render(request, "mira_web/bandeja.html", context)
 
@@ -54,7 +54,7 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
     result = case_detail(case_id)
     if result is None:
         raise Http404("Caso controlado no encontrado")
-    case, evaluation, decision = result
+    case, evaluation, deadlines, decision = result
     errors: dict[str, str] = {}
     saved = False
     form_data = {
@@ -78,6 +78,7 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
             "active_navigation": "bandeja",
             "case": case,
             "evaluation": evaluation,
+            "deadlines": deadlines,
             "decision": decision,
             "can_review": evaluation.outcome in (F4Outcome.REVIEW, F4Outcome.ESCALATED) and decision is None,
             "action_options": ACTION_OPTIONS,
