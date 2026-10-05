@@ -194,7 +194,7 @@ Este repositorio mantiene el historial de trabajo y los principales archivos uti
 
 ## Candidato local y pruebas integradas
 
-Estado: candidato publicado; informe y actas actualizados localmente. F4/F1 aceptadas por el cliente; v2.0 final pendiente de cierre y acreditaciones. [Informe](docs/informe-candidato.md), [matriz Must](docs/trazabilidad-must.md), [estado de validaciones](docs/qa/actas-pendientes.md).
+Estado: versión de entrega publicada; informe y actas actualizados localmente. F4/F1 aceptadas por el cliente; v2.0 final pendiente de cierre y acreditaciones. [Informe](docs/informe-entrega.md), [matriz Must](docs/trazabilidad-must.md), [estado de validaciones](docs/qa/actas-pendientes.md).
 
 `load_demo` es idempotente: no borra intervenciones. SQLite conserva evaluación, entradas, política efectiva e historial al reiniciar. Los comandos exigen la versión esperada del Caso; un conflicto muestra `stale_version` y pide recargar. Una Corrección del importe conserva original, valor corregido, motivo, operador declarado y fecha controlada; no altera la Decisión humana. El desacuerdo se declara explícitamente con comentario (DEC-E2-08). Antecedentes solicitados siguen visibles como abiertos.
 
