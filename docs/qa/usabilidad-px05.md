@@ -14,8 +14,8 @@ Participante prevista: **Fernanda Meyer**. Edad indicada por el equipo: **21 añ
 
 | Tarea | Finalizó | Tiempo | Asistencias observadas | Dificultades |
 |---|---|---|---|---|
-| F4 | Sí | 1 min 13 s | 1 | Identificar donde están los botones y para que sirven |
-| F1 | Sí | 2 min 2 s | 1 | Problema al entender las secciónes en la pantalla |
+| F4 | Sí |  30 s | 1 | Identificar donde están los botones y para que sirven |
+| F1 | Sí | 3 min  | 1 | Problema al entender las secciónes en la pantalla |
 
 Registro de intervenciones del equipo: anotar cada intervención real con tarea, momento, motivo y contenido de la ayuda. Si no hubo, registrar cero después de realizar la sesión.
     Explicación de cuales eran los botones y contexto de por qué presionarlos.
@@ -36,7 +36,7 @@ Participante prevista: **Ximena Belmar**. Edad indicada por el equipo: **53 año
 | Tarea | Finalizó | Tiempo | Asistencias observadas | Dificultades |
 |---|---|---|---|---|
 | F4 | Sí | 57 s | 0 | Ninguna |
-| F1 | Sí | 1 min 21 s | 0 | Ninguna |
+| F1 | Sí | 2 min 21 s | 0 | Ninguna |
 
 
 Resultado global (autónomo / asistido / incompleto): __autónomo__________________

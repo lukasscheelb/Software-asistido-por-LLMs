@@ -125,7 +125,7 @@ Las rutas de código anteriores son relativas a `src/mira/`, excepto fixtures/te
 - `manage.py check`, migraciones y carga idempotente válidas; 27 pruebas Django, 5 pytest (incluye cadena verificable de rutas/historias/pruebas/hashes/commits), navegador Chromium y reinicio mediante procesos nuevos.
 - Medición real del commit técnico: p95 0,4871s; RSS máx 842932224 bytes; CPU promedio 1,2759 núcleos, supera ≤1. Hardware 12 lógicos/34224758784 bytes RAM, no acredita 2vCPU/4GiB: diagnóstico, no aceptación AD-15.
 - Reproducción técnica git archive limpio con caché: 8,65s; sesión externa de clon limpio pendiente.
-- Fuentes informe 6.1–6.8, comparativa dos tablas/indicadores propuestos, guion y actas pendientes en docs. Número de grupo en blanco por instrucción humana.
+- Fuentes informe 6.1–6.8, comparativa dos tablas/indicadores propuestos, guion y actas pendientes en docs. Identificación vigente: Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 - Pendientes de cierre final: revisión BMAD del candidato, PX-05 externo, aceptación de Sebastián y medición acreditada AD-15/PX-08/resolución de CPU. v2.0 final reservada; no se inventa ninguna aceptación o sesión humana.
 
 

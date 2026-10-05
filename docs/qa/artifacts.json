@@ -1,25 +1,18 @@
 {
   "pdf": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
-    "sha256": "47b07b7b02e6d5dcd338f99d3f0d0996271d95c2cd5294f7e7f1c6b73c7c0509",
-    "pages": 12,
-    "visual_review": "12 páginas inspeccionadas; sin recortes ni superposiciones",
-    "section_pages": {
-      "6.1": 1,
-      "6.2": 1,
-      "6.3": 1,
-      "6.4": 1,
-      "6.5": 1,
-      "6.6": 2,
-      "6.7": 1,
-      "6.8": 1
-    },
-    "limits": "6.1 y 6.8 ocupan menos de media plana; todas las secciones dentro del máximo",
-    "status": "PDF anterior conservado en Git; revisión PDF local excluida del commit por instrucción del usuario. El informe editable actualizado es el DOCX."
+    "sha256": "bf21558e96a13612cb634cc36b55324647b3a37cbd6fc0250237639b13319689",
+    "pages": 13,
+    "visual_review": "13 páginas inspeccionadas; contenido del Word actual verificado",
+    "limits": "Extensión por sección no certificada; paginación distinta de Word",
+    "status": "PDF convertido desde DOCX actual; guardado localmente; sin commit ni push",
+    "source": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
+    "source_sha256": "7bcec296e7910e3c577fccb882f3403f6636ef6a74bd86b7734e5fb66e0e825c",
+    "conversion": "Direct DOCX content reconstruction with ReportLab; native Word export unavailable; pagination may differ"
   },
   "presentation": {
     "path": "entrega/MIRA-Entrega2.pptx",
-    "sha256": "a6ada4e45322b5522a5158c1a21a03fcd657f8ae9d3489da4a6797c966ed2ed8",
+    "sha256": "25171b036ce4957e22a9c793c639a5cb9cb80f795502cb19f4846b3645b19c4a",
     "slides": 13,
     "native_tables": [
       3,
@@ -34,18 +27,21 @@
     "layout_findings": 0,
     "first_party_import_passed": true,
     "native_powerpoint_render_verified": false,
-    "status": "Documento anterior a esta revisión; pendiente sincronización con informe actualizado"
+    "status": "Identificación del grupo actualizada; contenido de presentación previo conservado"
   },
-  "group": "",
-  "status": "Revisión documental preparada para commit local; PDF actualizado excluido; sin push.",
+  "group": "Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez",
+  "status": "DOCX actual convertido a PDF; docs/informe-entrega.md eliminado por solicitud del usuario; sin commit ni push",
   "word": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
-    "sha256": "fbcaffb2cb2d1ea100ba78823abe8466cfb72b3e8b8beb4917464cf46281b069",
-    "native_tables": 5,
-    "images": 5,
+    "sha256": "7bcec296e7910e3c577fccb882f3403f6636ef6a74bd86b7734e5fb66e0e825c",
+    "native_tables": 6,
+    "images": 4,
     "package_integrity": "pass",
-    "content_checks": "pass",
+    "content_checks": "Contenido del DOCX actual contrastado con PDF",
     "native_word_render_verified": false,
-    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa."
+    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa.",
+    "source": "Documento editable actual del equipo; Markdown eliminado a petición del usuario",
+    "content_elements_verified": 207,
+    "limits": "Paginación visual Word pendiente; el renderizador canónico no dispone de LibreOffice soffice.exe."
   }
 }

@@ -1,5 +1,7 @@
 # Sesiones humanas y cierre pendientes
 
+Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
+
 | Sesión | Estado | Evidencia requerida |
 |---|---|---|
 | PX-05 externo | Dos sesiones realizadas; acreditación formal parcial | [Actas](usabilidad-px05.md): ambas participantes completaron F4/F1, una con dos ayudas. Pertenencia a otro equipo universitario y ausencia de instrucciones iniciales sin acreditar en las actas. |

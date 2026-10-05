@@ -18,14 +18,14 @@
         </a>
         <nav class="primary-navigation" aria-label="Navegación principal">
           <p class="navigation-label">Operación</p>
-          <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" {% if active_navigation == 'bandeja' %}aria-current="page"{% endif %}>Bandeja</a>
-          <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" {% if active_navigation == 'ejecutar' %}aria-current="page"{% endif %}>Ejecutar F4</a>
+          <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" {% if active_navigation == 'bandeja' %}aria-current="page"{% endif %}>F1 - Revisión humana asistida</a>
+          <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" {% if active_navigation == 'ejecutar' %}aria-current="page"{% endif %}>F4 - Evaluación automática de casos</a>
         </nav>
         <details class="mobile-navigation">
           <summary>Menú</summary>
           <nav aria-label="Navegación principal móvil">
-            <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" aria-label="Bandeja">Bandeja</a>
-            <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" aria-label="Ejecutar F4">Ejecutar F4</a>
+            <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" aria-label="F1 - Revisión humana asistida">F1 - Revisión humana asistida</a>
+            <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" aria-label="F4 - Evaluación automática de casos">F4 - Evaluación automática de casos</a>
           </nav>
         </details>
         <div class="environment-block">

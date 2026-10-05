@@ -26,7 +26,7 @@ F4 convierte puntajes y señales ya calculados en una salida conservadora y veri
 - **Operador de revisión:** revisa evidencia y plazos; aprueba, rechaza, solicita antecedentes o corrige un dato con motivo obligatorio y sin borrar el original.
 - **Responsable de riesgo:** necesita decisiones explicadas y conservadoras que eviten aprobaciones sin sustento.
 - **Supervisor:** controla casos próximos a vencer o atrasados; los vencidos permanecen abiertos y escalan.
-- **Equipo:** Lukas Scheel, Francisca Meyer y Sebastián Rodríguez.
+- **Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.**
 - **Representante del cliente E2:** Sebastián Rodríguez valida las decisiones funcionales del incremento.
 
 Las decisiones nuevas se agregan a la bitácora sin borrar las anteriores. Los IDs heredados de E1 se conservan.

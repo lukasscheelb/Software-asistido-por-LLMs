@@ -64,7 +64,7 @@ def register_human_decision(
     evaluation = detail[1]
     if evaluation.outcome not in (F4Outcome.REVIEW, F4Outcome.ESCALATED):
         return None, {
-            "case": "Este Caso no admite intervención F1.",
+            "case": "Este Caso no admite intervención en F1 - Revisión humana asistida.",
             "code": "invalid_input",
         }
     decision, errors = build_human_decision(
@@ -109,7 +109,7 @@ def register_correction(
     detail = case_detail(case_id)
     if not detail or detail[1].outcome not in (F4Outcome.REVIEW, F4Outcome.ESCALATED):
         return None, {
-            "case": "Este Caso no admite Corrección F1.",
+            "case": "Este Caso no admite corrección en F1 - Revisión humana asistida.",
             "code": "invalid_input",
         }
     category = category_by_code(reason_code)

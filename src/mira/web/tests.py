@@ -181,7 +181,7 @@ class MiraWebRouteTests(TestCase):
     def test_review_queue_renders_controlled_review_cases(self):
         response = self.client.get(reverse("web:bandeja"))
 
-        self.assertContains(response, "Bandeja de revisión")
+        self.assertContains(response, "F1 - Revisión humana asistida")
         self.assertContains(response, "CC-F4-01")
         self.assertContains(response, "CC-F4-02")
         self.assertContains(response, "CC-F4-03")
@@ -197,7 +197,7 @@ class MiraWebRouteTests(TestCase):
     def test_f4_runner_posts_review_result(self):
         response = self.client.post(reverse("web:ejecutar_f4"), {"case_id": "CC-F4-02"})
 
-        self.assertContains(response, "Resultado F4")
+        self.assertContains(response, "Resultado de F4 - Evaluación automática de casos")
         self.assertContains(response, "CC-F4-02")
         self.assertContains(response, F4Outcome.REVIEW)
 

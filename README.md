@@ -1,5 +1,7 @@
 # MIRA — Análisis de Requisitos Asistido por LLM
 
+Repositorio de GitHub: [Software-asistido-por-LLMs](https://github.com/lukasscheelb/Software-asistido-por-LLMs).
+
 Este repositorio nació como la **Entrega 1** del curso **Taller de Desarrollo de Software Conducido por Agentes de IA** de la Universidad de Valparaíso y conserva ese análisis como base histórica. Actualmente incorpora el incremento académico **MIRA F4 + F1** de la Entrega 2.
 
 ## Aplicación local CAP-3
@@ -179,9 +181,7 @@ Los prompts completos se encuentran documentados dentro del repositorio.
 
 ## Equipo
 
-- Francisca Meyer
-- Lukas Scheel
-- Sebastián Rodríguez
+Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 
 **Representante del cliente E1:** Lukas Scheel. **E2:** Sebastián Rodríguez.
 

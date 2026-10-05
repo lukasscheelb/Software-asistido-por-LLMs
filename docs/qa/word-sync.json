@@ -1,0 +1,13 @@
+{
+  "source": "docs/informe-entrega.md",
+  "source_sha256": "e683ef1fe2e9606c84ad3aa26e2990e8941c7c5d9f9fce4f94dbd35c98e259e1",
+  "output": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
+  "output_sha256": "2ed4c4e96dfa919e75ec6d06bdff6df51de6541eb4cd3e0fabf7ddc04635c204",
+  "content_elements_verified": 207,
+  "native_tables": 6,
+  "images": 5,
+  "package_integrity": "pass",
+  "all_markdown_content_present": true,
+  "diagram": "Todas las entidades y conexiones del Mermaid revisado representadas",
+  "native_word_render_verified": false
+}

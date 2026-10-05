@@ -2,7 +2,7 @@
   "date": "2026-10-04",
   "reference_tag": "v2.0-rc1",
   "code_commit": "0ccb92f0ffae7ca6b1ad4af4f1d19263a0437327",
-  "document_status": "Informe DOCX y fuente versionados; metadatos y actas en commit posterior; PDF actualizado excluido; sin push",
+  "document_status": "Registro con verificaciones PDF históricas; revisión editorial actual local del Markdown y Word, sin commit ni push",
   "pdf": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
     "sha256": "2cd837a1947ac33d17621188e4e3ef7fc2a45c166ad163c550872ee3c0af7700",
@@ -142,13 +142,14 @@
   },
   "word": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
-    "sha256": "fbcaffb2cb2d1ea100ba78823abe8466cfb72b3e8b8beb4917464cf46281b069",
-    "native_tables": 5,
+    "sha256": "2ed4c4e96dfa919e75ec6d06bdff6df51de6541eb4cd3e0fabf7ddc04635c204",
+    "native_tables": 6,
     "images": 5,
     "package_integrity": "pass",
     "content_checks": "pass",
     "native_word_render_verified": false,
-    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa."
+    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa.",
+    "content_elements_verified": 207
   },
   "references_checked": [
     "LLM - MIRA_E2_Baseline_F4_F1.md",
@@ -192,9 +193,20 @@
     "Acreditar entorno AD-15 y conservar excepción CPU",
     "Completar condiciones formales PX-05",
     "Instalación externa desde cero",
-    "Completar grupo y nomenclatura PDF",
+    "Revisar nomenclatura PDF según pauta de entrega",
     "Paginación nativa Word"
   ],
   "presentation": "No modificada en esta revisión; conserva versión anterior.",
-  "report_commit": "83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823"
+  "report_commit": "83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823",
+  "current_editorial_review": {
+    "date": "2026-10-04",
+    "source_sha256": "e683ef1fe2e9606c84ad3aa26e2990e8941c7c5d9f9fce4f94dbd35c98e259e1",
+    "local_references_verified": 19,
+    "commits_verified": 8,
+    "section_structure": "6.1 a 6.8; dos tablas comparativas; tres indicadores; A1-A4, B1-B3, C1-C2 y D1-D2",
+    "pdf_record_scope": "Datos históricos; no aplican al Word actual",
+    "word_pagination_verified": false,
+    "render_error": "LibreOffice soffice.exe no disponible",
+    "changes_committed": false
+  }
 }

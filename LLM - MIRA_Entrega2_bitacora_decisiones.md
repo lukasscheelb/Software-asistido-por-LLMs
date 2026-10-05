@@ -15,10 +15,7 @@
 
 ## 2. Validación de la Entrega 1 como línea base
 - Se recibió y analizó la Entrega 1 final del equipo.
-- Integrantes confirmados:
-  - Lukas Scheel.
-  - Francisca Meyer.
-  - Sebastián Rodríguez.
+- Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 - Representante del cliente en Entrega 1: Lukas Scheel.
 - Se confirmó que las decisiones DEC-01 a DEC-16 fueron aceptadas y ratificadas.
 - Se confirmó que la Entrega 1 obtuvo una evaluación muy buena y se tomará como línea base correcta para la Entrega 2.
@@ -139,7 +136,7 @@
 - Runtime aprobado Django 5.2.17 reconciliado en contratos efectivos; historial previo conservado.
 - 25 pruebas Django y 4 pytest verifican persistencia, carrera, fronteras, errores, corrección y navegador.
 - Medición registrada diagnóstica: p95 0.4871s, RSS 842932224 bytes, CPU 1.2759 núcleos. CPU excede umbral; hardware AD-15 no acreditado.
-- Sesiones externas, aceptación de Sebastián y v2.0 final pendientes. Número de grupo dejado en blanco por instrucción del usuario.
+- Sesiones externas, aceptación de Sebastián y v2.0 final pendientes. Identificación vigente: Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 
 
 ## 15. Auditoría de la entrega y aprobación del cierre BMAD — 2026-10-04
@@ -175,8 +172,8 @@
 
 - Se prepararon el informe 6.1–6.8, matriz de trazabilidad Must, comparativa, guion, capturas y documentos de QA.
 - Se incorporaron `entrega/MIRA-Meyer-Scheel-Rodriguez.pdf` (12 páginas) y `entrega/MIRA-Entrega2.pptx` (13 diapositivas), con registros de revisión e integridad en `docs/qa/artifacts.json`.
-- Por instrucción del usuario, el número de grupo quedó en blanco para completarlo manualmente; debe ajustarse la portada y el nombre requerido antes de entregar.
-- Se convirtió el informe a `entrega/MIRA-Meyer-Scheel-Rodriguez.docx` y se enlazó desde README (commit `64bb6c6`): texto y tres tablas editables, cinco imágenes y grupo en blanco.
+- La identificación vigente de la portada es: Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
+- Se convirtió el informe a `entrega/MIRA-Meyer-Scheel-Rodriguez.docx` y se enlazó desde README (commit `64bb6c6`): texto y tres tablas editables y cinco imágenes. Identificación vigente: Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 - La conversión verificó contenido de la fuente e integridad del paquete DOCX. La paginación visual de Word no pudo verificarse en este entorno; debe revisarse al abrirlo en Word.
 
 ## 19. Autorización de publicación en GitHub — 2026-10-04
@@ -216,7 +213,7 @@
 
 - Se revisaron la rúbrica, la baseline, la bitácora, los contratos y las actas corregidas para actualizar las secciones 6.1 a 6.8.
 - Se incorporaron usabilidad, aceptación funcional, excepción de CPU e instalación. Se fortalecieron las dos tablas E1/E2, los tres indicadores y las respuestas A/B y C1/C2/D1/D2, distinguiendo equipo, cliente y agente.
-- Se reorganizaron portada, contenido, jerarquía, tablas, figuras y referencias; se actualizaron fuente Markdown, Word editable y PDF de entrega. Grupo en blanco por instrucción del usuario.
+- Se reorganizaron portada, contenido, jerarquía, tablas, figuras y referencias; se actualizaron fuente Markdown, Word editable y PDF de entrega. Identificación vigente: Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
 - La etiqueta vigente sigue siendo v2.0-rc1. Las modificaciones de esta etapa son locales; el usuario indicó esperar su orden para commit y push.
 - FR-20 y sus hashes vinculados al informe publicado deben renovarse al versionar el nuevo informe. Los resultados históricos no se presentan como verificación de los documentos locales actuales.
 
@@ -227,3 +224,21 @@
 - Se preparan dos commits coherentes: informe editable y fuente; luego actas, README, bitácora y actualización de trazabilidad FR-20 hacia el commit del informe.
 - Autor configurado: Lukas Scheel Belmar y correo GitHub asociado a su perfil. No se realiza push, ya que la autorización actual solicita commit.
 - Informe editable y fuente confirmados en `83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823`. Se actualizaron matriz FR-20 y hashes hacia ese commit; **dos pruebas de trazabilidad aprobadas**. No se modificaron código, fixtures, dependencias ni pruebas.
+
+## 25. Identificación uniforme del grupo
+
+- Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.
+- Por instrucción del usuario, esta identificación reemplaza etiquetas alternativas de integrantes y campos de grupo pendientes en documentos, metadatos y artefactos de presentación. Las menciones individuales de roles y participantes se conservan.
+- Los cambios son locales, sin commit ni push.
+
+
+## 26. Revisión editorial del informe
+
+El 4 de octubre de 2026 se revisaron las secciones 6.1 a 6.8 contra los capítulos 6 y 9 del enunciado E2. Se corrigieron 30 expresiones de redacción, claridad y coherencia, sin modificar resultados de pruebas, tiempos de sesiones ni decisiones. La aceptación global se distingue de la aceptación por criterio. El Word se sincronizó con el Markdown: 207 elementos de contenido, seis tablas y cinco imágenes; integridad del paquete verificada. Se comprobaron 19 referencias locales y ocho commits citados.
+
+La paginación y los límites de extensión del Word siguen pendientes: el renderizador no dispone de LibreOffice. El PDF conserva la revisión anterior y no se utiliza como evidencia visual del Word corregido. No se realizó commit ni push.
+
+
+## 27. Conversión del informe actual a PDF
+
+Se convirtió el DOCX editado por el equipo a `entrega/MIRA-Meyer-Scheel-Rodriguez.pdf`. La exportación nativa de Word falló por error de sesión de Windows 0x80070520; se reconstruyó el PDF directamente desde el contenido del DOCX, conservando los textos, seis tablas y cuatro imágenes. Se verificaron 228 elementos textuales y se inspeccionaron las 13 páginas. La paginación puede diferir de Word. Por solicitud del usuario se eliminó `docs/informe-entrega.md`; el DOCX permanece como documento editable. No se realizó commit ni push.

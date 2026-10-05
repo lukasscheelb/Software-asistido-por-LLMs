@@ -397,7 +397,7 @@ Los datos de demostración deben ser ficticios. Credenciales o secretos no deben
 ## 11. Responsables y aprobaciones
 
 - **Sebastián Rodríguez, representante del cliente E2:** valida este PRD y acepta o rechaza las funcionalidades contra sus criterios.
-- **Equipo E2:** Lukas Scheel, Francisca Meyer y Sebastián Rodríguez; revisa cada artefacto BMAD antes de avanzar.
+- **Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez.** El equipo revisa cada artefacto BMAD antes de avanzar.
 - **UX:** convierte UJ-1 a UJ-4 y FR-7 a FR-16 en especificación de interfaz en español.
 - **Arquitectura:** resuelve stack, persistencia, control de concurrencia y aplicabilidad de NFR-3/NFR-4.
 - **QA:** deriva pruebas automatizadas de PF-04, PF-05, PF-14, PX-05, PX-08 y PX-09 sin copiar el comportamiento accidental de la implementación.
