@@ -392,12 +392,12 @@
       "story_file": "_bmad-output/initiative-mira-e2-f4-f1/epic-verificacion-entrega-trazable/tickets.toml",
       "story_id": 2,
       "story": "4.2",
-      "code": "docs/informe-candidato.md",
+      "code": "docs/informe-entrega.md",
       "test": "tests/test_traceability.py",
       "test_name": "test_must_chain_paths_tests_stories_hashes_and_commits_exist",
-      "commit": "1d002aeedc77eccdcba196f57601a5a2299d7c9a",
+      "commit": "8000f66007cc16950c80c360cdaebc273e30ff9a",
       "hashes": {
-        "docs/informe-candidato.md": "03ee1ae06a54d02641c380d28d316b1fe6fc316ef24618ccc9f21100fcf51df5",
+        "docs/informe-entrega.md": "03ee1ae06a54d02641c380d28d316b1fe6fc316ef24618ccc9f21100fcf51df5",
         "tests/test_traceability.py": "76b70712b776e5f82a631b9378d149ba1619d7406da3c087a07b4bac05413625"
       },
       "status": "Implementado / evidencia técnica"
