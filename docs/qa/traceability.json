@@ -395,9 +395,9 @@
       "code": "docs/informe-entrega.md",
       "test": "tests/test_traceability.py",
       "test_name": "test_must_chain_paths_tests_stories_hashes_and_commits_exist",
-      "commit": "8000f66007cc16950c80c360cdaebc273e30ff9a",
+      "commit": "6102ead04c72f01697ad6c00f8b0e8dd0178c122",
       "hashes": {
-        "docs/informe-entrega.md": "03ee1ae06a54d02641c380d28d316b1fe6fc316ef24618ccc9f21100fcf51df5",
+        "docs/informe-entrega.md": "2ba333ea8b00109a619eca138396d22ee3b1655da3fad7728e4b6a37de951903",
         "tests/test_traceability.py": "76b70712b776e5f82a631b9378d149ba1619d7406da3c087a07b4bac05413625"
       },
       "status": "Implementado / evidencia técnica"
