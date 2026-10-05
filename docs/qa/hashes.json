@@ -1,6 +1,6 @@
 {
   "revision": "0166caab5c5eac5e72227125ae81963854f6248b",
-  "algorithm": "SHA-256 de blobs Git; fuentes actuales normalizadas CRLF\u2192LF deben coincidir",
+  "algorithm": "SHA-256 de blobs Git; fuentes actuales normalizadas CRLF→LF deben coincidir",
   "files": {
     "src/mira/asgi.py": "ea16587cad23dea8a7270d2d6aa49701737851fa08eb4e75f64dabf8a65b8424",
     "src/mira/composition.py": "387ac330fef8bae1115ce0bfaa20eb05377a9f0244811161a1eb4c4d3d3127b6",

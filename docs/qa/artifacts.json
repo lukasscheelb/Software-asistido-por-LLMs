@@ -14,7 +14,8 @@
       "6.7": 1,
       "6.8": 1
     },
-    "limits": "6.1 y 6.8 ocupan menos de media plana; todas las secciones dentro del máximo"
+    "limits": "6.1 y 6.8 ocupan menos de media plana; todas las secciones dentro del máximo",
+    "status": "PDF anterior conservado en Git; revisión PDF local excluida del commit por instrucción del usuario. El informe editable actualizado es el DOCX."
   },
   "presentation": {
     "path": "entrega/MIRA-Entrega2.pptx",
@@ -32,17 +33,19 @@
     "package_integrity": "pass",
     "layout_findings": 0,
     "first_party_import_passed": true,
-    "native_powerpoint_render_verified": false
+    "native_powerpoint_render_verified": false,
+    "status": "Documento anterior a esta revisión; pendiente sincronización con informe actualizado"
   },
   "group": "",
-  "status": "Candidato publicado; identidad Git actualizada, actas humanas y AD-15 pendientes",
+  "status": "Revisión documental preparada para commit local; PDF actualizado excluido; sin push.",
   "word": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
-    "sha256": "8c3d74b8d65f64d23415cdc6089efc3376c481371bffcd9b26c8d3adfc7c577a",
-    "native_tables": 3,
+    "sha256": "fbcaffb2cb2d1ea100ba78823abe8466cfb72b3e8b8beb4917464cf46281b069",
+    "native_tables": 5,
     "images": 5,
     "package_integrity": "pass",
+    "content_checks": "pass",
     "native_word_render_verified": false,
-    "limits": "Paginación de Word no verificada; sin compiler disponible en este entorno"
+    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa."
   }
 }

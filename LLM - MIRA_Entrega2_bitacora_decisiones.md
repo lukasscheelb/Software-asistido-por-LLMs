@@ -195,3 +195,35 @@
 - La publicación reescrita usa leases explícitos de main y v2.0-rc1 para impedir sobrescribir cambios concurrentes. La etiqueta candidata incorpora mantenimiento documental y nueva verificación; v2.0 final no se declara aceptada.
 - Siguen pendientes PX-05 humano, aceptación de Sebastián y acreditación/rendimiento AD-15. Cambiar la identidad de Git no sustituye esas evidencias.
 - Verificación posterior: check Django válido, **33 Django y 8 pytest aprobadas**, incluida FR-20; código, pruebas, fixtures y dependencias sin cambios. PDF (12 páginas) y PPTX (13 diapositivas) revisados; integridad Word verificada, paginación nativa Word no disponible. Registro: `docs/qa/identity-rewrite-verification.json`.
+
+## 21. Validación humana y aceptación del rendimiento
+
+- El equipo completó y corrigió las actas de usabilidad de Fernanda Meyer y Ximena Belmar y confirmó que las sesiones y sus datos fueron observados realmente. Ambas completaron F4/F1; Fernanda requirió una ayuda por tarea y Ximena ninguna. Evidencia: `docs/qa/usabilidad-px05.md`.
+- Se conservan las fechas comunicadas en las actas: Fernanda, 04/10/2026 a las 11:05, observada por Francisca; Ximena, 03/10/2026 a las 21:09, observada por Lukas. No se agrega un commit individual de sesión que no conste.
+- Sebastián probó F4/F1 el 04/10/2026 a las 13:00 y aceptó ambas sin observaciones por corresponder a lo solicitado. El equipo corrigió el acta: `docs/qa/aceptacion-sebastian.md`.
+- El cliente acepta el rendimiento medido, incluida la desviación de CPU. Se conserva p95 0,5228 s, RSS 798,2 MiB y CPU 1,3237 núcleos; no se presenta la excepción como cumplimiento del umbral ni acreditación del hardware. Registro: `docs/qa/aceptacion-rendimiento.md`.
+- Esta actualización cambia el estado histórico de sesiones pendientes, sin borrar registros anteriores. La pertenencia a otro equipo universitario y las condiciones iniciales de PX-05 siguen sin acreditarse íntegramente; AD-15 continúa pendiente.
+
+## 22. Revisión de instalación y preparación del README
+
+- Se clonó una copia Git limpia local con entorno y SQLite nuevos. `uv sync --locked --offline`, check, migraciones, carga de 15 casos y 33 pruebas Django terminaron correctamente.
+- El servidor de comprobación en puerto 8001 respondió a Bandeja, F4 y detalle y se detuvo al terminar; la copia principal en 8000 no se reinició ni se borró su base.
+- Se amplió el README con requisitos, instalación de uv, clonación, entrada, dependencias automáticas, base de datos, servidor, persistencia, errores comunes y pruebas opcionales. Se omitió la instalación de Git por instrucción del usuario.
+- La prueba usa caché; no acredita descarga desde cero ni sesión externa menor de 15 minutos. Evidencia: `docs/qa/instalacion-readme.md`.
+- Se eliminó `docs/guion-presentacion.md` y sus referencias a solicitud del usuario.
+
+## 23. Revisión integral del informe
+
+- Se revisaron la rúbrica, la baseline, la bitácora, los contratos y las actas corregidas para actualizar las secciones 6.1 a 6.8.
+- Se incorporaron usabilidad, aceptación funcional, excepción de CPU e instalación. Se fortalecieron las dos tablas E1/E2, los tres indicadores y las respuestas A/B y C1/C2/D1/D2, distinguiendo equipo, cliente y agente.
+- Se reorganizaron portada, contenido, jerarquía, tablas, figuras y referencias; se actualizaron fuente Markdown, Word editable y PDF de entrega. Grupo en blanco por instrucción del usuario.
+- La etiqueta vigente sigue siendo v2.0-rc1. Las modificaciones de esta etapa son locales; el usuario indicó esperar su orden para commit y push.
+- FR-20 y sus hashes vinculados al informe publicado deben renovarse al versionar el nuevo informe. Los resultados históricos no se presentan como verificación de los documentos locales actuales.
+
+## 24. Commit de la revisión documental autorizado
+
+- El usuario autoriza versionar el trabajo de esta sesión, con el informe DOCX actualizado y sin incluir el PDF del informe, que se modificará posteriormente.
+- Se conserva el PDF anterior en Git y la revisión PDF actual únicamente en la copia local. La presentación tampoco se actualiza en esta etapa.
+- Se preparan dos commits coherentes: informe editable y fuente; luego actas, README, bitácora y actualización de trazabilidad FR-20 hacia el commit del informe.
+- Autor configurado: Lukas Scheel Belmar y correo GitHub asociado a su perfil. No se realiza push, ya que la autorización actual solicita commit.
+- Informe editable y fuente confirmados en `83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823`. Se actualizaron matriz FR-20 y hashes hacia ese commit; **dos pruebas de trazabilidad aprobadas**. No se modificaron código, fixtures, dependencias ni pruebas.

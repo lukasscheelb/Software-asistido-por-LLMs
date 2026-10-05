@@ -1,0 +1,200 @@
+{
+  "date": "2026-10-04",
+  "reference_tag": "v2.0-rc1",
+  "code_commit": "0ccb92f0ffae7ca6b1ad4af4f1d19263a0437327",
+  "document_status": "Informe DOCX y fuente versionados; metadatos y actas en commit posterior; PDF actualizado excluido; sin push",
+  "pdf": {
+    "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
+    "sha256": "2cd837a1947ac33d17621188e4e3ef7fc2a45c166ad163c550872ee3c0af7700",
+    "pages": 14,
+    "visual_review": "14 páginas inspeccionadas, incluida nueva renderización de las páginas modificadas; sin recortes ni superposiciones",
+    "sections": {
+      "6.1": {
+        "pages": [
+          3
+        ],
+        "segments": {
+          "3": {
+            "top": 58.519000000000005,
+            "bottom": 273.78700000000003
+          }
+        },
+        "occupied_page_equivalents": 0.289,
+        "limit": 0.5,
+        "within_limit": true
+      },
+      "6.2": {
+        "pages": [
+          3
+        ],
+        "segments": {
+          "3": {
+            "top": 299.3190000000001,
+            "bottom": 656.187
+          }
+        },
+        "occupied_page_equivalents": 0.479,
+        "limit": 1,
+        "within_limit": true
+      },
+      "6.3": {
+        "pages": [
+          4,
+          5
+        ],
+        "segments": {
+          "4": {
+            "top": 58.519000000000005,
+            "bottom": 768.58704
+          },
+          "5": {
+            "top": 57.38700000000006,
+            "bottom": 200.187
+          }
+        },
+        "occupied_page_equivalents": 1.145,
+        "limit": 2,
+        "within_limit": true
+      },
+      "6.4": {
+        "pages": [
+          6
+        ],
+        "segments": {
+          "6": {
+            "top": 58.519000000000005,
+            "bottom": 711.5802000000001
+          }
+        },
+        "occupied_page_equivalents": 0.877,
+        "limit": 1.5,
+        "within_limit": true
+      },
+      "6.5": {
+        "pages": [
+          7
+        ],
+        "segments": {
+          "7": {
+            "top": 58.519000000000005,
+            "bottom": 786.78704
+          }
+        },
+        "occupied_page_equivalents": 0.978,
+        "limit": 1.5,
+        "within_limit": true
+      },
+      "6.6": {
+        "pages": [
+          8,
+          9,
+          10
+        ],
+        "segments": {
+          "8": {
+            "top": 58.519000000000005,
+            "bottom": 453.45950000000005
+          },
+          "9": {
+            "top": 57.380499999999984,
+            "bottom": 774.3870400000001
+          },
+          "10": {
+            "top": 57.38700000000006,
+            "bottom": 538.587
+          }
+        },
+        "occupied_page_equivalents": 2.139,
+        "limit": 3,
+        "within_limit": true
+      },
+      "6.7": {
+        "pages": [
+          11
+        ],
+        "segments": {
+          "11": {
+            "top": 58.519000000000005,
+            "bottom": 444.18700000000007
+          }
+        },
+        "occupied_page_equivalents": 0.518,
+        "limit": 1,
+        "within_limit": true
+      },
+      "6.8": {
+        "pages": [
+          11
+        ],
+        "segments": {
+          "11": {
+            "top": 469.71900000000005,
+            "bottom": 670.587
+          }
+        },
+        "occupied_page_equivalents": 0.27,
+        "limit": 0.5,
+        "within_limit": true
+      }
+    },
+    "included_in_commit": false,
+    "status": "Revisión PDF verificada solo localmente; no incluida en este commit. La copia Git del PDF conserva el informe anterior."
+  },
+  "word": {
+    "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
+    "sha256": "fbcaffb2cb2d1ea100ba78823abe8466cfb72b3e8b8beb4917464cf46281b069",
+    "native_tables": 5,
+    "images": 5,
+    "package_integrity": "pass",
+    "content_checks": "pass",
+    "native_word_render_verified": false,
+    "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa."
+  },
+  "references_checked": [
+    "LLM - MIRA_E2_Baseline_F4_F1.md",
+    "docs/trazabilidad-must.md",
+    "docs/qa/traceability.json",
+    "docs/qa/measurements.json",
+    "docs/qa/usabilidad-px05.md",
+    "docs/qa/aceptacion-sebastian.md",
+    "docs/qa/aceptacion-rendimiento.md",
+    "README.md",
+    "docs/qa/instalacion-readme.md",
+    "docs/qa/reproducibility.json",
+    "LLM - MIRA_Entrega2_bitacora_decisiones.md",
+    "_bmad/config.toml",
+    "docs/qa/review-bmad.md",
+    "docs/qa/review-fixes.md",
+    "tests/README.md",
+    "src/mira/web/tests.py",
+    "prompts_completos.md",
+    "docs/qa/commit-author-map.json",
+    "Contexto-fase1-bmad/LLM - Entrega_2_MIRA_SDD_BMAD.pdf"
+  ],
+  "comparison": {
+    "tables": 2,
+    "indicators": 3,
+    "answers": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "B1",
+      "B2",
+      "B3",
+      "C1",
+      "C2",
+      "D1",
+      "D2"
+    ]
+  },
+  "pending": [
+    "Acreditar entorno AD-15 y conservar excepción CPU",
+    "Completar condiciones formales PX-05",
+    "Instalación externa desde cero",
+    "Completar grupo y nomenclatura PDF",
+    "Paginación nativa Word"
+  ],
+  "presentation": "No modificada en esta revisión; conserva versión anterior.",
+  "report_commit": "83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823"
+}

@@ -395,9 +395,9 @@
       "code": "docs/informe-candidato.md",
       "test": "tests/test_traceability.py",
       "test_name": "test_must_chain_paths_tests_stories_hashes_and_commits_exist",
-      "commit": "63438f8e795e1371fb80380de8b58fa0f78d16f9",
+      "commit": "83ca0e0f6081dd0d422b19ee2dfdd39b0d25d823",
       "hashes": {
-        "docs/informe-candidato.md": "a262651a4077a48edc466d87becac4da6f35071309dce8026249f5295976b10f",
+        "docs/informe-candidato.md": "72352c23118b1d21faee5d1d80d21dbde88f031e273b759805d0bbbafbbcb056",
         "tests/test_traceability.py": "76b70712b776e5f82a631b9378d149ba1619d7406da3c087a07b4bac05413625"
       },
       "status": "Implementado / evidencia técnica"
