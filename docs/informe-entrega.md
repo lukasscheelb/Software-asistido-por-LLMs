@@ -6,15 +6,15 @@ Universidad de Valparaíso. Escuela de Ingeniería Informática. Taller de Desar
 
 Integrantes: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez. Representante del cliente E2: Sebastián Rodríguez. Método: BMAD. Herramienta de asistencia: Codex. Configuración del método: `_bmad/config.toml`, snapshot `a59ab9c`; versión semántica no registrada.
 
-Fecha: 4 de octubre de 2026. Versión de referencia: `v2.0-rc1`, commit `0ccb92f0ffae7ca6b1ad4af4f1d19263a0437327`. El informe incorpora documentación local posterior a la etiqueta; `v2.0` final aún no publicada.
+Fecha: 4 de octubre de 2026. Versión de entrega: `v2.0`. Las evidencias históricas de pruebas, sesiones y mediciones se conservan con la versión técnica verificada `v2.0-rc1`, commit `0ccb92f0ffae7ca6b1ad4af4f1d19263a0437327`.
 
 ## 6.1 Resumen ejecutivo
 
-Se construyó una aplicación web de MIRA que evalúa casos mediante reglas conservadoras y permite revisarlos con evidencia antes de registrar una decisión humana. El incremento conecta F4 y F1, utiliza datos ficticios y se desarrolló mediante BMAD desde los requisitos de la Entrega 1.
+Se construyó una aplicación web de MIRA que conecta F4, decisión por umbrales, con F1, bandeja de revisión asistida. Con datos ficticios, la aplicación permite evaluar un caso, explicar por qué se deriva a revisión, consultar evidencia y registrar una decisión, corrección o solicitud de antecedentes con motivo e historial.
 
-Los tres cambios más relevantes fueron precisar las condiciones de aprobación, convertir la revisión humana en acciones justificadas con conservación del original y proteger las intervenciones frente a reinicios y decisiones simultáneas. El resultado es una aplicación recorrible con historial persistente y plazos de revisión visibles.
+El trabajo se desarrolló con BMAD a partir de la Entrega 1. Los tres cambios más relevantes fueron: fijar reglas verificables para aprobar o derivar casos, transformar la revisión humana en acciones justificadas que conservan el dato original y agregar persistencia con control de versiones para evitar pérdida de historial o dobles decisiones sobre el mismo caso.
 
-El cliente aceptó ambas funcionalidades sin observaciones. Dos participantes externas completaron las tareas de usabilidad; una necesitó dos ayudas y la otra trabajó de forma autónoma. La latencia y la memoria cumplen los límites observados; el cliente aceptó la desviación de CPU. Recomendamos mejorar la orientación visual, completar la validación en el entorno requerido y cerrar la versión de entrega antes de ampliar el alcance.
+Sebastián aceptó F4 y F1 en una sesión global sin observaciones. La prueba con dos personas externas mostró que el flujo se puede completar, pero también que la orientación visual requiere mejora y que PX-05 no queda formalmente acreditada. La latencia y memoria cumplen en el entorno medido; la CPU supera el umbral y fue aceptada por el cliente como excepción, no como cumplimiento técnico. Antes de ampliar el alcance se recomienda mejorar la orientación visual, repetir la instalación sin caché externa, acreditar usabilidad bajo las condiciones de la pauta y validar rendimiento en 2 vCPU/4 GiB.
 
 ## 6.2 Introducción y selección de funcionalidades
 
@@ -69,11 +69,14 @@ La aplicación sigue un monolito modular. Las vistas reciben la interacción del
 
 ```mermaid
 flowchart LR
-    UI[Navegador: F4 y F1] --> WEB[Vistas Django]
-    WEB --> APP[Comandos y consultas]
-    APP --> DOMAIN[Política, motivos y plazos]
-    APP --> DB[(SQLite: casos, evaluaciones, intervenciones)]
-    APP --> CLOCK[Reloj Santiago inyectable]
+    UI[Navegador/UI en español: F4 y F1] --> VIEWS[Django Views]
+    VIEWS --> SERVICES[Services / lógica de aplicación]
+    SERVICES --> DOMAIN[Dominio: política, revisión y plazos]
+    DOMAIN --> STORE[Persistencia SQLite]
+    STORE --> CASE[CaseRecord]
+    STORE --> EVAL[EvaluationRecord]
+    STORE --> INT[InterventionRecord]
+    SERVICES --> CLOCK[Reloj Santiago inyectable]
 ```
 
 **Modelo efectivo.** `CaseRecord(case_id, version, payload, current_values)`; `EvaluationRecord(case, case_version, inputs, policy, result)` conserva evaluación original; `InterventionRecord(case, version, kind, payload)` conserva decisiones/correcciones, autor declarado, fecha, motivo y discrepancia. La restricción caso/versión es única. CAS incrementa la versión y agrega evento en una sola transacción. La API/modelos de historial impiden modificar/eliminar registros existentes; administración SQL directa queda fuera de esta demo local.
@@ -82,15 +85,15 @@ flowchart LR
 
 **Interfaz.** Capturas del candidato: [F4](qa/f4.png), [F1 con evidencia primero](qa/f1.png). No son capturas de aceptación humana.
 
-**Procedencia del código.** `a59ab9c` registra 38 archivos cambiados, 1442 inserciones y 129 eliminaciones con identidad Git de Lukas Scheel Belmar, tras la reescritura autorizada; ese delta fue generado por el agente. No hay un commit de código escrito directamente por el equipo que permita asignarle un porcentaje fiable. El usuario revisó y corrigió intención (DEC-E2-08/runtime/plan), no se convierte esa aprobación en autoría de líneas. La procedencia humana del código histórico no se infiere; se conserva su historial. Los parches de revisión están en `0166caa` y el grafo actualizado en `ab745af`, también generados por el agente.
+**Procedencia del código.** En el delta auditado del candidato, `a59ab9c` registra 38 archivos cambiados, 1442 inserciones y 129 eliminaciones con identidad Git de Lukas Scheel Belmar, tras la reescritura autorizada; ese delta fue generado por el agente. No se implementaron líneas de código directamente por el equipo; en cambio, el equipo realizó correcciones sobre la implementación mediante revisiones e instrucciones canalizadas a través del agente LLM. Por eso no se presenta un porcentaje ficticio de autoría histórica si no existe evidencia fiable para hacerlo. Los parches de revisión están en `0166caa` y el grafo actualizado en `ab745af`, también generados por el agente.
 
 ## 6.5 Pruebas y verificación
 
 ### Pruebas funcionales y extremo a extremo
 
-El cierre técnico publicado registra **33 pruebas Django y 8 pytest aprobadas**. PF-04 se concreta en CC-F4-01 a 09: fronteras 59,99/60/90/90,01, fraude, señal menor de 70 o ausente, OFF y error. NaN e Infinity se agregan para evitar aprobación accidental. PF-05 prueba motivo obligatorio, categorías compatibles, Otro con comentario, corrección 120000 a 100000 y conflicto de versión. PF-14 conserva plazos y vencidos abiertos. Son precisiones ejecutables de los criterios E1.
+El cierre técnico publicado registra **33 pruebas Django y 8 pytest aprobadas**. Las pruebas funcionales derivadas de PF-04 cubren CC-F4-01 a 09: fronteras 59,99/60/90/90,01, fraude, señal menor de 70 o ausente, OFF y error. NaN e Infinity se agregan como excepciones para evitar aprobación accidental. PF-05 prueba motivo obligatorio, categorías compatibles, Otro con comentario, corrección 120000 a 100000 y conflicto de versión. PF-14 conserva plazos y vencidos abiertos. Son precisiones ejecutables de los criterios E1.
 
-Chromium recorre F4 con recuperación de error y F1 con evidencia, corrección, solicitud y conflicto. Dos conexiones SQLite verifican carrera y procesos nuevos comprueban persistencia. PX-09 alcanza las nueve salidas del corpus. Las ediciones documentales requieren renovar FR-20 al versionarse; los resultados históricos corresponden al candidato publicado.
+Chromium recorre F4 con recuperación de error y F1 con evidencia, corrección, solicitud y conflicto, por lo que existe un recorrido E2E de ambas funcionalidades en la interfaz. Dos conexiones SQLite verifican carrera y procesos nuevos comprueban persistencia. PX-09 alcanza las nueve salidas del corpus. Las ediciones documentales requieren renovar FR-20 al versionarse; los resultados históricos corresponden a `v2.0-rc1`.
 
 ### Rendimiento y aceptación de la desviación
 
@@ -106,16 +109,23 @@ El cliente acepta el rendimiento actual sin observaciones, incluida la desviaci�
 
 ### Usabilidad y aceptación funcional
 
-Dos participantes externas al proyecto completaron una tarea F4 de evaluación y explicación y una tarea F1 de revisión de evidencia y solicitud de antecedentes. El equipo confirmó que los datos del acta corresponden a sesiones realizadas [R4].
+Dos participantes externas al proyecto completaron una tarea F4 de evaluación y explicación y una tarea F1 de revisión de evidencia y solicitud de antecedentes. El equipo confirmó que los datos del acta corresponden a sesiones realizadas [R4]. Esta evidencia se informa como validación parcial de usabilidad, no como acreditación completa de PX-05.
 
 | Participante | Tiempo F4 | Tiempo F1 | Ayudas | Resultado |
 |---|---|---|---|---|
 | Fernanda Meyer, 21 años | 1 min 13 s | 2 min 2 s | Una por tarea | Ambas completadas con asistencia. |
 | Ximena Belmar, 53 años | 57 s | 1 min 21 s | Ninguna | Ambas completadas de forma autónoma. |
 
-Fernanda fue observada por Francisca el 04/10 a las 11:05; necesitó identificar botones y comprender secciones. Ximena fue observada por Lukas el 03/10 a las 21:09, sin dificultades. Las actas declaran v2.0-rc1 sin commit individual de sesión. Estos datos justifican mejorar orientación; dos personas no permiten generalizar por edad. No consta pertenencia a otro equipo universitario ni ausencia de instrucciones iniciales, condiciones formales de PX-05.
+Fernanda fue observada por Francisca el 04/10 a las 11:05; necesitó identificar botones y comprender secciones. Ximena fue observada por Lukas el 03/10 a las 21:09, sin dificultades. Las actas declaran v2.0-rc1 sin commit individual de sesión. Estos datos justifican mejorar orientación; dos personas no permiten generalizar por edad. No consta pertenencia a otro equipo universitario ni confirmación explícita de ausencia de instrucciones previas, condiciones formales de PX-05.
 
-Sebastián probó F4/F1 el **04/10/2026 a las 13:00** y aceptó ambas por responder a lo solicitado, sin observaciones ni rechazos [R5]. El acta registra aceptación global. La instalación limpia pasó dependencias, migraciones, demo, 33 pruebas y acceso a ambas funciones. El README explica el proceso completo; la comprobación usó caché, sin acreditar instalación externa desde cero [R7].
+Sebastián probó F4/F1 el **04/10/2026 a las 13:00** y aceptó ambas por responder a lo solicitado, sin observaciones ni rechazos [R5]. El acta registra aceptación global por funcionalidad, no validación criterio por criterio.
+
+| Funcionalidad | Criterio aceptado con evidencia | Resultado | Limitación |
+|---|---|---|---|
+| F4 | Responde a la evaluación por política del piloto y muestra resultado y explicación. | Aceptada globalmente. | No desglosa umbral, mínimos, fraude ni errores como criterios individuales. |
+| F1 | Responde a revisión humana y registro de intervención. | Aceptada globalmente. | No desglosa evidencia, motivo, corrección, conflicto ni plazos como criterios individuales. |
+
+No se registraron rechazos en la sesión de aceptación. No se presenta una matriz de aceptación punto por punto debido a que el cliente aceptó globalmente ambas funcionalidades sin observaciones ni rechazos, por lo que no fue necesario registrar una justificación individual para cada criterio. La reproducción técnica local pasó dependencias, migraciones, demo, 33 pruebas y acceso a ambas funciones. El README explica el proceso completo; la comprobación usó caché local, sin acreditar descarga externa desde GitHub/uv ni sesión de una persona externa en menos de 15 minutos [R7].
 
 ## 6.6 Comparativa con la Entrega 1
 
@@ -190,7 +200,7 @@ BMAD aportó una estructura útil para conservar la relación entre necesidades 
 
 El método también generó mantenimiento sin comportamiento adicional. Las copias de SPEC y las referencias tecnológicas divergentes exigieron reconciliación. La existencia de documentos no demuestra coherencia: deben compararse con runtime, datos y pruebas. La revisión del usuario fue necesaria para impedir que el agente tratara una decisión humana como desacuerdo implícito.
 
-La validación con personas aporta otra clase de evidencia. Fernanda completó el recorrido con ayuda para localizar botones y entender secciones; Ximena lo resolvió sin asistencia. La diferencia señala una oportunidad de orientación, pero la muestra no permite afirmar que la interfaz es universalmente intuitiva ni establecer diferencias por edad. La aceptación de Sebastián confirma adecuación funcional a lo solicitado y conserva las dificultades de uso como oportunidades de mejora.
+La validación con personas aporta otra clase de evidencia. Fernanda completó el recorrido con ayuda para localizar botones y entender secciones; Ximena lo resolvió sin asistencia. La diferencia señala una oportunidad de orientación, pero la muestra no permite afirmar que la interfaz es universalmente intuitiva ni establecer diferencias por edad. La aceptación global de Sebastián respalda la adecuación general a lo solicitado en la sesión registrada y conserva las dificultades de uso como oportunidades de mejora.
 
 El rendimiento exige separar satisfacción del cliente y acreditación técnica. El cliente acepta la desviación de CPU porque considera aceptable el resultado actual, mientras el requisito mantiene su umbral. Esta decisión no transforma el entorno medido en 2 vCPU y 4 GiB. Conservar ambos resultados permite justificar aceptación sin ocultar límites.
 
@@ -198,11 +208,11 @@ Frente al prompting directo de E1, E2 añade código ejecutable, pruebas y contr
 
 ## 6.8 Conclusiones
 
-El incremento demuestra que el equipo puede llevar una baseline de requisitos a una aplicación con dos funcionalidades conectadas, preservar decisiones de origen y localizar su evidencia en contratos, historias, código y pruebas. El trabajo hizo explícitas reglas abiertas y permitió verificar persistencia, concurrencia y excepciones.
+El incremento demuestra que el equipo ahora puede llevar una baseline de requisitos a una aplicación con dos funcionalidades conectadas, preservar decisiones de origen y localizar su evidencia en contratos, historias, código y pruebas. El aprendizaje principal fue que una especificación asistida por agentes solo es confiable cuando se contrasta con decisiones, runtime, datos y pruebas ejecutables; en este caso, esa revisión permitió descubrir problemas de persistencia, concurrencia y semántica de discrepancia que una demo visual no habría mostrado.
 
 F4 y F1 están disponibles y fueron aceptadas por Sebastián sin observaciones. Las sesiones externas aportaron tiempos y dificultades, y el cliente aceptó el rendimiento con una excepción de CPU. El README ofrece una secuencia completa de instalación y ejecución comprobada con caché local.
 
-Para el cierre quedan la acreditación en el hardware requerido, las condiciones formales de PX-05, una comprobación externa desde cero y la actualización de trazabilidad al versionar estos documentos. Debe prepararse el PDF final y publicarse la etiqueta final autorizada. El siguiente incremento debe mejorar la orientación y ampliar la evidencia de validación antes de extender automatización.
+Como cierre formal de la entrega quedan pendientes verificables: exportar y revisar el PDF final, repetir instalación sin depender de caché local, acreditar PX-05 con un integrante de otro equipo y sin instrucciones previas y medir AD-15 en 2 vCPU/4 GiB. El siguiente incremento debe mejorar la orientación de interfaz y ampliar evidencia de validación antes de extender automatización.
 
 ## Anexos y referencias
 
