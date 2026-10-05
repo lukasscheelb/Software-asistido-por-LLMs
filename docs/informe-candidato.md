@@ -4,8 +4,6 @@ Informe de desarrollo y evaluación del incremento F4 y F1
 
 Universidad de Valparaíso. Escuela de Ingeniería Informática. Taller de Desarrollo de Software Conducido por Agentes de IA.
 
-Grupo: 
-
 Integrantes: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez. Representante del cliente E2: Sebastián Rodríguez. Método: BMAD. Herramienta de asistencia: Codex. Configuración del método: `_bmad/config.toml`, snapshot `a59ab9c`; versión semántica no registrada.
 
 Fecha: 4 de octubre de 2026. Versión de referencia: `v2.0-rc1`, commit `0ccb92f0ffae7ca6b1ad4af4f1d19263a0437327`. El informe incorpora documentación local posterior a la etiqueta; `v2.0` final aún no publicada.
@@ -204,7 +202,7 @@ El incremento demuestra que el equipo puede llevar una baseline de requisitos a 
 
 F4 y F1 están disponibles y fueron aceptadas por Sebastián sin observaciones. Las sesiones externas aportaron tiempos y dificultades, y el cliente aceptó el rendimiento con una excepción de CPU. El README ofrece una secuencia completa de instalación y ejecución comprobada con caché local.
 
-Para el cierre quedan la acreditación en el hardware requerido, las condiciones formales de PX-05, una comprobación externa desde cero y la actualización de trazabilidad al versionar estos documentos. Deben completarse grupo y nombre del PDF y publicarse la etiqueta final autorizada. El siguiente incremento debe mejorar la orientación y ampliar la evidencia de validación antes de extender automatización.
+Para el cierre quedan la acreditación en el hardware requerido, las condiciones formales de PX-05, una comprobación externa desde cero y la actualización de trazabilidad al versionar estos documentos. Debe prepararse el PDF final y publicarse la etiqueta final autorizada. El siguiente incremento debe mejorar la orientación y ampliar la evidencia de validación antes de extender automatización.
 
 ## Anexos y referencias
 
