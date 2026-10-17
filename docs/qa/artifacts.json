@@ -1,13 +1,13 @@
 {
   "pdf": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
-    "sha256": "bf21558e96a13612cb634cc36b55324647b3a37cbd6fc0250237639b13319689",
-    "pages": 13,
-    "visual_review": "13 páginas inspeccionadas; contenido del Word actual verificado",
-    "limits": "Extensión por sección no certificada; paginación distinta de Word",
-    "status": "PDF convertido desde DOCX actual; guardado localmente; sin commit ni push",
+    "sha256": "f314297fa2e529ab5122b9c360c71aa0ec9aeafa3912a6281a9150dcbdcb3ca9",
+    "pages": 14,
+    "visual_review": "Portada revisada; otras 13 páginas idénticas a las ya inspeccionadas",
+    "limits": "Se conserva estructura 6.1 a 6.8; paginación nativa Word no verificada",
+    "status": "Revisión local para entrega del 19 de octubre de 2026; sin commit ni push",
     "source": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
-    "source_sha256": "7bcec296e7910e3c577fccb882f3403f6636ef6a74bd86b7734e5fb66e0e825c",
+    "source_sha256": "e01cdbe7fb797b90fb7d58e708fbf84e00ca23a14c7c79a957c9a83aea293e64",
     "conversion": "Direct DOCX content reconstruction with ReportLab; native Word export unavailable; pagination may differ"
   },
   "presentation": {
@@ -30,18 +30,20 @@
     "status": "Identificación del grupo actualizada; contenido de presentación previo conservado"
   },
   "group": "Grupo conformado por: Francisca Meyer, Lukas Scheel y Sebastián Rodríguez",
-  "status": "DOCX actual convertido a PDF; docs/informe-entrega.md eliminado por solicitud del usuario; sin commit ni push",
+  "status": "Revisión local para entrega del 19 de octubre de 2026; sin commit ni push",
   "word": {
     "path": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
-    "sha256": "7bcec296e7910e3c577fccb882f3403f6636ef6a74bd86b7734e5fb66e0e825c",
+    "sha256": "e01cdbe7fb797b90fb7d58e708fbf84e00ca23a14c7c79a957c9a83aea293e64",
     "native_tables": 6,
     "images": 4,
     "package_integrity": "pass",
     "content_checks": "Contenido del DOCX actual contrastado con PDF",
     "native_word_render_verified": false,
     "render_error": "Renderizador canónico: LibreOffice soffice.exe no disponible. Paginación Word pendiente de inspección nativa.",
-    "source": "Documento editable actual del equipo; Markdown eliminado a petición del usuario",
-    "content_elements_verified": 207,
+    "source": "DOCX editable revisado el 17 de octubre; sin fuente Markdown",
+    "content_elements_verified": 251,
     "limits": "Paginación visual Word pendiente; el renderizador canónico no dispone de LibreOffice soffice.exe."
-  }
+  },
+  "deadline": "2026-10-19",
+  "deadline_source": "Prórroga comunicada por el usuario por orden del profesor"
 }

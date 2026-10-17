@@ -24,7 +24,7 @@ def test_integrated_f4_f1_browser(live_server):
         for suffix, outcome in expected.items():
             page.goto(base + "/ejecutar-f4/")
             page.locator("[name=case_id]").select_option("CC-F4-" + suffix)
-            page.get_by_role("button", name="Ejecutar Política").click()
+            page.get_by_role("button", name="Evaluar caso").click()
             assert outcome in page.locator(".result-panel").inner_text()
         page.locator("[name=score]").fill("60")
         page.get_by_role("button", name="Reejecutar borrador").click()

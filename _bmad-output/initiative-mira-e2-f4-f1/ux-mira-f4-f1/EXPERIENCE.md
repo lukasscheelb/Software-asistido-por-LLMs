@@ -164,3 +164,13 @@ Fallo: si la recarga no está disponible, los datos introducidos se conservan lo
 ## Open Questions
 
 - Confirmar identidad de marca, tipografía o modo oscuro antes de sustituir los supuestos visuales de `DESIGN.md`.
+
+
+## Actualización propuesta del 17 de octubre de 2026
+
+Existe un delta de UX pendiente de aprobación en `_bmad-output/planning-artifacts/ux-designs/ux-mira-mejora-frontend-2026-10-17/PROPUESTA-UX.md`, con borradores DESIGN y EXPERIENCE. Este contrato conserva su vigencia hasta la aprobación y reconciliación del delta.
+
+
+## Delta aprobado e implementado del 17 de octubre de 2026
+
+La propuesta enlazada anteriormente fue aprobada explícitamente. Para la presentación vigente prevalecen DESIGN.md y EXPERIENCE.md de `ux-mira-mejora-frontend-2026-10-17`; el contrato histórico conserva las reglas no modificadas. Los patrones aspiracionales históricos no cubiertos por el delta no se declaran implementados.

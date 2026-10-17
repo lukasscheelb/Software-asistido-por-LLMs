@@ -1,0 +1,58 @@
+[
+  {
+    "pair": "Texto",
+    "foreground": "#14242b",
+    "background": "#ffffff",
+    "ratio": 15.95,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Secundario",
+    "foreground": "#465b65",
+    "background": "#ffffff",
+    "ratio": 7.13,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Botón",
+    "foreground": "#ffffff",
+    "background": "#006b5b",
+    "ratio": 6.45,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Aprobado",
+    "foreground": "#166534",
+    "background": "#dcfce7",
+    "ratio": 6.49,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Revisión",
+    "foreground": "#76530a",
+    "background": "#fff4cc",
+    "ratio": 6.33,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Escalado/rechazo",
+    "foreground": "#9a2525",
+    "background": "#ffe5e5",
+    "ratio": 6.6,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Error",
+    "foreground": "#5b36a8",
+    "background": "#eee9ff",
+    "ratio": 6.99,
+    "threshold": 4.5
+  },
+  {
+    "pair": "Borde de control",
+    "foreground": "#788b95",
+    "background": "#ffffff",
+    "ratio": 3.54,
+    "threshold": 3
+  }
+]

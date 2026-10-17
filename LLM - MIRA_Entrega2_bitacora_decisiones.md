@@ -242,3 +242,33 @@ La paginación y los límites de extensión del Word siguen pendientes: el rende
 ## 27. Conversión del informe actual a PDF
 
 Se convirtió el DOCX editado por el equipo a `entrega/MIRA-Meyer-Scheel-Rodriguez.pdf`. La exportación nativa de Word falló por error de sesión de Windows 0x80070520; se reconstruyó el PDF directamente desde el contenido del DOCX, conservando los textos, seis tablas y cuatro imágenes. Se verificaron 228 elementos textuales y se inspeccionaron las 13 páginas. La paginación puede diferir de Word. Por solicitud del usuario se eliminó `docs/informe-entrega.md`; el DOCX permanece como documento editable. No se realizó commit ni push.
+
+
+## 28. Propuesta UX de mejora del front-end del 17 de octubre de 2026
+
+Por solicitud del usuario se inició únicamente la etapa UX Expert del método BMAD. Se revisaron configuración, contratos UX, plantillas, CSS, vistas y el acta de usabilidad existente. Se documentaron diez hallazgos, prioridades, criterios de comprobación y borradores de diseño/experiencia en `_bmad-output/planning-artifacts/ux-designs/ux-mira-mejora-frontend-2026-10-17/`. El diagnóstico se basa en documentos y código; no se presentó como validación visual ni nueva sesión humana. La propuesta conserva reglas, tecnologías y nombres de F4/F1. La aprobación explícita del usuario sigue pendiente; no se implementaron cambios de interfaz, no se ejecutaron las fases posteriores y no se hizo commit, push ni movimiento de la etiqueta v2.0.
+
+
+## 29. Mejora de front-end aprobada e implementada el 17 de octubre de 2026
+
+El usuario aprobó la propuesta UX y reiteró la prohibición de commit y push. Architect fijó la compatibilidad con Django/HTML/CSS y mejora progresiva local; SM definió cinco historias vinculadas a UX-01 a UX-10. Se implementaron orientación de F4, tabla adaptable, accesibilidad de errores, foco, datos conservados, casilla de discrepancia y estados de decisión, manteniendo las reglas de negocio. Decisiones e historias en `_bmad-output/implementation-artifacts/frontend-mira-2026-10-17/`; contratos UX reconciliados y registro QA con capturas y contraste en `docs/qa/frontend-2026-10-17/`. Pasaron 33 pruebas Django y siete pytest seleccionadas, incluidos recorridos F4/F1 y comprobaciones a cinco anchos. Se corrigieron desbordamiento tablet y foco tras fragmento de navegación. No se hizo una nueva prueba humana ni auditoría WCAG integral. Todo permanece local; sin commit, push ni modificación de v2.0.
+
+
+## 30. Actualización del informe por mejora de interfaz del 17 de octubre de 2026
+
+Se actualizaron el DOCX editable y el PDF local para incorporar el ciclo BMAD aprobado, los cambios de presentación, tres capturas actuales, las 33 pruebas Django y siete pytest seleccionadas y los límites de validación. Se distingue la revisión local de la versión etiquetada v2.0 y de las actas humanas históricas; no se presentan sesiones nuevas. Las seis tablas históricas se preservaron y se comprobó el contenido del DOCX contra el PDF (252 elementos). Las 15 páginas PDF se inspeccionaron; el renderizador nativo de Word sigue sin LibreOffice, por lo que su paginación puede diferir. Se conservó una copia previa en outputs/informe-original-v2.0, fuera del repositorio. Metadatos en docs/qa/report-interface-revision-2026-10-17.json. Sin commit, push ni movimiento de etiqueta.
+
+
+## 31. Actualización del plazo de entrega
+
+El usuario comunicó que, por orden del profesor, la entrega se aplazó al 19 de octubre de 2026. Se actualizó el plazo en el Word y el PDF y se eliminó la caracterización de la mejora del 17 de octubre como posterior a la entrega. Las fechas reales de sesiones y pruebas se conservaron. El enunciado original no se modificó; la prórroga se registra como información nueva. PDF regenerado, contenido contrastado y páginas modificadas revisadas. Sin commit, push ni movimiento de v2.0.
+
+
+## 32. Correcciones del informe mediante anotaciones PDF
+
+Se aplicaron los nueve comentarios del usuario al Word y al PDF: eliminación de notas seleccionadas de portada, resumen, pruebas y comparativa; cambio de Conducido por Apoyado en el nombre del curso; conservación del plazo del 19 de octubre de 2026. Se preservaron las seis tablas y los resultados registrados. El PDF regenerado contiene 14 páginas, todas inspeccionadas, y 251 elementos textuales contrastados con el Word. Se mantiene la limitación conocida de paginación nativa Word. Sin commit ni push.
+
+
+## 33. Ajuste de nombres en la portada del informe
+
+Se aplicaron los dos comentarios del usuario: nombre de asignatura Software Asistido por LLM y subtítulo Informe de implementación del proyecto. Word y PDF sincronizados; portada revisada y otras 13 páginas idénticas a la revisión anterior. Sin commit ni push.

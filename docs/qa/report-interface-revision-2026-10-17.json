@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-17",
+  "status": "Revisión local para entrega del 19 de octubre de 2026; sin commit ni push",
+  "historical_tag_commit": "7931404ca5a50da55c9b47f2661e576612a6c98a",
+  "source": "entrega/MIRA-Meyer-Scheel-Rodriguez.docx",
+  "source_sha256": "e01cdbe7fb797b90fb7d58e708fbf84e00ca23a14c7c79a957c9a83aea293e64",
+  "pdf": "entrega/MIRA-Meyer-Scheel-Rodriguez.pdf",
+  "pdf_sha256": "f314297fa2e529ab5122b9c360c71aa0ec9aeafa3912a6281a9150dcbdcb3ca9",
+  "pdf_pages": 14,
+  "content_elements_verified": 251,
+  "tables_preserved": 6,
+  "images": 4,
+  "pdf_visual_review": "Portada revisada; otras 13 páginas idénticas a las ya inspeccionadas",
+  "native_word_render_verified": false,
+  "render_error": "LibreOffice soffice.exe no disponible; PDF reconstruido desde contenido DOCX; paginación puede diferir",
+  "historical_copy": "C:\\Users\\lukas\\Documents\\Codex\\2026-10-04\\nece\\outputs\\informe-original-v2.0",
+  "human_retest_performed": false,
+  "deadline": "2026-10-19",
+  "deadline_source": "Prórroga comunicada por el usuario por orden del profesor",
+  "user_comments_applied": 9,
+  "cover_comments_applied": 2
+}

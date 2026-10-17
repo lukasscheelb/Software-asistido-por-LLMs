@@ -2,16 +2,16 @@
 {% block title %}F4 - Evaluación automática de casos | MIRA{% endblock %}
 {% block content %}
   <header class="page-header">
-    <div><p class="section-kicker">Política explicable</p><h1>F4 - Evaluación automática de casos</h1><p class="page-description">Evalúa un Caso ficticio con la Política versionada del piloto.</p></div>
+    <div><p class="section-kicker">Política explicable</p><h1>F4 - Evaluación automática de casos</h1><p class="page-description">Selecciona un caso y evalúalo. Si requiere revisión humana, podrás abrir su detalle y consultar la evidencia.</p></div>
     <span class="policy-chip">POL-F4-2026.10</span>
   </header>
   <div class="workspace-grid">
     <section class="tool-panel" aria-labelledby="run-title">
       <div class="section-heading"><div><h2 id="run-title">Caso controlado</h2><p>Las entradas son simuladas y reproducibles.</p></div></div>
-      <form class="run-form" method="post">{% csrf_token %}
+      <form class="run-form" data-error-form method="post">{% csrf_token %}
         <label><span>Selecciona un Caso</span><select name="case_id" required><option value="">Seleccionar…</option>{% for case in cases %}<option value="{{ case.case_id }}" {% if selected_id == case.case_id %}selected{% endif %}>{{ case.case_id }} · {{ case.product }}</option>{% endfor %}</select></label>
-        {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
-        <button class="primary-button" type="submit">Ejecutar Política</button>
+        {% if error %}<p class="form-error" role="alert" tabindex="-1" data-error-summary>{{ error }}</p>{% endif %}
+        <button class="primary-button" type="submit">Evaluar caso</button>
       </form>
       <div class="policy-rules"><h3>Parámetros efectivos</h3><dl><div><dt>Aprobación</dt><dd>Puntaje &gt; 90</dd></div><div><dt>Autenticidad</dt><dd>≥ 70</dd></div><div><dt>Coherencia</dt><dd>≥ 70</dd></div><div><dt>Automatización</dt><dd>Según Caso</dd></div></dl></div>
     </section>
@@ -20,9 +20,9 @@
         <div class="result-heading"><div><p class="section-kicker">Resultado de F4 - Evaluación automática de casos</p><h2 id="result-title">{{ case.case_id }}</h2></div><span class="status status--{{ evaluation.outcome_class }}">{{ evaluation.outcome }}</span></div>
         <p class="result-reason">{{ evaluation.reason }}</p>
         <dl class="result-facts"><div><dt>Regla aplicada</dt><dd>{{ evaluation.rule }}</dd></div><div><dt>Puntaje</dt><dd>{{ display_values.score }}</dd></div><div><dt>Autenticidad</dt><dd>{{ display_values.authenticity }}</dd></div><div><dt>Coherencia</dt><dd>{{ display_values.coherence }}</dd></div><div><dt>Fraude detectado</dt><dd>{{ case.fraud_detected|yesno:"Sí,No" }}</dd></div><div><dt>Automatización</dt><dd>{{ case.automation_enabled|yesno:"Activa,Deshabilitada" }}</dd></div><div><dt>Prioridad</dt><dd>{{ evaluation.priority }}</dd></div></dl>
-        {% if evaluation.errors %}<form method="post" class="decision-form">{% csrf_token %}<input type="hidden" name="case_id" value="{{ selected_id }}"><input type="hidden" name="draft" value="1"><h3>Corregir entradas</h3><p>El borrador conserva las entradas; el fixture original permanece versionado.</p><label>Puntaje<input name="score" value="{{ draft.score }}" {% if evaluation.errors.score %}autofocus{% endif %} required></label><label>Autenticidad<input name="authenticity" value="{{ draft.authenticity }}" {% if not evaluation.errors.score and evaluation.errors.authenticity %}autofocus{% endif %}></label><label>Coherencia<input name="coherence" value="{{ draft.coherence }}" {% if not evaluation.errors.score and not evaluation.errors.authenticity and evaluation.errors.coherence %}autofocus{% endif %}></label>{% for field,error in evaluation.errors.items %}<p role="alert">{{ field }}: {{ error }}</p>{% endfor %}<button class="primary-button">Reejecutar borrador</button></form>{% endif %}{% if evaluation.outcome in review_outcomes %}<a class="primary-button" href="{% url 'web:detalle_caso' case.case_id %}">Abrir detalle</a>{% else %}<a class="secondary-button" href="{% url 'web:ejecutar_f4' %}">Evaluar otro Caso</a>{% endif %}
+        {% if evaluation.errors %}<form method="post" class="decision-form" data-error-form>{% csrf_token %}<input type="hidden" name="case_id" value="{{ selected_id }}"><input type="hidden" name="draft" value="1"><h3>Corregir entradas</h3><p>Corrige los valores indicados y vuelve a evaluar. El caso original se conserva sin cambios.</p><label>Puntaje<input id="draft-score" name="score" aria-describedby="draft-score-error" {% if evaluation.errors.score %}aria-invalid="true"{% endif %} value="{{ draft.score }}" {% if evaluation.errors.score %}autofocus{% endif %} required></label><label>Autenticidad<input id="draft-authenticity" name="authenticity" aria-describedby="draft-authenticity-error" {% if evaluation.errors.authenticity %}aria-invalid="true"{% endif %} value="{{ draft.authenticity }}" {% if not evaluation.errors.score and evaluation.errors.authenticity %}autofocus{% endif %}></label><label>Coherencia<input id="draft-coherence" name="coherence" aria-describedby="draft-coherence-error" {% if evaluation.errors.coherence %}aria-invalid="true"{% endif %} value="{{ draft.coherence }}" {% if not evaluation.errors.score and not evaluation.errors.authenticity and evaluation.errors.coherence %}autofocus{% endif %}></label>{% include "mira_web/error_summary.html" with field_errors=evaluation.errors prefix="draft" %}<button class="primary-button">Reejecutar borrador</button></form>{% endif %}{% if evaluation.outcome in review_outcomes %}<a class="primary-button" href="{% url 'web:detalle_caso' case.case_id %}">Abrir detalle</a>{% else %}<a class="secondary-button" href="{% url 'web:ejecutar_f4' %}">Evaluar otro Caso</a>{% endif %}
       {% endwith %}{% else %}
-        <div class="result-placeholder"><span aria-hidden="true">F4 - Evaluación automática de casos</span><h2 id="result-title">Resultado de la evaluación</h2><p>Selecciona un Caso y ejecuta la Política para ver la salida, la regla y las Señales.</p></div>
+        <div class="result-placeholder"><span class="placeholder-symbol" aria-hidden="true">→</span><h2 id="result-title">Resultado de la evaluación</h2><p>Selecciona un Caso y ejecuta la Política para ver la salida, la regla y las Señales.</p></div>
       {% endif %}
     </section>
   </div>

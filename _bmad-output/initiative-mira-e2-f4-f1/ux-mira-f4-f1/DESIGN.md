@@ -136,3 +136,13 @@ Controles y paneles usan radios de 4 a 8 px. Badges de estado pueden usar `{roun
 | Separar claramente sugerencia F4 y Decisión humana | Presentar la sugerencia como recomendación vinculante |
 | Conservar original y corregido en paralelo | Sustituir visualmente el valor original |
 | Mostrar una acción primaria por contexto | Competir con varias acciones sólidas del mismo peso |
+
+
+## Actualización propuesta del 17 de octubre de 2026
+
+Existe un delta de UX pendiente de aprobación en `_bmad-output/planning-artifacts/ux-designs/ux-mira-mejora-frontend-2026-10-17/PROPUESTA-UX.md`, con borradores DESIGN y EXPERIENCE. Este contrato conserva su vigencia hasta la aprobación y reconciliación del delta.
+
+
+## Delta aprobado e implementado del 17 de octubre de 2026
+
+La propuesta enlazada anteriormente fue aprobada explícitamente. Para la presentación vigente prevalecen DESIGN.md y EXPERIENCE.md de `ux-mira-mejora-frontend-2026-10-17`; el contrato histórico conserva las reglas no modificadas. Los patrones aspiracionales históricos no cubiertos por el delta no se declaran implementados.

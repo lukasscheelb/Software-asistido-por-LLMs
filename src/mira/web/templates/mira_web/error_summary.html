@@ -1,0 +1,8 @@
+{% if field_errors %}
+<div class="error-summary" role="alert" tabindex="-1" data-error-summary>
+  <strong>Revisa los datos antes de continuar</strong>
+  <ul>{% for field,message in field_errors.items %}{% if field != 'code' %}
+    <li id="{{ prefix }}-{{ field }}-error">{% if field == 'case' %}{{ message }}{% else %}<a href="#{{ prefix }}-{% if field == 'action' %}action-approve{% else %}{{ field }}{% endif %}">{{ message }}</a>{% endif %}</li>
+  {% endif %}{% endfor %}</ul>
+</div>
+{% endif %}

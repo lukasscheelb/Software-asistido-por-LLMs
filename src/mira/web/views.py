@@ -186,6 +186,16 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
         events = history(case_id)
     stale = errors.get("code") == "stale_version"
     correction_errors = errors if is_correction else {}
+    # Associate existing server errors with controls without changing validation.
+    correction_field_errors = dict(correction_errors)
+    correction_message = correction_errors.get("case", "")
+    if correction_message.startswith("Ingresa un importe"):
+        correction_field_errors["corrected"] = correction_field_errors.pop("case")
+    elif correction_errors.get("code") == "reason_required":
+        field = "comment" if form_data["reason"] == "other" else "reason"
+        correction_field_errors[field] = correction_field_errors.pop("case")
+    elif correction_message == "Motivo incompatible con Corrección.":
+        correction_field_errors["reason"] = correction_field_errors.pop("case")
     decision_errors = errors if not is_correction or stale else {}
 
     return render(
@@ -201,6 +211,7 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
             and evaluation.outcome in (F4Outcome.REVIEW, F4Outcome.ESCALATED),
             "correction_data": correction_data,
             "correction_errors": correction_errors,
+            "correction_field_errors": correction_field_errors,
             "correction_saved": saved and is_correction,
             "policy": policy,
             "correction_categories": [
@@ -220,6 +231,8 @@ def detalle_caso(request: HttpRequest, case_id: str) -> HttpResponse:
             ],
             "errors": decision_errors,
             "form_data": form_data,
+            "operator_value": request.POST.get("operator", "Operador demo"),
+            "discrepancy_value": request.POST.get("discrepancy") == "on",
             "saved": saved and not is_correction,
         },
     )

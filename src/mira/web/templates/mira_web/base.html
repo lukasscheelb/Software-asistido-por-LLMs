@@ -24,8 +24,8 @@
         <details class="mobile-navigation">
           <summary>Menú</summary>
           <nav aria-label="Navegación principal móvil">
-            <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" aria-label="F1 - Revisión humana asistida">F1 - Revisión humana asistida</a>
-            <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" aria-label="F4 - Evaluación automática de casos">F4 - Evaluación automática de casos</a>
+            <a class="navigation-link{% if active_navigation == 'bandeja' %} is-active{% endif %}" href="{% url 'web:bandeja' %}" aria-label="F1 - Revisión humana asistida" {% if active_navigation == 'bandeja' %}aria-current="page"{% endif %}>F1 - Revisión humana asistida</a>
+            <a class="navigation-link{% if active_navigation == 'ejecutar' %} is-active{% endif %}" href="{% url 'web:ejecutar_f4' %}" aria-label="F4 - Evaluación automática de casos" {% if active_navigation == 'ejecutar' %}aria-current="page"{% endif %}>F4 - Evaluación automática de casos</a>
           </nav>
         </details>
         <div class="environment-block">
@@ -35,5 +35,6 @@
       </header>
       <main id="contenido" class="main-content" tabindex="-1">{% block content %}{% endblock %}</main>
     </div>
+    <script src="{% static 'mira_web/interactions.js' %}" defer></script>
   </body>
 </html>
